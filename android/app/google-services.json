@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "937900273601",
+    "firebase_url": "https://flutterproject-ff5e0-default-rtdb.firebaseio.com",
+    "project_id": "flutterproject-ff5e0",
+    "storage_bucket": "flutterproject-ff5e0.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:937900273601:android:8d1180fb92a7e24ba40940",
+        "android_client_info": {
+          "package_name": "com.example.merrily"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "937900273601-pg6iu0np832mdkrgtvd08bc217a5c9sj.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAxl426SnDCXTIbcDQkPASEMd3YvC5pLyg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "937900273601-pg6iu0np832mdkrgtvd08bc217a5c9sj.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
