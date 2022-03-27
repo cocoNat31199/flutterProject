@@ -1,16 +1,46 @@
+import 'dart:ffi';
+
 import 'package:flutter/material.dart';
+import 'package:merrily/component/toptab.dart';
+import 'package:intl/intl.dart';
 
 class Daily extends StatefulWidget {
-  const Daily({Key? key}) : super(key: key);
+  const Daily({ Key? key }) : super(key: key);
 
   @override
-  _DailyState createState() => _DailyState();
+  State<Daily> createState() => _DailyState();
 }
 
 class _DailyState extends State<Daily> {
+
+  static final DateTime now = DateTime.now();
+  static final DateFormat formatter = DateFormat('EEEE');
+  final String formatted = formatter.format(now);
+
+  int _initialDay = 0;
+  switchDay() {
+    switch (formatted) {
+      case 'Monday':
+        return _initialDay = 0;
+      case 'Tuesday':
+        return _initialDay = 1;
+      case 'Wednesday':
+        return _initialDay = 2;
+      case 'Thursday':
+        return _initialDay = 3;
+      case 'Friday':
+        return _initialDay = 4;
+      case 'Saturday':
+        return _initialDay = 5;
+      case 'Sunday':
+        return _initialDay = 6;
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(
+        initialIndex: switchDay(),
         length: 8,
         child: Scaffold(
           appBar: AppBar(
@@ -42,123 +72,21 @@ class _DailyState extends State<Daily> {
                         borderRadius: BorderRadius.circular(50),
                         color: Color(0xff643ff9)),
                     tabs: [
-                      Tab(
-                        height: 36,
-                        child: Container(
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(50),
-                          ),
-                          child: Align(
-                            alignment: Alignment.center,
-                            child: Text("จันทร์",
-                                style: TextStyle(
-                                    fontFamily: 'Kanit', fontSize: 14)),
-                          ),
-                        ),
-                      ),
-                      Tab(
-                        height: 36,
-                        child: Container(
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(50),
-                          ),
-                          child: Align(
-                            alignment: Alignment.center,
-                            child: Text("อังคาร",
-                                style: TextStyle(
-                                    fontFamily: 'Kanit', fontSize: 14)),
-                          ),
-                        ),
-                      ),
-                      Tab(
-                        height: 36,
-                        child: Container(
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(50),
-                          ),
-                          child: Align(
-                            alignment: Alignment.center,
-                            child: Text("พุธ",
-                                style: TextStyle(
-                                    fontFamily: 'Kanit', fontSize: 14)),
-                          ),
-                        ),
-                      ),
-                      Tab(
-                        height: 36,
-                        child: Container(
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(50),
-                          ),
-                          child: Align(
-                            alignment: Alignment.center,
-                            child: Text("พฤหัสบดี",
-                                style: TextStyle(
-                                    fontFamily: 'Kanit', fontSize: 14)),
-                          ),
-                        ),
-                      ),
-                      Tab(
-                        height: 36,
-                        child: Container(
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(50),
-                          ),
-                          child: Align(
-                            alignment: Alignment.center,
-                            child: Text("ศุกร์",
-                                style: TextStyle(
-                                    fontFamily: 'Kanit', fontSize: 14)),
-                          ),
-                        ),
-                      ),
-                      Tab(
-                        height: 36,
-                        child: Container(
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(50),
-                          ),
-                          child: Align(
-                            alignment: Alignment.center,
-                            child: Text("เสาร์",
-                                style: TextStyle(
-                                    fontFamily: 'Kanit', fontSize: 14)),
-                          ),
-                        ),
-                      ),
-                      Tab(
-                        height: 36,
-                        child: Container(
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(50),
-                          ),
-                          child: Align(
-                            alignment: Alignment.center,
-                            child: Text("อาทิตย์",
-                                style: TextStyle(
-                                    fontFamily: 'Kanit', fontSize: 14)),
-                          ),
-                        ),
-                      ),
-                      Tab(
-                        height: 36,
-                        child: Container(
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(50),
-                          ),
-                          child: Align(
-                            alignment: Alignment.center,
-                            child: Text("จบ",
-                                style: TextStyle(
-                                    fontFamily: 'Kanit', fontSize: 14)),
-                          ),
-                        ),
-                      ),
+                      Toptab(tabName: 'จันทร์'),
+                      Toptab(tabName: 'อังคาร'),
+                      Toptab(tabName: 'พุธ'),
+                      Toptab(tabName: 'พฤหัสบดี'),
+                      Toptab(tabName: 'ศุกร์'),
+                      Toptab(tabName: 'เสาร์'),
+                      Toptab(tabName: 'อาทิตย์'),
+                      Toptab(tabName: 'จบ'),
                     ]),
               ),
             ),
           ),
           body: Container(
+            width: double.infinity,
+            height: double.infinity,
             decoration: BoxDecoration(
                 color: Colors.white,
                 borderRadius: BorderRadius.only(

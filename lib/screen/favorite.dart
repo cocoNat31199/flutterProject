@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:merrily/component/toptab.dart';
 
 class Favorite extends StatefulWidget {
   const Favorite({Key? key}) : super(key: key);
@@ -43,55 +44,16 @@ class _FavoriteState extends State<Favorite> {
                         borderRadius: BorderRadius.circular(50),
                         color: Color(0xff643ff9)),
                     tabs: [
-                      Tab(
-                        height: 36,
-                        child: Container(
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(50),
-                          ),
-                          child: Align(
-                            alignment: Alignment.center,
-                            child: Text(
-                              "ถูกใจ",
-                              style:
-                                  TextStyle(fontFamily: 'Kanit', fontSize: 14),
-                            ),
-                          ),
-                        ),
-                      ),
-                      Tab(
-                        height: 36,
-                        child: Container(
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(50),
-                          ),
-                          child: Align(
-                            alignment: Alignment.center,
-                            child: Text("ติดตาม",
-                                style: TextStyle(
-                                    fontFamily: 'Kanit', fontSize: 14)),
-                          ),
-                        ),
-                      ),
-                      Tab(
-                        height: 36,
-                        child: Container(
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(50),
-                          ),
-                          child: Align(
-                            alignment: Alignment.center,
-                            child: Text("อ่านล่าสุด",
-                                style: TextStyle(
-                                    fontFamily: 'Kanit', fontSize: 14)),
-                          ),
-                        ),
-                      )
+                      Toptab(tabName: 'ถูกใจ'),
+                      Toptab(tabName: 'ติดตาม'),
+                      Toptab(tabName: 'อ่านล่าสุด'),
                     ]),
               ),
             ),
           ),
           body: Container(
+            width: double.infinity,
+            height: double.infinity,
             decoration: BoxDecoration(
                 color: Colors.white,
                 borderRadius: BorderRadius.only(

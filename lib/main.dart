@@ -1,12 +1,18 @@
-import 'dart:ui';
-
 import 'package:flutter/material.dart';
+import 'package:merrily/screen/profile.dart';
+import 'package:merrily/screen/unloginpage.dart';
+import 'package:firebase_core/firebase_core.dart';
+
 import './screen/home.dart';
 import './screen/daily.dart';
 import './screen/favorite.dart';
-import './screen/setting.dart';
+import 'screen/unloginpage.dart';
 
-void main() => runApp(MyApp());
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
+  runApp(MyApp());
+}
 
 class MyApp extends StatefulWidget {
   @override
@@ -15,11 +21,12 @@ class MyApp extends StatefulWidget {
 
 class _MyAppState extends State<MyApp> {
   int _selectedPage = 0;
-  final _pageOptions = [Home(), Daily(), Favorite(), Setting()];
+  final _pageOptions = [Home(), Daily(), Favorite(), Unlogin(), Profile()];
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       theme: new ThemeData(
           scaffoldBackgroundColor: const Color(0xff643ff9),
           fontFamily: 'Kanit '),
@@ -31,7 +38,12 @@ class _MyAppState extends State<MyApp> {
           currentIndex: _selectedPage,
           onTap: (int index) {
             setState(() {
-              _selectedPage = index;
+              if (index == 4) {
+                bool chack = 1 == 2;
+                _selectedPage = chack ? 5 : 4;
+              } else {
+                _selectedPage = index;
+              }
             });
           },
           items: [
