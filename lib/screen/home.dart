@@ -35,7 +35,7 @@ class _HomeState extends State<Home> {
               color: Colors.black,
             ),
             onPressed: () {
-              Navigator.push(
+              Navigator.pushReplacement(
                 context,
                 MaterialPageRoute(builder: (context) => SearchPage()),
               );
@@ -155,7 +155,7 @@ class _CategoriesState extends State<Categories> {
             imageName: 'assets/icons/action.png',
             name: 'แอคชั่น',
             onPressed: () {
-              Navigator.push(context,
+              Navigator.pushReplacement(context,
                   MaterialPageRoute(builder: ((context) => CategoriesPage(0))));
             },
           ),
@@ -166,7 +166,7 @@ class _CategoriesState extends State<Categories> {
             imageName: 'assets/icons/romance.png',
             name: 'โรแมนซ์',
             onPressed: () {
-              Navigator.push(context,
+              Navigator.pushReplacement(context,
                   MaterialPageRoute(builder: ((context) => CategoriesPage(1))));
             },
           ),
@@ -177,7 +177,7 @@ class _CategoriesState extends State<Categories> {
             imageName: 'assets/icons/fantasy.png',
             name: 'แฟนตาซี',
             onPressed: () {
-              Navigator.push(context,
+              Navigator.pushReplacement(context,
                   MaterialPageRoute(builder: ((context) => CategoriesPage(2))));
             },
           ),
@@ -188,7 +188,7 @@ class _CategoriesState extends State<Categories> {
             imageName: 'assets/icons/drama.png',
             name: 'ดราม่า',
             onPressed: () {
-              Navigator.push(context,
+              Navigator.pushReplacement(context,
                   MaterialPageRoute(builder: ((context) => CategoriesPage(3))));
             },
           ),
@@ -199,7 +199,7 @@ class _CategoriesState extends State<Categories> {
             imageName: 'assets/icons/lgbtq.png',
             name: 'LGBTQ+',
             onPressed: () {
-              Navigator.push(context,
+              Navigator.pushReplacement(context,
                   MaterialPageRoute(builder: ((context) => CategoriesPage(4))));
             },
           ),
@@ -210,7 +210,7 @@ class _CategoriesState extends State<Categories> {
             imageName: 'assets/icons/horror.png',
             name: 'สยองขวัญ',
             onPressed: () {
-              Navigator.push(context,
+              Navigator.pushReplacement(context,
                   MaterialPageRoute(builder: ((context) => CategoriesPage(5))));
             },
           ),
@@ -221,7 +221,7 @@ class _CategoriesState extends State<Categories> {
             imageName: 'assets/icons/novel.png',
             name: 'นิยาย',
             onPressed: () {
-              Navigator.push(context,
+              Navigator.pushReplacement(context,
                   MaterialPageRoute(builder: ((context) => CategoriesPage(6))));
             },
           ),
@@ -232,7 +232,7 @@ class _CategoriesState extends State<Categories> {
             imageName: 'assets/icons/comedy.png',
             name: 'ตลก',
             onPressed: () {
-              Navigator.push(context,
+              Navigator.pushReplacement(context,
                   MaterialPageRoute(builder: ((context) => CategoriesPage(7))));
             },
           ),
@@ -243,7 +243,7 @@ class _CategoriesState extends State<Categories> {
             imageName: 'assets/icons/period.png',
             name: 'ย้อนยุค',
             onPressed: () {
-              Navigator.push(context,
+              Navigator.pushReplacement(context,
                   MaterialPageRoute(builder: ((context) => CategoriesPage(8))));
             },
           ),

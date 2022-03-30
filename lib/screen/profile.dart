@@ -1,5 +1,8 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:merrily/component/custombutton.dart';
+import 'package:merrily/main.dart';
+import 'package:merrily/screen/unloginpage.dart';
 
 class Profile extends StatefulWidget {
   const Profile({Key? key}) : super(key: key);
@@ -34,6 +37,7 @@ class ProfileContent extends StatefulWidget {
 }
 
 class _ProfileContentState extends State<ProfileContent> {
+  final auth = FirebaseAuth.instance;
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -49,7 +53,7 @@ class _ProfileContentState extends State<ProfileContent> {
                 radius: 60,
               ),
               Text(
-                'User',
+                '${auth.currentUser!.email}',
                 style: TextStyle(
                     color: Colors.black,
                     fontFamily: 'Kanit',
@@ -96,7 +100,9 @@ class _ProfileContentState extends State<ProfileContent> {
               Align(
                   alignment: Alignment.bottomCenter,
                   child: CustomButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      auth.signOut().then((value) => Navigator.pushReplacement(context, MaterialPageRoute(builder: ((context) => MyApp()))));
+                    },
                     text: 'ออกจากระบบ',
                   )),
             ],

@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:merrily/screen/profile.dart';
 import 'package:merrily/screen/unloginpage.dart';
@@ -20,6 +21,8 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
+  final auth = FirebaseAuth.instance;
+
   int _selectedPage = 0;
   final _pageOptions = [Home(), Daily(), Favorite(), Unlogin(), Profile()];
 
@@ -31,19 +34,18 @@ class _MyAppState extends State<MyApp> {
           scaffoldBackgroundColor: const Color(0xff643ff9),
           fontFamily: 'Kanit '),
       home: Scaffold(
-        body: _pageOptions[_selectedPage],
+        body: _selectedPage == 3
+            ? auth.currentUser != null
+                ? _pageOptions[4]
+                : _pageOptions[_selectedPage]
+            : _pageOptions[_selectedPage],
         bottomNavigationBar: BottomNavigationBar(
           selectedLabelStyle: TextStyle(fontFamily: 'Kanit'),
           unselectedLabelStyle: TextStyle(fontFamily: 'Kanit'),
           currentIndex: _selectedPage,
           onTap: (int index) {
             setState(() {
-              if (index == 4) {
-                bool chack = 1 == 2;
-                _selectedPage = chack ? 5 : 4;
-              } else {
-                _selectedPage = index;
-              }
+              _selectedPage = index;
             });
           },
           items: [
