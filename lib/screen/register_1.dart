@@ -1,3 +1,4 @@
+import 'dart:io';
 import 'dart:math';
 
 import 'package:firebase_auth/firebase_auth.dart';
@@ -7,7 +8,8 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:form_field_validator/form_field_validator.dart';
 import 'package:merrily/component/custombutton.dart';
 import 'package:merrily/component/user.dart';
-import 'package:merrily/screen/login.dart';
+import 'package:image_picker/image_picker.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 
 // import '../model/user.dart';
 
@@ -387,6 +389,11 @@ class RegisForm_2 extends StatefulWidget {
 }
 
 class _RegisForm_2State extends State<RegisForm_2> {
+  File? image;
+  PickedFile? _imageFile;
+  final ImagePicker _picker = ImagePicker();
+  UserProfile user = UserProfile();
+
   @override
   Widget build(BuildContext context) {
     return Form(
@@ -394,12 +401,23 @@ class _RegisForm_2State extends State<RegisForm_2> {
         children: [
           Container(
             margin: EdgeInsets.only(top: 60.0, bottom: 48),
-            child: CircleAvatar(
-              radius: 90,
-            ),
+            child: image != null
+                ? Container(width: 180,height: 180,child: GestureDetector(onTap: selectFile,child: ClipOval(child: Image.file(image!,width: 180,height: 180,fit: BoxFit.cover,),)))
+                : CircleAvatar(
+                    radius: 90,
+                    child: IconButton(
+                      icon: Icon(Icons.add_outlined),
+                      iconSize: 32,
+                      color: Colors.black,
+                      onPressed: selectFile,
+                    ),
+                  ),
           ),
           Container(
             child: TextFormField(
+              onSaved: (String? display){
+                user.displayname = display;
+              },
               cursorColor: Color(0xff643ff9),
               decoration: InputDecoration(
                   labelText: 'ชื่อของคุณ',
@@ -427,7 +445,7 @@ class _RegisForm_2State extends State<RegisForm_2> {
               child: SizedBox(
                 width: double.infinity,
                 child: CustomButton(
-                  onPressed: () {},
+                  onPressed: () {uploadProfile();findDisplayName();} , 
                   text: 'ต่อไป',
                 ),
               ),
@@ -436,5 +454,34 @@ class _RegisForm_2State extends State<RegisForm_2> {
         ],
       ),
     );
+  }
+
+  Future selectFile() async {
+    final image = await ImagePicker().pickImage(source: ImageSource.gallery);
+    if (image == null) return;
+
+    final imageTemporary = File(image.path);
+    setState(() => this.image = imageTemporary);
+  }
+
+  Future uploadProfile() async {
+    
+    Random random = Random();
+    int i = random.nextInt(100000);
+
+    FirebaseStorage firebaseStorage = FirebaseStorage.instance;
+    Reference reference = firebaseStorage.ref().child('Profile/Image$i.jpg');
+    UploadTask uploadTask = reference.putFile(image!);
+  }
+
+  Future findDisplayName() async{
+    await Firebase.initializeApp().then((value)async {
+      await FirebaseAuth.instance.authStateChanges().listen((event) {
+        setState(() {
+          user.displayname = event!.displayName;
+          });
+          print('DisplayName = ${user.displayname}'); //Display = Null ไว้กลับมาแก้ต่อ
+       });
+    });
   }
 }
