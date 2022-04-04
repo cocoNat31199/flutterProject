@@ -8,10 +8,8 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:form_field_validator/form_field_validator.dart';
 import 'package:merrily/component/custombutton.dart';
 import 'package:merrily/component/user.dart';
-import 'package:image_picker/image_picker.dart';
-import 'package:firebase_storage/firebase_storage.dart';
-
-// import '../model/user.dart';
+// import 'package:image_picker/image_picker.dart';
+// import 'package:firebase_storage/firebase_storage.dart';
 
 class Register_1 extends StatefulWidget {
   const Register_1({Key? key}) : super(key: key);
@@ -389,33 +387,37 @@ class RegisForm_2 extends StatefulWidget {
 }
 
 class _RegisForm_2State extends State<RegisForm_2> {
-  File? image;
-  PickedFile? _imageFile;
-  final ImagePicker _picker = ImagePicker();
+  // File? image;
+  // PickedFile? _imageFile;
+  // final ImagePicker _picker = ImagePicker();
   UserProfile user = UserProfile();
+
+  final formKey = GlobalKey<FormState>();
+  final Future<FirebaseApp> firebase = Firebase.initializeApp();
 
   @override
   Widget build(BuildContext context) {
     return Form(
+      key: formKey,
       child: Column(
         children: [
           Container(
             margin: EdgeInsets.only(top: 60.0, bottom: 48),
-            child: image != null
-                ? Container(width: 180,height: 180,child: GestureDetector(onTap: selectFile,child: ClipOval(child: Image.file(image!,width: 180,height: 180,fit: BoxFit.cover,),)))
-                : CircleAvatar(
-                    radius: 90,
-                    child: IconButton(
-                      icon: Icon(Icons.add_outlined),
-                      iconSize: 32,
-                      color: Colors.black,
-                      onPressed: selectFile,
-                    ),
-                  ),
+            // child: image != null
+            //     ? Container(width: 180,height: 180,child: GestureDetector(onTap: selectFile,child: ClipOval(child: Image.file(image!,width: 180,height: 180,fit: BoxFit.cover,),)))
+            //     : CircleAvatar(
+            //         radius: 90,
+            //         child: IconButton(
+            //           icon: Icon(Icons.add_outlined),
+            //           iconSize: 32,
+            //           color: Colors.black,
+            //           onPressed: selectFile,
+            //         ),
+            //       ),
           ),
           Container(
             child: TextFormField(
-              onSaved: (String? display){
+              onSaved: (String? display) {
                 user.displayname = display;
               },
               cursorColor: Color(0xff643ff9),
@@ -445,7 +447,8 @@ class _RegisForm_2State extends State<RegisForm_2> {
               child: SizedBox(
                 width: double.infinity,
                 child: CustomButton(
-                  onPressed: () {uploadProfile();findDisplayName();} , 
+                  onPressed: () async{
+                  },
                   text: 'ต่อไป',
                 ),
               ),
@@ -456,32 +459,32 @@ class _RegisForm_2State extends State<RegisForm_2> {
     );
   }
 
-  Future selectFile() async {
-    final image = await ImagePicker().pickImage(source: ImageSource.gallery);
-    if (image == null) return;
+  // Future selectFile() async {
+  //   final image = await ImagePicker().pickImage(source: ImageSource.gallery);
+  //   if (image == null) return;
 
-    final imageTemporary = File(image.path);
-    setState(() => this.image = imageTemporary);
-  }
+  //   final imageTemporary = File(image.path);
+  //   setState(() => this.image = imageTemporary);
+  // }
 
-  Future uploadProfile() async {
-    
-    Random random = Random();
-    int i = random.nextInt(100000);
+  // Future uploadProfile() async {
 
-    FirebaseStorage firebaseStorage = FirebaseStorage.instance;
-    Reference reference = firebaseStorage.ref().child('Profile/Image$i.jpg');
-    UploadTask uploadTask = reference.putFile(image!);
-  }
+  //   Random random = Random();
+  //   int i = random.nextInt(100000);
 
-  Future findDisplayName() async{
-    await Firebase.initializeApp().then((value)async {
-      await FirebaseAuth.instance.authStateChanges().listen((event) {
-        setState(() {
-          user.displayname = event!.displayName;
-          });
-          print('DisplayName = ${user.displayname}'); //Display = Null ไว้กลับมาแก้ต่อ
-       });
-    });
-  }
+  //   FirebaseStorage firebaseStorage = FirebaseStorage.instance;
+  //   Reference reference = firebaseStorage.ref().child('Profile/Image$i.jpg');
+  //   UploadTask uploadTask = reference.putFile(image!);
+  // }
+
+  // Future findDisplayName() async{
+  //   await Firebase.initializeApp().then((value)async {
+  //     await FirebaseAuth.instance.authStateChanges().listen((event) {
+  //       setState(() {
+  //         user.displayname = event!.displayName;
+  //         });
+  //         print('DisplayName = ${user.displayname}'); //Display = Null ไว้กลับมาแก้ต่อ
+  //      });
+  //   });
+  // }
 }

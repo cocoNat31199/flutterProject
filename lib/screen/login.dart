@@ -1,10 +1,9 @@
-import 'dart:ui';
-
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:form_field_validator/form_field_validator.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 import 'package:merrily/component/custombutton.dart';
 import 'package:merrily/component/user.dart';
 import 'package:merrily/main.dart';
@@ -114,6 +113,8 @@ class Inputform extends StatefulWidget {
 class _InputformState extends State<Inputform> {
   UserProfile user = UserProfile();
   final formKey = GlobalKey<FormState>();
+  final GoogleSignIn googleSignIn = GoogleSignIn();
+  final FirebaseAuth _auth = FirebaseAuth.instance;
 
   bool _isVisible = false;
 
@@ -121,6 +122,18 @@ class _InputformState extends State<Inputform> {
     setState(() {
       _isVisible = !_isVisible;
     });
+  }
+
+  Future<User?> signInWithGoogle() async {
+    final GoogleSignInAccount? googleUser = await googleSignIn.signIn();
+    final GoogleSignInAuthentication? googleAuth =
+        await googleUser!.authentication;
+
+    final AuthCredential credential = GoogleAuthProvider.credential(
+        idToken: googleAuth!.idToken, accessToken: googleAuth.accessToken);
+    UserCredential userCredential =
+        await _auth.signInWithCredential(credential);
+    return userCredential.user;
   }
 
   @override
@@ -225,7 +238,7 @@ class _InputformState extends State<Inputform> {
                         }),
                         text: 'เข้าสู่ระบบ')),
                 Container(
-                    margin: EdgeInsets.only(top: 24),
+                    margin: EdgeInsets.only(top: 24, bottom: 12),
                     child: Text(
                       'or',
                       style: TextStyle(
@@ -233,7 +246,32 @@ class _InputformState extends State<Inputform> {
                           fontFamily: 'Kanit',
                           fontSize: 12,
                           fontWeight: FontWeight.bold),
-                    ))
+                    )),
+                Row(mainAxisAlignment: MainAxisAlignment.center, children: [
+                  IconButton(
+                    onPressed: () {},
+                    icon: Image.asset('assets/images/icon_facebook.png'),
+                    padding: EdgeInsets.all(0),
+                  ),
+                  IconButton(
+                    onPressed: () {
+                      signInWithGoogle().then((value) {
+                        Fluttertoast.showToast(
+                            msg: 'เข้าสู่ระบบสำเร็จ',
+                            gravity: ToastGravity.BOTTOM);
+                        Navigator.pushReplacement(context,
+                            MaterialPageRoute(builder: (context) => MyApp()));
+                      });
+                    },
+                    icon: Image.asset('assets/images/icon_google.png'),
+                    padding: EdgeInsets.all(0),
+                  ),
+                  IconButton(
+                    onPressed: () {},
+                    icon: Image.asset('assets/images/icon_LINE.png'),
+                    padding: EdgeInsets.all(0),
+                  ),
+                ])
               ],
             )));
   }

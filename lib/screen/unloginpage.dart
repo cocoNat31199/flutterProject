@@ -69,7 +69,7 @@ class _UnloginContentState extends State<UnloginContent> {
                     height: 36,
                     child: CustomButton(
                         onPressed: () {
-                          Navigator.pushReplacement(
+                          Navigator.push(
                             context,
                             MaterialPageRoute(
                                 builder: (context) => LoginPage()),

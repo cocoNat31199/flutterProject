@@ -15,6 +15,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "937900273601-42hrm7i1afpis3ucu5gad6fgornnnk34.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.merrily",
+            "certificate_hash": "09b141be5e4a7dec4b2a081e02915e6717829152"
+          }
+        },
+        {
           "client_id": "937900273601-pg6iu0np832mdkrgtvd08bc217a5c9sj.apps.googleusercontent.com",
           "client_type": 3
         }
