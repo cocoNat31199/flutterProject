@@ -1,13 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">Merrily.</string>
-
-    <!-- Replace "000000000000" with your Facebook App ID here. -->
+    <string name="app_name">Merrily</string>
     <string name="facebook_app_id">1323633314767473</string>
-
-    <!--
-      Replace "000000000000" with your Facebook App ID here.
-      **NOTE**: The scheme needs to start with `fb` and then your ID.
-    -->
-    <string name="facebook_client_token">fb1323633314767473</string>
+    <string name="fb_login_protocol_scheme">fb1323633314767473</string>
+    <string name="facebook_client_token">df4fdbe9f9816fd8db98a11572f20ddf</string>
 </resources>

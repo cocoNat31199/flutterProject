@@ -80,7 +80,7 @@ class RegisForm extends StatefulWidget {
 }
 
 class _RegisFormState extends State<RegisForm> {
-  UserProfile user = UserProfile();
+  Usermerrily user = Usermerrily();
 
   final TextEditingController _pass = TextEditingController();
   final TextEditingController _confirmPass = TextEditingController();
@@ -122,31 +122,6 @@ class _RegisFormState extends State<RegisForm> {
               children: [
                 Container(
                   margin: EdgeInsets.only(top: 28.0, bottom: 28.0),
-                  child: TextFormField(
-                    cursorColor: Color(0xff643ff9),
-                    onSaved: (String? username) {
-                      user.username = username;
-                    },
-                    validator:
-                        RequiredValidator(errorText: "กรุณาป้อนชื่อผู้ใช้"),
-                    decoration: InputDecoration(
-                        labelText: 'Username',
-                        labelStyle: TextStyle(
-                          fontFamily: 'Kanit',
-                          fontSize: 16,
-                        ),
-                        floatingLabelStyle: TextStyle(
-                          color: Color(0xff643ff9),
-                          fontFamily: 'Kanit',
-                        ),
-                        border: OutlineInputBorder(
-                            borderSide: BorderSide(color: Color(0xff643ff9))),
-                        focusedBorder: OutlineInputBorder(
-                            borderSide: BorderSide(color: Color(0xff643ff9)))),
-                  ),
-                ),
-                Container(
-                  margin: EdgeInsets.only(bottom: 28.0),
                   child: TextFormField(
                     keyboardType: TextInputType.emailAddress,
                     onSaved: (String? email) {
@@ -390,7 +365,7 @@ class _RegisForm_2State extends State<RegisForm_2> {
   // File? image;
   // PickedFile? _imageFile;
   // final ImagePicker _picker = ImagePicker();
-  UserProfile user = UserProfile();
+  Usermerrily user = Usermerrily();
 
   final formKey = GlobalKey<FormState>();
   final Future<FirebaseApp> firebase = Firebase.initializeApp();

@@ -1,10 +1,12 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:merrily/component/toptab.dart';
 
 class CategoriesPage extends StatelessWidget {
-  
   int selectTab;
   CategoriesPage(this.selectTab);
+
+  final auth = FirebaseAuth.instance;
 
   @override
   Widget build(BuildContext context) {
@@ -33,7 +35,21 @@ class CategoriesPage extends StatelessWidget {
             actions: [
               Container(
                 padding: EdgeInsets.only(right: 16),
-                child: CircleAvatar(),
+                child: auth.currentUser != null
+                    ? CircleAvatar(
+                        radius: 24,
+                        child: ClipOval(
+                            child: auth.currentUser!.photoURL != null
+                                ? Image.network(
+                                    '${auth.currentUser!.photoURL}',
+                                    fit: BoxFit.contain,
+                                  )
+                                : null))
+                    : Icon(
+                        Icons.account_circle,
+                        size: 48,
+                        color: Colors.black,
+                      ),
               )
             ],
             bottom: PreferredSize(

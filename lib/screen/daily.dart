@@ -1,17 +1,16 @@
-
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:merrily/component/toptab.dart';
 import 'package:intl/intl.dart';
 
 class Daily extends StatefulWidget {
-  const Daily({ Key? key }) : super(key: key);
+  const Daily({Key? key}) : super(key: key);
 
   @override
   State<Daily> createState() => _DailyState();
 }
 
 class _DailyState extends State<Daily> {
-
   static final DateTime now = DateTime.now();
   static final DateFormat formatter = DateFormat('EEEE');
   final String formatted = formatter.format(now);
@@ -36,6 +35,8 @@ class _DailyState extends State<Daily> {
     }
   }
 
+  final auth = FirebaseAuth.instance;
+
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(
@@ -55,7 +56,21 @@ class _DailyState extends State<Daily> {
             actions: [
               Container(
                 padding: EdgeInsets.only(right: 16),
-                child: CircleAvatar(),
+                child: auth.currentUser != null
+                    ? CircleAvatar(
+                        radius: 24,
+                        child: ClipOval(
+                            child: auth.currentUser!.photoURL != null
+                                ? Image.network(
+                                    '${auth.currentUser!.photoURL}',
+                                    fit: BoxFit.contain,
+                                  )
+                                : null))
+                    : Icon(
+                        Icons.account_circle,
+                        size: 48,
+                        color: Colors.black,
+                      ),
               )
             ],
             bottom: PreferredSize(

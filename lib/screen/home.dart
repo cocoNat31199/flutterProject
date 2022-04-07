@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:carousel_slider/carousel_slider.dart';
@@ -13,13 +14,28 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
+  final auth = FirebaseAuth.instance;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         leading: Container(
           padding: EdgeInsets.only(left: 16),
-          child: CircleAvatar(),
+          child: auth.currentUser != null
+              ? CircleAvatar(
+                  radius: 24,
+                  child: ClipOval(
+                      child: auth.currentUser!.photoURL != null
+                          ? Image.network(
+                              '${auth.currentUser!.photoURL}',
+                              fit: BoxFit.contain,
+                            )
+                          : null))
+              : Icon(
+                  Icons.account_circle,
+                  size: 40,
+                  color: Colors.black,
+                ),
         ),
         title: Text(
           'Merrily',
@@ -155,7 +171,7 @@ class _CategoriesState extends State<Categories> {
             imageName: 'assets/icons/action.png',
             name: 'แอคชั่น',
             onPressed: () {
-              Navigator.pushReplacement(context,
+              Navigator.push(context,
                   MaterialPageRoute(builder: ((context) => CategoriesPage(0))));
             },
           ),
@@ -166,7 +182,7 @@ class _CategoriesState extends State<Categories> {
             imageName: 'assets/icons/romance.png',
             name: 'โรแมนซ์',
             onPressed: () {
-              Navigator.pushReplacement(context,
+              Navigator.push(context,
                   MaterialPageRoute(builder: ((context) => CategoriesPage(1))));
             },
           ),
@@ -177,7 +193,7 @@ class _CategoriesState extends State<Categories> {
             imageName: 'assets/icons/fantasy.png',
             name: 'แฟนตาซี',
             onPressed: () {
-              Navigator.pushReplacement(context,
+              Navigator.push(context,
                   MaterialPageRoute(builder: ((context) => CategoriesPage(2))));
             },
           ),
@@ -188,7 +204,7 @@ class _CategoriesState extends State<Categories> {
             imageName: 'assets/icons/drama.png',
             name: 'ดราม่า',
             onPressed: () {
-              Navigator.pushReplacement(context,
+              Navigator.push(context,
                   MaterialPageRoute(builder: ((context) => CategoriesPage(3))));
             },
           ),
@@ -199,7 +215,7 @@ class _CategoriesState extends State<Categories> {
             imageName: 'assets/icons/lgbtq.png',
             name: 'LGBTQ+',
             onPressed: () {
-              Navigator.pushReplacement(context,
+              Navigator.push(context,
                   MaterialPageRoute(builder: ((context) => CategoriesPage(4))));
             },
           ),
@@ -210,7 +226,7 @@ class _CategoriesState extends State<Categories> {
             imageName: 'assets/icons/horror.png',
             name: 'สยองขวัญ',
             onPressed: () {
-              Navigator.pushReplacement(context,
+              Navigator.push(context,
                   MaterialPageRoute(builder: ((context) => CategoriesPage(5))));
             },
           ),
@@ -221,7 +237,7 @@ class _CategoriesState extends State<Categories> {
             imageName: 'assets/icons/novel.png',
             name: 'นิยาย',
             onPressed: () {
-              Navigator.pushReplacement(context,
+              Navigator.push(context,
                   MaterialPageRoute(builder: ((context) => CategoriesPage(6))));
             },
           ),
@@ -232,7 +248,7 @@ class _CategoriesState extends State<Categories> {
             imageName: 'assets/icons/comedy.png',
             name: 'ตลก',
             onPressed: () {
-              Navigator.pushReplacement(context,
+              Navigator.push(context,
                   MaterialPageRoute(builder: ((context) => CategoriesPage(7))));
             },
           ),
@@ -243,7 +259,7 @@ class _CategoriesState extends State<Categories> {
             imageName: 'assets/icons/period.png',
             name: 'ย้อนยุค',
             onPressed: () {
-              Navigator.pushReplacement(context,
+              Navigator.push(context,
                   MaterialPageRoute(builder: ((context) => CategoriesPage(8))));
             },
           ),

@@ -1,9 +1,8 @@
-class UserProfile {
-  String? username;
+class Usermerrily {
   String? email;
   String? password;
   String? confirmpassword;
-  String?  displayname;
+  String? displayname;
 
-  UserProfile({this.username, this.email, this.password, this.confirmpassword, this.displayname});
+  Usermerrily({this.email, this.password, this.confirmpassword, this.displayname});
 }

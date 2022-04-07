@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:form_field_validator/form_field_validator.dart';
 import 'package:google_sign_in/google_sign_in.dart';
@@ -111,7 +112,7 @@ class Inputform extends StatefulWidget {
 }
 
 class _InputformState extends State<Inputform> {
-  UserProfile user = UserProfile();
+  Usermerrily user = Usermerrily();
   final formKey = GlobalKey<FormState>();
   final GoogleSignIn googleSignIn = GoogleSignIn();
   final FirebaseAuth _auth = FirebaseAuth.instance;
@@ -134,6 +135,20 @@ class _InputformState extends State<Inputform> {
     UserCredential userCredential =
         await _auth.signInWithCredential(credential);
     return userCredential.user;
+  }
+
+  Future signWithFacebook() async {
+    try {
+      final LoginResult result = await FacebookAuth.instance
+          .login(permissions: (['email', 'public_profile']));
+      final token = result.accessToken!.token;
+      try {
+        final AuthCredential facebookCredential =
+            FacebookAuthProvider.credential(result.accessToken!.token);
+        final useCredential = await FirebaseAuth.instance
+            .signInWithCredential(facebookCredential);
+      } catch (e) {}
+    } catch (e) {}
   }
 
   @override
@@ -224,10 +239,13 @@ class _InputformState extends State<Inputform> {
                                     msg: 'เข้าสู่ระบบสำเร็จ',
                                     gravity: ToastGravity.BOTTOM);
                                 formKey.currentState!.reset();
-                                Navigator.pushReplacement(
-                                    context,
-                                    MaterialPageRoute(
-                                        builder: (context) => MyApp()));
+                                Navigator.pushAndRemoveUntil<void>(
+                                  context,
+                                  MaterialPageRoute<void>(
+                                      builder: (BuildContext context) =>
+                                          MyApp()),
+                                  ModalRoute.withName('./home.dart'),
+                                );
                               });
                             } on FirebaseAuthException catch (e) {
                               Fluttertoast.showToast(
@@ -249,7 +267,19 @@ class _InputformState extends State<Inputform> {
                     )),
                 Row(mainAxisAlignment: MainAxisAlignment.center, children: [
                   IconButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      signWithFacebook().then((value) {
+                        Fluttertoast.showToast(
+                            msg: 'เข้าสู่ระบบสำเร็จ',
+                            gravity: ToastGravity.BOTTOM);
+                        Navigator.pushAndRemoveUntil<void>(
+                          context,
+                          MaterialPageRoute<void>(
+                              builder: (BuildContext context) => MyApp()),
+                          ModalRoute.withName('./home.dart'),
+                        );
+                      });
+                    },
                     icon: Image.asset('assets/images/icon_facebook.png'),
                     padding: EdgeInsets.all(0),
                   ),
@@ -259,8 +289,12 @@ class _InputformState extends State<Inputform> {
                         Fluttertoast.showToast(
                             msg: 'เข้าสู่ระบบสำเร็จ',
                             gravity: ToastGravity.BOTTOM);
-                        Navigator.pushReplacement(context,
-                            MaterialPageRoute(builder: (context) => MyApp()));
+                        Navigator.pushAndRemoveUntil<void>(
+                          context,
+                          MaterialPageRoute<void>(
+                              builder: (BuildContext context) => MyApp()),
+                          ModalRoute.withName('./home.dart'),
+                        );
                       });
                     },
                     icon: Image.asset('assets/images/icon_google.png'),
@@ -268,7 +302,7 @@ class _InputformState extends State<Inputform> {
                   ),
                   IconButton(
                     onPressed: () {},
-                    icon: Image.asset('assets/images/icon_LINE.png'),
+                    icon: Image.asset('assets/images/icon_twitter.png'),
                     padding: EdgeInsets.all(0),
                   ),
                 ])
