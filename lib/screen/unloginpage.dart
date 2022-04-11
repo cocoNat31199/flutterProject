@@ -8,6 +8,7 @@ import 'package:merrily/screen/editProfile.dart';
 import 'package:merrily/screen/historyGift.dart';
 import 'package:merrily/screen/login.dart';
 import 'package:merrily/screen/setting.dart';
+import 'package:merrily/screen/uploadcartoon.dart';
 
 class Unlogin extends StatefulWidget {
   const Unlogin({Key? key}) : super(key: key);
@@ -211,6 +212,34 @@ class _ProfileState extends State<Profile> {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Text('แก้ไขโปรไฟล์',
+                          style: TextStyle(
+                              color: Colors.black,
+                              fontFamily: 'Kanit',
+                              fontSize: 16)),
+                      Icon(
+                        Icons.arrow_forward_ios_outlined,
+                        size: 20,
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+              GestureDetector(
+                onTap: () {
+                  Navigator.push(context,
+                      MaterialPageRoute(builder: (context) => UploadPage()));
+                },
+                child: Container(
+                  height: 52,
+                  width: double.infinity,
+                  decoration: BoxDecoration(
+                      border: Border(
+                          bottom: BorderSide(
+                              width: 0.5, color: Color(0x33969696)))),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text('อัพโหลดการ์ตูน',
                           style: TextStyle(
                               color: Colors.black,
                               fontFamily: 'Kanit',

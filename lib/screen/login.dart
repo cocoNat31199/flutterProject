@@ -145,7 +145,7 @@ class _InputformState extends State<Inputform> {
       try {
         final AuthCredential facebookCredential =
             FacebookAuthProvider.credential(result.accessToken!.token);
-        final useCredential = await FirebaseAuth.instance
+        final userCredential = await FirebaseAuth.instance
             .signInWithCredential(facebookCredential);
       } catch (e) {}
     } catch (e) {}
@@ -269,15 +269,17 @@ class _InputformState extends State<Inputform> {
                   IconButton(
                     onPressed: () {
                       signWithFacebook().then((value) {
-                        Fluttertoast.showToast(
-                            msg: 'เข้าสู่ระบบสำเร็จ',
-                            gravity: ToastGravity.BOTTOM);
-                        Navigator.pushAndRemoveUntil<void>(
-                          context,
-                          MaterialPageRoute<void>(
-                              builder: (BuildContext context) => MyApp()),
-                          ModalRoute.withName('./home.dart'),
-                        );
+                        FacebookAuth.instance.getUserData().then((userData) {
+                          Fluttertoast.showToast(
+                              msg: 'เข้าสู่ระบบสำเร็จ',
+                              gravity: ToastGravity.BOTTOM);
+                          Navigator.pushAndRemoveUntil<void>(
+                            context,
+                            MaterialPageRoute<void>(
+                                builder: (BuildContext context) => MyApp()),
+                            ModalRoute.withName('./home.dart'),
+                          );
+                        });
                       });
                     },
                     icon: Image.asset('assets/images/icon_facebook.png'),
@@ -298,11 +300,6 @@ class _InputformState extends State<Inputform> {
                       });
                     },
                     icon: Image.asset('assets/images/icon_google.png'),
-                    padding: EdgeInsets.all(0),
-                  ),
-                  IconButton(
-                    onPressed: () {},
-                    icon: Image.asset('assets/images/icon_twitter.png'),
                     padding: EdgeInsets.all(0),
                   ),
                 ])
