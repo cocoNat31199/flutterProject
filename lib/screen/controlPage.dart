@@ -4,20 +4,21 @@ import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:merrily/component/custombutton.dart';
 import 'package:merrily/main.dart';
+import 'package:merrily/screen/addCoin.dart';
 import 'package:merrily/screen/editProfile.dart';
 import 'package:merrily/screen/historyGift.dart';
 import 'package:merrily/screen/login.dart';
 import 'package:merrily/screen/setting.dart';
 import 'package:merrily/screen/uploadcartoon.dart';
 
-class Unlogin extends StatefulWidget {
-  const Unlogin({Key? key}) : super(key: key);
+class ControlPage extends StatefulWidget {
+  const ControlPage({Key? key}) : super(key: key);
 
   @override
-  _UnloginState createState() => _UnloginState();
+  _ControlPageState createState() => _ControlPageState();
 }
 
-class _UnloginState extends State<Unlogin> {
+class _ControlPageState extends State<ControlPage> {
   final auth = FirebaseAuth.instance;
 
   @override
@@ -143,7 +144,8 @@ class _ProfileState extends State<Profile> {
                     color: Colors.black, fontFamily: 'Kanit', fontSize: 16),
               ),
               GestureDetector(
-                onTap: () {},
+                onTap: () {Navigator.push(context,
+                      MaterialPageRoute(builder: (context) => Addcoin()));},
                 child: Container(
                   height: 52,
                   width: double.infinity,

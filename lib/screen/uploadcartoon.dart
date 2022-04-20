@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:merrily/component/custombutton.dart';
 
 class UploadPage extends StatefulWidget {
   const UploadPage({Key? key}) : super(key: key);
@@ -20,14 +21,6 @@ class _UploadPageState extends State<UploadPage> {
               automaticallyImplyLeading: false,
               backgroundColor: Colors.white,
               elevation: 0.0,
-              leading: IconButton(
-                  onPressed: () {
-                    Navigator.pop(context);
-                  },
-                  icon: Icon(
-                    Icons.arrow_back_ios,
-                    color: Colors.black,
-                  )),
               title: Text(
                 'อัพโหลดการ์ตูน',
                 style: TextStyle(
@@ -61,7 +54,7 @@ class _UploadPageState extends State<UploadPage> {
                             fontFamily: 'Kanit',
                             fontSize: 12)),
                     Container(
-                      margin: EdgeInsets.only(top: 16),
+                      margin: EdgeInsets.only(top: 12),
                       child: TextFormField(
                         cursorColor: Color(0xff643ff9),
                         decoration: InputDecoration(
@@ -107,11 +100,108 @@ class _UploadPageState extends State<UploadPage> {
                     SizedBox(
                       height: 24,
                     ),
-                    Text('อัพโหลดการ์ตูน',
+                    Text('อัพโหลดไฟล์หน้าปกการ์ตูนของคุณ',
                         style: TextStyle(
                             color: Color(0xff969696),
                             fontFamily: 'Kanit',
                             fontSize: 12)),
+                    Container(
+                      margin: EdgeInsets.only(top: 12),
+                      height: 68,
+                      decoration: BoxDecoration(
+                          color: Colors.white,
+                          borderRadius: BorderRadius.circular(10),
+                          border: Border.all(
+                              color: Color(0xff969696),
+                              width: 1,
+                              style: BorderStyle.solid),
+                          boxShadow: <BoxShadow>[
+                            BoxShadow(
+                                color: Colors.black54,
+                                blurRadius: 1,
+                                offset: Offset(0.0, 0.75))
+                          ]),
+                      child: Center(
+                          child: Text(
+                        'แตะเพื่ออัพโหลดไฟล์ของคุณ',
+                        style: TextStyle(
+                            color: Colors.black45,
+                            fontFamily: 'Kanit',
+                            fontSize: 16),
+                      )),
+                    ),
+                    SizedBox(
+                      height: 24,
+                    ),
+                    Text('อัพโหลดไฟล์การ์ตูนของคุณ',
+                        style: TextStyle(
+                            color: Color(0xff969696),
+                            fontFamily: 'Kanit',
+                            fontSize: 12)),
+                    Container(
+                      margin: EdgeInsets.only(top: 12),
+                      height: 68,
+                      decoration: BoxDecoration(
+                          color: Colors.white,
+                          borderRadius: BorderRadius.circular(10),
+                          border: Border.all(
+                              color: Color(0xff969696),
+                              width: 1,
+                              style: BorderStyle.solid),
+                          boxShadow: <BoxShadow>[
+                            BoxShadow(
+                                color: Colors.black54,
+                                blurRadius: 1,
+                                offset: Offset(0.0, 0.75))
+                          ]),
+                      child: Center(
+                          child: Text(
+                        'แตะเพื่ออัพโหลดไฟล์ของคุณ',
+                        style: TextStyle(
+                            color: Colors.black45,
+                            fontFamily: 'Kanit',
+                            fontSize: 16),
+                      )),
+                    ),
+                    SizedBox(
+                      height: 24,
+                    ),
+                    Text('เลือกวันอัพโหลดการ์ตูนของคุณ',
+                        style: TextStyle(
+                            color: Color(0xff969696),
+                            fontFamily: 'Kanit',
+                            fontSize: 12)),
+                    Container(
+                      height: 48.0,
+                      margin: EdgeInsets.only(top: 12),
+                      alignment: Alignment.centerLeft,
+                      child: ListView(
+                        scrollDirection: Axis.horizontal,
+                        children: [
+                          Container(
+                            height: 48,
+                            width: 48,
+                            color: Colors.amber,
+                          ),
+                        ],
+                      ),
+                    ),
+                    SizedBox(
+                      height: 24,
+                    ),
+                    Center(
+                      child: Column(
+                        children: [
+                          CustomButton(
+                              onPressed: () {}, text: 'อัพโหลดการ์ตูนของฉัน'),
+                          CustomButton(
+                              onPressed: () {
+                                Navigator.pop(context);
+                              },
+                              text: 'ยกเลิก'),
+                        ],
+                      ),
+                    )
                   ],
                 ),
               ),

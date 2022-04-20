@@ -1,6 +1,5 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:merrily/component/categoriesbutton.dart';
 import 'package:merrily/screen/categoriesPage.dart';
@@ -88,17 +87,18 @@ class Incon extends StatefulWidget {
 class _InconState extends State<Incon> {
   @override
   Widget build(BuildContext context) {
-    return ListView(
-      // shrinkWrap: true,
-      children: [
-        SlideImg(),
-        Categories(),
-        ReadLatest(),
-        Recommend(),
-        TopRating(),
-        NewToon(),
-        UpdateToon()
-      ],
+    return SingleChildScrollView(
+      child: Column(
+        children: [
+          SlideImg(),
+          Categories(),
+          ReadLatest(),
+          Recommend(),
+          TopRating(),
+          NewToon(),
+          UpdateToon(),
+        ],
+      ),
     );
   }
 }
@@ -121,8 +121,7 @@ class _SlideImgState extends State<SlideImg> {
   Widget build(BuildContext context) {
     return CarouselSlider(
       options: CarouselOptions(
-          height: 187,
-          viewportFraction: 0.95,
+          height: 156,
           autoPlay: true,
           enlargeCenterPage: true,
           aspectRatio: 16 / 9),
@@ -156,7 +155,7 @@ class _CategoriesState extends State<Categories> {
   Widget build(BuildContext context) {
     return Container(
       height: 108,
-      alignment: Alignment.center,
+      alignment: Alignment.centerLeft,
       constraints: BoxConstraints(minHeight: 108),
       child: ListView(
         shrinkWrap: true,

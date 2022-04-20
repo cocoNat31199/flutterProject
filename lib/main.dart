@@ -1,12 +1,12 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:merrily/screen/unloginpage.dart';
+import 'package:merrily/screen/controlPage.dart';
 import 'package:firebase_core/firebase_core.dart';
 
 import './screen/home.dart';
 import './screen/daily.dart';
 import './screen/favorite.dart';
-import 'screen/unloginpage.dart';
+import 'screen/controlPage.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -23,7 +23,7 @@ class _MyAppState extends State<MyApp> {
   final auth = FirebaseAuth.instance;
 
   int _selectedPage = 0;
-  final _pageOptions = [Home(), Daily(), Favorite(), Unlogin()];
+  final _pageOptions = [Home(), Daily(), Favorite(), ControlPage()];
 
   @override
   Widget build(BuildContext context) {
