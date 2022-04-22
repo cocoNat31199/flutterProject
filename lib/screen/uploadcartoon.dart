@@ -1,5 +1,10 @@
+import 'dart:io';
+
+import 'package:file_picker/file_picker.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:merrily/component/custombutton.dart';
+
 
 class UploadPage extends StatefulWidget {
   const UploadPage({Key? key}) : super(key: key);
@@ -9,8 +14,11 @@ class UploadPage extends StatefulWidget {
 }
 
 class _UploadPageState extends State<UploadPage> {
+  File? file;
   @override
   Widget build(BuildContext context) {
+    final fileName = file != null? basename(file!.path) : 'No File Selected';
+
     return MaterialApp(
         theme: new ThemeData(
             primaryColor: Color(0xff643ff9),
@@ -156,11 +164,7 @@ class _UploadPageState extends State<UploadPage> {
                           ]),
                       child: Center(
                           child: Text(
-                        'แตะเพื่ออัพโหลดไฟล์ของคุณ',
-                        style: TextStyle(
-                            color: Colors.black45,
-                            fontFamily: 'Kanit',
-                            fontSize: 16),
+                            'อัพโหลดไฟล์การ์ตูนของคุณ',
                       )),
                     ),
                     SizedBox(
@@ -193,7 +197,7 @@ class _UploadPageState extends State<UploadPage> {
                       child: Column(
                         children: [
                           CustomButton(
-                              onPressed: () {}, text: 'อัพโหลดการ์ตูนของฉัน'),
+                              onPressed: uploadFile, text: 'อัพโหลดการ์ตูนของฉัน'),
                           CustomButton(
                               onPressed: () {
                                 Navigator.pop(context);
@@ -206,5 +210,38 @@ class _UploadPageState extends State<UploadPage> {
                 ),
               ),
             )));
+  }
+
+  Future selecFile() async{
+    final result = await FilePicker.platform.pickFiles();
+
+    if (result == null) return;
+    final path = result.files.single.path!;
+
+    setState(() => file = File(path));
+  }
+
+  Future uploadFile() async{
+    if (file == null) return;
+
+    final fileName = basename(file!.path);
+    final destination = 'files/$fileName';
+
+    FirebaseApi.uploadFile(destination, file!);
+  }
+
+  basename(String path) {}
+
+}
+
+class FirebaseApi {
+  static UploadTask? uploadFile(String destination, File file) {
+    try {
+      final ref = FirebaseStorage.instance.ref(destination);
+
+      return ref.putFile(file);
+    } on FirebaseException catch (e) {
+      return null;
+    }
   }
 }

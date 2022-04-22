@@ -41,6 +41,9 @@ dependencies:
   fluttertoast: ^8.0.9
   google_sign_in: ^5.2.4
   flutter_facebook_auth: ^4.1.2
+  file_picker: ^4.5.1
+  open_file: ^3.2.1
+  firebase_storage: ^10.2.13
 
 dev_dependencies:
   flutter_test:
