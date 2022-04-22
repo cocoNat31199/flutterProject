@@ -5,7 +5,6 @@ import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:merrily/component/custombutton.dart';
 
-
 class UploadPage extends StatefulWidget {
   const UploadPage({Key? key}) : super(key: key);
 
@@ -17,7 +16,7 @@ class _UploadPageState extends State<UploadPage> {
   File? file;
   @override
   Widget build(BuildContext context) {
-    final fileName = file != null? basename(file!.path) : 'No File Selected';
+    final fileName = file != null ? basename(file!.path) : 'No File Selected';
 
     return MaterialApp(
         theme: new ThemeData(
@@ -113,30 +112,37 @@ class _UploadPageState extends State<UploadPage> {
                             color: Color(0xff969696),
                             fontFamily: 'Kanit',
                             fontSize: 12)),
-                    Container(
-                      margin: EdgeInsets.only(top: 12),
-                      height: 68,
-                      decoration: BoxDecoration(
-                          color: Colors.white,
-                          borderRadius: BorderRadius.circular(10),
-                          border: Border.all(
-                              color: Color(0xff969696),
-                              width: 1,
-                              style: BorderStyle.solid),
-                          boxShadow: <BoxShadow>[
-                            BoxShadow(
-                                color: Colors.black54,
-                                blurRadius: 1,
-                                offset: Offset(0.0, 0.75))
-                          ]),
-                      child: Center(
-                          child: Text(
-                        'แตะเพื่ออัพโหลดไฟล์ของคุณ',
-                        style: TextStyle(
-                            color: Colors.black45,
-                            fontFamily: 'Kanit',
-                            fontSize: 16),
-                      )),
+                    GestureDetector(
+                      onTap: () {
+                        selecFile();
+                      },
+                      child: Container(
+                        margin: EdgeInsets.only(top: 12),
+                        height: 68,
+                        decoration: BoxDecoration(
+                            color: Colors.white,
+                            borderRadius: BorderRadius.circular(10),
+                            border: Border.all(
+                                color: Color(0xff969696),
+                                width: 1,
+                                style: BorderStyle.solid),
+                            boxShadow: <BoxShadow>[
+                              BoxShadow(
+                                  color: Colors.black54,
+                                  blurRadius: 1,
+                                  offset: Offset(0.0, 0.75))
+                            ]),
+                        child: Center(
+                            child: fileName != null
+                                ? Text('$fileName')
+                                : Text(
+                                    'แตะเพื่ออัพโหลดไฟล์ของคุณ',
+                                    style: TextStyle(
+                                        color: Colors.black45,
+                                        fontFamily: 'Kanit',
+                                        fontSize: 16),
+                                  )),
+                      ),
                     ),
                     SizedBox(
                       height: 24,
@@ -146,26 +152,35 @@ class _UploadPageState extends State<UploadPage> {
                             color: Color(0xff969696),
                             fontFamily: 'Kanit',
                             fontSize: 12)),
-                    Container(
-                      margin: EdgeInsets.only(top: 12),
-                      height: 68,
-                      decoration: BoxDecoration(
-                          color: Colors.white,
-                          borderRadius: BorderRadius.circular(10),
-                          border: Border.all(
-                              color: Color(0xff969696),
-                              width: 1,
-                              style: BorderStyle.solid),
-                          boxShadow: <BoxShadow>[
-                            BoxShadow(
-                                color: Colors.black54,
-                                blurRadius: 1,
-                                offset: Offset(0.0, 0.75))
-                          ]),
-                      child: Center(
-                          child: Text(
-                            'อัพโหลดไฟล์การ์ตูนของคุณ',
-                      )),
+                    GestureDetector(
+                      onTap: () {
+                        selecFile();
+                      },
+                      child: Container(
+                        margin: EdgeInsets.only(top: 12),
+                        height: 68,
+                        decoration: BoxDecoration(
+                            color: Colors.white,
+                            borderRadius: BorderRadius.circular(10),
+                            border: Border.all(
+                                color: Color(0xff969696),
+                                width: 1,
+                                style: BorderStyle.solid),
+                            boxShadow: <BoxShadow>[
+                              BoxShadow(
+                                  color: Colors.black54,
+                                  blurRadius: 1,
+                                  offset: Offset(0.0, 0.75))
+                            ]),
+                        child: Center(
+                            child: Text(
+                          'แตะเพื่ออัพโหลดไฟล์ของคุณ',
+                          style: TextStyle(
+                              color: Colors.black45,
+                              fontFamily: 'Kanit',
+                              fontSize: 16),
+                        )),
+                      ),
                     ),
                     SizedBox(
                       height: 24,
@@ -197,7 +212,8 @@ class _UploadPageState extends State<UploadPage> {
                       child: Column(
                         children: [
                           CustomButton(
-                              onPressed: uploadFile, text: 'อัพโหลดการ์ตูนของฉัน'),
+                              onPressed: uploadFile,
+                              text: 'อัพโหลดการ์ตูนของฉัน'),
                           CustomButton(
                               onPressed: () {
                                 Navigator.pop(context);
@@ -212,7 +228,7 @@ class _UploadPageState extends State<UploadPage> {
             )));
   }
 
-  Future selecFile() async{
+  Future selecFile() async {
     final result = await FilePicker.platform.pickFiles();
 
     if (result == null) return;
@@ -221,7 +237,7 @@ class _UploadPageState extends State<UploadPage> {
     setState(() => file = File(path));
   }
 
-  Future uploadFile() async{
+  Future uploadFile() async {
     if (file == null) return;
 
     final fileName = basename(file!.path);
@@ -231,7 +247,6 @@ class _UploadPageState extends State<UploadPage> {
   }
 
   basename(String path) {}
-
 }
 
 class FirebaseApi {
