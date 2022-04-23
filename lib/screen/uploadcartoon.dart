@@ -13,10 +13,11 @@ class UploadPage extends StatefulWidget {
 }
 
 class _UploadPageState extends State<UploadPage> {
+  PlatformFile? pickedFile;
+  PlatformFile? coverFile;
   File? file;
   @override
   Widget build(BuildContext context) {
-    final fileName = file != null ? basename(file!.path) : 'No File Selected';
 
     return MaterialApp(
         theme: new ThemeData(
@@ -114,7 +115,7 @@ class _UploadPageState extends State<UploadPage> {
                             fontSize: 12)),
                     GestureDetector(
                       onTap: () {
-                        selecFile();
+                        selecCover();
                       },
                       child: Container(
                         margin: EdgeInsets.only(top: 12),
@@ -133,15 +134,13 @@ class _UploadPageState extends State<UploadPage> {
                                   offset: Offset(0.0, 0.75))
                             ]),
                         child: Center(
-                            child: fileName != null
-                                ? Text('$fileName')
-                                : Text(
-                                    'แตะเพื่ออัพโหลดไฟล์ของคุณ',
-                                    style: TextStyle(
-                                        color: Colors.black45,
-                                        fontFamily: 'Kanit',
-                                        fontSize: 16),
-                                  )),
+                            child: Text( coverFile != null ? '${coverFile!.name}' :
+                          'แตะเพื่ออัพโหลดไฟล์ของคุณ',
+                          style: TextStyle(
+                              color: Colors.black45,
+                              fontFamily: 'Kanit',
+                              fontSize: 16),
+                        )),
                       ),
                     ),
                     SizedBox(
@@ -173,7 +172,7 @@ class _UploadPageState extends State<UploadPage> {
                                   offset: Offset(0.0, 0.75))
                             ]),
                         child: Center(
-                            child: Text(
+                            child: Text( pickedFile != null ? '${pickedFile!.name}' :
                           'แตะเพื่ออัพโหลดไฟล์ของคุณ',
                           style: TextStyle(
                               color: Colors.black45,
@@ -212,7 +211,7 @@ class _UploadPageState extends State<UploadPage> {
                       child: Column(
                         children: [
                           CustomButton(
-                              onPressed: uploadFile,
+                              onPressed: () {uploadFile(); uploadFiles();} ,
                               text: 'อัพโหลดการ์ตูนของฉัน'),
                           CustomButton(
                               onPressed: () {
@@ -229,21 +228,49 @@ class _UploadPageState extends State<UploadPage> {
   }
 
   Future selecFile() async {
-    final result = await FilePicker.platform.pickFiles();
+    final pickedname = await FilePicker.platform.pickFiles(
+      type: FileType.custom,
+      allowedExtensions: ['pdf'],
+    );
 
-    if (result == null) return;
-    final path = result.files.single.path!;
+    if (pickedname == null) return;
+    final path = pickedname.files.single.path!;
 
-    setState(() => file = File(path));
+    setState(() {
+      file = File(path);
+      pickedFile = pickedname.files.first;
+    });
+  }
+
+  Future selecCover() async{
+    final pickedcover = await FilePicker.platform.pickFiles(
+      type: FileType.custom,
+      allowedExtensions: ['pdf'],
+    );
+
+    if (pickedcover == null) return;
+    final path = pickedcover.files.single.path!;
+
+    setState(() {
+      file = File(path);
+      coverFile = pickedcover.files.first;
+    });
   }
 
   Future uploadFile() async {
-    if (file == null) return;
+    final path = 'files/${pickedFile!.name}';
+    final file = File(pickedFile!.path!);
 
-    final fileName = basename(file!.path);
-    final destination = 'files/$fileName';
+    final ref = FirebaseStorage.instance.ref().child(path);
+    ref.putFile(file);
+  }
 
-    FirebaseApi.uploadFile(destination, file!);
+  Future uploadFiles() async {
+    final paths = 'files/${coverFile!.name}';
+    final files = File(coverFile!.path!);
+
+    final ref = FirebaseStorage.instance.ref().child(paths);
+    ref.putFile(files);
   }
 
   basename(String path) {}
