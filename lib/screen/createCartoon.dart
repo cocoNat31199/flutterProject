@@ -68,10 +68,13 @@ class _CreateCartoonState extends State<CreateCartoon> {
                           color: Color(0xff969696),
                           borderRadius: BorderRadius.circular(10)),
                       child: file != null
-                          ? Image.file(
-                              file!,
-                              fit: BoxFit.cover,
-                            )
+                          ? ClipRRect(
+                            borderRadius: BorderRadius.circular(10),
+                            child: Image.file(
+                                file!,
+                                fit: BoxFit.cover,
+                              ),
+                          )
                           : Icon(
                               Icons.add,
                               color: Colors.white,
