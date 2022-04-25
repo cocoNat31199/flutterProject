@@ -40,45 +40,43 @@ class _CreateCartoonState extends State<CreateCartoon> {
           child: SingleChildScrollView(
             child:
                 Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-              Stack(
-                overflow: Overflow.visible,
-                alignment: Alignment.center,
-                children: [
-                  GestureDetector(
-                    onTap: () {
-                      // ใส่ฟังก์ชันตรงนี้
-                    },
-                    child: Container(
-                      height: 180,
-                      width: double.infinity,
-                      color: Colors.amber,
-                    ),
-                  ),
-                  Positioned(
-                    bottom: -96,
-                    child: GestureDetector(
-                      onTap: () { selecFile();
-                        // ใส่ฟังก์ชันตรงนี้
-                      },
-                      child: Center(
-                        child: Container(
-                          height: 120,
-                          width: 120,
-                          decoration: BoxDecoration(
-                              color: Colors.black,
-                              borderRadius: BorderRadius.circular(10)),
-                        ),
-                      ),
-                    ),
-                  ),
-                ],
+              GestureDetector(
+                onTap: () {
+                  // ใส่ฟังก์ชันตรงนี้
+                },
+                child: Container(
+                  height: 180,
+                  width: double.infinity,
+                  color: Colors.amber,
+                ),
+              ),
+              SizedBox(
+                height: 28,
+              ),
+              Center(
+                child: GestureDetector(
+                  onTap: selecFile,
+                  child: Container(
+                      height: 120,
+                      width: 120,
+                      decoration: BoxDecoration(
+                          color: Color(0xff969696),
+                          borderRadius: BorderRadius.circular(10)),
+                      child: file != null
+                          ? Image.file(
+                              file!,
+                              fit: BoxFit.cover,
+                            )
+                          : null),
+                ),
               ),
               Container(
                 padding: EdgeInsets.symmetric(horizontal: 16),
-                margin: EdgeInsets.only(top: 120),
-                child: TextFormField(onChanged: (String string){
-                  name = string.trim();
-                },
+                margin: EdgeInsets.only(top: 28),
+                child: TextFormField(
+                  onChanged: (String string) {
+                    name = string.trim();
+                  },
                   cursorColor: Color(0xff643ff9),
                   decoration: InputDecoration(
                       labelText: 'ชื่อการ์ตูน',
@@ -99,9 +97,10 @@ class _CreateCartoonState extends State<CreateCartoon> {
               Container(
                 padding: EdgeInsets.symmetric(horizontal: 16),
                 margin: EdgeInsets.only(top: 28),
-                child: TextFormField(onChanged: ((value) {
-                  detail = value.trim();
-                }),
+                child: TextFormField(
+                  onChanged: ((value) {
+                    detail = value.trim();
+                  }),
                   maxLines: 5,
                   cursorColor: Color(0xff643ff9),
                   textAlignVertical: TextAlignVertical.top,
@@ -125,7 +124,8 @@ class _CreateCartoonState extends State<CreateCartoon> {
                 height: 32,
               ),
               Center(
-                  child: CustomButton(onPressed: uploadFile, text: 'สร้างการ์ตูน')),
+                  child: CustomButton(
+                      onPressed: uploadFile, text: 'สร้างการ์ตูน')),
               SizedBox(
                 height: 12,
               ),
@@ -142,7 +142,7 @@ class _CreateCartoonState extends State<CreateCartoon> {
         )));
   }
 
-  Future selecFile() async{
+  Future selecFile() async {
     final pickedname = await FilePicker.platform.pickFiles(
       type: FileType.custom,
       allowedExtensions: ['pdf'],
@@ -169,7 +169,7 @@ class _CreateCartoonState extends State<CreateCartoon> {
     print('Insert Success');
   }
 
-  Future<void> uploadFirestore() async{
+  Future<void> uploadFirestore() async {
     FirebaseFirestore firestore = FirebaseFirestore.instance;
 
     Map<String, dynamic> map = Map();
@@ -177,11 +177,7 @@ class _CreateCartoonState extends State<CreateCartoon> {
     map['Detail'] = detail;
     map['UrlPicture'] = urlPicture;
 
-    firestore
-    .collection('Cartoon')
-    .doc('Document')
-    .set(map)
-    .then((v) {});
+    firestore.collection('Cartoon').doc('Document').set(map).then((v) {});
   }
 
   basename(String path) {}
