@@ -166,6 +166,21 @@ class _CreateCartoonState extends State<CreateCartoon> {
     });
   }
 
+  Future selecCover() async {
+    final pickedcover = await FilePicker.platform.pickFiles(
+      type: FileType.custom,
+      allowedExtensions: ['pdf'],
+    );
+
+    if (pickedcover == null) return;
+    final path = pickedcover.files.single.path!;
+
+    setState(() {
+      file = File(path);
+      coverFile = pickedcover.files.first;
+    });
+  }
+
   Future uploadFile() async {
     final path = 'Cartoon/${pickedFile!.name}';
     final file = File(pickedFile!.path!);
@@ -186,7 +201,11 @@ class _CreateCartoonState extends State<CreateCartoon> {
     map['Detail'] = detail;
     map['UrlPicture'] = urlPicture;
 
-    firestore.collection('Cartoon').doc('Document').set(map).then((v) {});
+    firestore
+    .collection('Cartoon')
+    .doc()
+    .set(map)
+    .then((v) {});
   }
 
   basename(String path) {}
