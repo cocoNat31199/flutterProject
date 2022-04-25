@@ -45,6 +45,7 @@ dependencies:
   file_picker: ^4.5.1
   open_file: ^3.2.1
   firebase_storage: ^10.2.13
+  cloud_firestore: ^3.1.13
 
 dev_dependencies:
   flutter_test:

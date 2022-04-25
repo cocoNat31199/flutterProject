@@ -1,5 +1,9 @@
 import 'dart:ffi';
+import 'dart:io';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
+import 'package:file_picker/file_picker.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:merrily/component/custombutton.dart';
 
@@ -11,6 +15,10 @@ class CreateCartoon extends StatefulWidget {
 }
 
 class _CreateCartoonState extends State<CreateCartoon> {
+  PlatformFile? pickedFile;
+  PlatformFile? coverFile;
+  File? file;
+  String? name, detail, urlPicture;
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -49,7 +57,7 @@ class _CreateCartoonState extends State<CreateCartoon> {
                   Positioned(
                     bottom: -96,
                     child: GestureDetector(
-                      onTap: () {
+                      onTap: () { selecFile();
                         // ใส่ฟังก์ชันตรงนี้
                       },
                       child: Center(
@@ -68,7 +76,9 @@ class _CreateCartoonState extends State<CreateCartoon> {
               Container(
                 padding: EdgeInsets.symmetric(horizontal: 16),
                 margin: EdgeInsets.only(top: 120),
-                child: TextFormField(
+                child: TextFormField(onChanged: (String string){
+                  name = string.trim();
+                },
                   cursorColor: Color(0xff643ff9),
                   decoration: InputDecoration(
                       labelText: 'ชื่อการ์ตูน',
@@ -89,7 +99,9 @@ class _CreateCartoonState extends State<CreateCartoon> {
               Container(
                 padding: EdgeInsets.symmetric(horizontal: 16),
                 margin: EdgeInsets.only(top: 28),
-                child: TextFormField(
+                child: TextFormField(onChanged: ((value) {
+                  detail = value.trim();
+                }),
                   maxLines: 5,
                   cursorColor: Color(0xff643ff9),
                   textAlignVertical: TextAlignVertical.top,
@@ -113,7 +125,7 @@ class _CreateCartoonState extends State<CreateCartoon> {
                 height: 32,
               ),
               Center(
-                  child: CustomButton(onPressed: () {}, text: 'สร้างการ์ตูน')),
+                  child: CustomButton(onPressed: uploadFile, text: 'สร้างการ์ตูน')),
               SizedBox(
                 height: 12,
               ),
@@ -128,5 +140,61 @@ class _CreateCartoonState extends State<CreateCartoon> {
             ]),
           ),
         )));
+  }
+
+  Future selecFile() async{
+    final pickedname = await FilePicker.platform.pickFiles(
+      type: FileType.custom,
+      allowedExtensions: ['pdf'],
+    );
+
+    if (pickedname == null) return;
+    final path = pickedname.files.single.path!;
+
+    setState(() {
+      file = File(path);
+      pickedFile = pickedname.files.first;
+    });
+  }
+
+  Future uploadFile() async {
+    final path = 'Cartoon/${pickedFile!.name}';
+    final file = File(pickedFile!.path!);
+
+    final ref = FirebaseStorage.instance.ref().child(path);
+    ref.putFile(file);
+
+    UploadTask uploadTask = ref.putFile(file);
+    uploadFirestore();
+    print('Insert Success');
+  }
+
+  Future<void> uploadFirestore() async{
+    FirebaseFirestore firestore = FirebaseFirestore.instance;
+
+    Map<String, dynamic> map = Map();
+    map['Name'] = name;
+    map['Detail'] = detail;
+    map['UrlPicture'] = urlPicture;
+
+    firestore
+    .collection('Cartoon')
+    .doc('Document')
+    .set(map)
+    .then((v) {});
+  }
+
+  basename(String path) {}
+}
+
+class FirebaseApi {
+  static UploadTask? uploadFile(String destination, File file) {
+    try {
+      final ref = FirebaseStorage.instance.ref(destination);
+
+      return ref.putFile(file);
+    } on FirebaseException catch (e) {
+      return null;
+    }
   }
 }
