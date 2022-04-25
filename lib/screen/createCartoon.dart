@@ -204,6 +204,7 @@ class _CreateCartoonState extends State<CreateCartoon> {
     map['Detail'] = detail;
     map['UrlPicture'] = urlPicture;
 
+    //Insert Data To Firestore
     firestore
     .collection('Cartoon')
     .doc()
