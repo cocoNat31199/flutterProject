@@ -4,6 +4,7 @@ import 'package:file_picker/file_picker.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:merrily/component/custombutton.dart';
+import 'package:merrily/screen/createCartoon.dart';
 
 class UploadPage extends StatefulWidget {
   const UploadPage({Key? key}) : super(key: key);
@@ -18,213 +19,77 @@ class _UploadPageState extends State<UploadPage> {
   File? file;
   @override
   Widget build(BuildContext context) {
-
     return MaterialApp(
         theme: new ThemeData(
             primaryColor: Color(0xff643ff9),
             scaffoldBackgroundColor: const Color(0xff643ff9),
             fontFamily: ('Kanit ')),
         home: Scaffold(
-            appBar: AppBar(
-              automaticallyImplyLeading: false,
-              backgroundColor: Colors.white,
-              elevation: 0.0,
-              title: Text(
-                'อัพโหลดการ์ตูน',
-                style: TextStyle(
-                    color: Colors.black,
-                    fontFamily: 'Kanit',
-                    fontSize: 20,
-                    fontWeight: FontWeight.bold),
+          appBar: AppBar(
+            automaticallyImplyLeading: false,
+            backgroundColor: Colors.white,
+            elevation: 0.0,
+            leading: IconButton(
+                onPressed: () {
+                  Navigator.pop(context);
+                },
+                icon: Icon(
+                  Icons.arrow_back_ios,
+                  color: Colors.black,
+                )),
+            title: Text(
+              'อัพโหลดการ์ตูน',
+              style: TextStyle(
+                  color: Colors.black,
+                  fontFamily: 'Kanit',
+                  fontSize: 20,
+                  fontWeight: FontWeight.bold),
+            ),
+          ),
+          body: Container(
+            height: double.infinity,
+            width: double.infinity,
+            margin: EdgeInsets.only(bottom: 56),
+            padding: EdgeInsets.symmetric(horizontal: 16),
+            decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.only(
+                  bottomLeft: Radius.circular(20.0),
+                  bottomRight: Radius.circular(20.0),
+                )),
+            child: SingleChildScrollView(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  SizedBox(
+                    height: 16,
+                  ),
+                  Text(
+                    'การ์ตูนทั้งหมด',
+                    style: TextStyle(
+                        color: Color(0xff969696),
+                        fontFamily: 'Kanit',
+                        fontSize: 12),
+                  ),
+                ],
               ),
             ),
-            body: Container(
-              height: double.infinity,
-              width: double.infinity,
-              margin: EdgeInsets.only(bottom: 56),
-              padding: EdgeInsets.symmetric(horizontal: 16),
-              decoration: BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.only(
-                    bottomLeft: Radius.circular(20.0),
-                    bottomRight: Radius.circular(20.0),
-                  )),
-              child: SingleChildScrollView(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    SizedBox(
-                      height: 16,
-                    ),
-                    Text('รายละเอียดการ์ตูน',
-                        style: TextStyle(
-                            color: Color(0xff969696),
-                            fontFamily: 'Kanit',
-                            fontSize: 12)),
-                    Container(
-                      margin: EdgeInsets.only(top: 12),
-                      child: TextFormField(
-                        cursorColor: Color(0xff643ff9),
-                        decoration: InputDecoration(
-                            labelText: 'ชื่อตอน',
-                            labelStyle: TextStyle(
-                              fontFamily: 'Kanit',
-                              fontSize: 16,
-                            ),
-                            floatingLabelStyle: TextStyle(
-                              color: Color(0xff643ff9),
-                              fontFamily: 'Kanit',
-                            ),
-                            border: OutlineInputBorder(
-                                borderSide:
-                                    BorderSide(color: Color(0xff643ff9))),
-                            focusedBorder: OutlineInputBorder(
-                                borderSide:
-                                    BorderSide(color: Color(0xff643ff9)))),
-                      ),
-                    ),
-                    Container(
-                      margin: EdgeInsets.only(top: 16),
-                      child: TextFormField(
-                        cursorColor: Color(0xff643ff9),
-                        decoration: InputDecoration(
-                            labelText: 'ตอนของการ์ตูน',
-                            labelStyle: TextStyle(
-                              fontFamily: 'Kanit',
-                              fontSize: 16,
-                            ),
-                            floatingLabelStyle: TextStyle(
-                              color: Color(0xff643ff9),
-                              fontFamily: 'Kanit',
-                            ),
-                            border: OutlineInputBorder(
-                                borderSide:
-                                    BorderSide(color: Color(0xff643ff9))),
-                            focusedBorder: OutlineInputBorder(
-                                borderSide:
-                                    BorderSide(color: Color(0xff643ff9)))),
-                      ),
-                    ),
-                    SizedBox(
-                      height: 24,
-                    ),
-                    Text('อัพโหลดไฟล์หน้าปกการ์ตูนของคุณ',
-                        style: TextStyle(
-                            color: Color(0xff969696),
-                            fontFamily: 'Kanit',
-                            fontSize: 12)),
-                    GestureDetector(
-                      onTap: () {
-                        selecCover();
-                      },
-                      child: Container(
-                        margin: EdgeInsets.only(top: 12),
-                        height: 68,
-                        decoration: BoxDecoration(
-                            color: Colors.white,
-                            borderRadius: BorderRadius.circular(10),
-                            border: Border.all(
-                                color: Color(0xff969696),
-                                width: 1,
-                                style: BorderStyle.solid),
-                            boxShadow: <BoxShadow>[
-                              BoxShadow(
-                                  color: Colors.black54,
-                                  blurRadius: 1,
-                                  offset: Offset(0.0, 0.75))
-                            ]),
-                        child: Center(
-                            child: Text( coverFile != null ? '${coverFile!.name}' :
-                          'แตะเพื่ออัพโหลดไฟล์ของคุณ',
-                          style: TextStyle(
-                              color: Colors.black45,
-                              fontFamily: 'Kanit',
-                              fontSize: 16),
-                        )),
-                      ),
-                    ),
-                    SizedBox(
-                      height: 24,
-                    ),
-                    Text('อัพโหลดไฟล์การ์ตูนของคุณ',
-                        style: TextStyle(
-                            color: Color(0xff969696),
-                            fontFamily: 'Kanit',
-                            fontSize: 12)),
-                    GestureDetector(
-                      onTap: () {
-                        selecFile();
-                      },
-                      child: Container(
-                        margin: EdgeInsets.only(top: 12),
-                        height: 68,
-                        decoration: BoxDecoration(
-                            color: Colors.white,
-                            borderRadius: BorderRadius.circular(10),
-                            border: Border.all(
-                                color: Color(0xff969696),
-                                width: 1,
-                                style: BorderStyle.solid),
-                            boxShadow: <BoxShadow>[
-                              BoxShadow(
-                                  color: Colors.black54,
-                                  blurRadius: 1,
-                                  offset: Offset(0.0, 0.75))
-                            ]),
-                        child: Center(
-                            child: Text( pickedFile != null ? '${pickedFile!.name}' :
-                          'แตะเพื่ออัพโหลดไฟล์ของคุณ',
-                          style: TextStyle(
-                              color: Colors.black45,
-                              fontFamily: 'Kanit',
-                              fontSize: 16),
-                        )),
-                      ),
-                    ),
-                    SizedBox(
-                      height: 24,
-                    ),
-                    Text('เลือกวันอัพโหลดการ์ตูนของคุณ',
-                        style: TextStyle(
-                            color: Color(0xff969696),
-                            fontFamily: 'Kanit',
-                            fontSize: 12)),
-                    Container(
-                      height: 48.0,
-                      margin: EdgeInsets.only(top: 12),
-                      alignment: Alignment.centerLeft,
-                      child: ListView(
-                        scrollDirection: Axis.horizontal,
-                        children: [
-                          Container(
-                            height: 48,
-                            width: 48,
-                            color: Colors.amber,
-                          ),
-                        ],
-                      ),
-                    ),
-                    SizedBox(
-                      height: 24,
-                    ),
-                    Center(
-                      child: Column(
-                        children: [
-                          CustomButton(
-                              onPressed: () {uploadFile(); uploadFiles();} ,
-                              text: 'อัพโหลดการ์ตูนของฉัน'),
-                          CustomButton(
-                              onPressed: () {
-                                Navigator.pop(context);
-                              },
-                              text: 'ยกเลิก'),
-                        ],
-                      ),
-                    )
-                  ],
-                ),
+          ),
+          floatingActionButton: Container(
+            margin: EdgeInsets.only(bottom: 56),
+            child: FloatingActionButton(
+              onPressed: () {
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => CreateCartoon()));
+              },
+              backgroundColor: Color(0xff643ff9),
+              child: Icon(
+                Icons.add_outlined,
+                size: 36,
               ),
-            )));
+            ),
+          ),
+        ));
   }
 
   Future selecFile() async {
@@ -242,7 +107,7 @@ class _UploadPageState extends State<UploadPage> {
     });
   }
 
-  Future selecCover() async{
+  Future selecCover() async {
     final pickedcover = await FilePicker.platform.pickFiles(
       type: FileType.custom,
       allowedExtensions: ['pdf'],

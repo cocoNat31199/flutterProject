@@ -2,6 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:merrily/component/categoriesbutton.dart';
+import 'package:merrily/component/coverCartoon.dart';
 import 'package:merrily/screen/categoriesPage.dart';
 import 'package:merrily/screen/searchpage.dart';
 
@@ -50,7 +51,7 @@ class _HomeState extends State<Home> {
               color: Colors.black,
             ),
             onPressed: () {
-              Navigator.pushReplacement(
+              Navigator.push(
                 context,
                 MaterialPageRoute(builder: (context) => SearchPage()),
               );
@@ -88,6 +89,7 @@ class _InconState extends State<Incon> {
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
+      padding: EdgeInsets.only(bottom: 28),
       child: Column(
         children: [
           SlideImg(),
@@ -294,9 +296,29 @@ class _ReadLatestState extends State<ReadLatest> {
         Container(
           height: 174,
           constraints: BoxConstraints(minHeight: 174),
-          padding: EdgeInsets.symmetric(horizontal: 16, vertical: 10),
           child: ListView(
-              scrollDirection: Axis.horizontal, shrinkWrap: true, children: []),
+              scrollDirection: Axis.horizontal,
+              padding: EdgeInsets.symmetric(horizontal: 16),
+              shrinkWrap: true,
+              children: [
+                CoverCartoon(),
+                SizedBox(
+                  width: 10,
+                ),
+                CoverCartoon(),
+                SizedBox(
+                  width: 10,
+                ),
+                CoverCartoon(),
+                SizedBox(
+                  width: 10,
+                ),
+                CoverCartoon(),
+                SizedBox(
+                  width: 10,
+                ),
+                CoverCartoon()
+              ]),
         )
       ],
     );
@@ -329,9 +351,29 @@ class _RecommendState extends State<Recommend> {
         Container(
           height: 174,
           constraints: BoxConstraints(minHeight: 174),
-          padding: EdgeInsets.symmetric(horizontal: 16, vertical: 10),
           child: ListView(
-              scrollDirection: Axis.horizontal, shrinkWrap: true, children: []),
+              scrollDirection: Axis.horizontal,
+              padding: EdgeInsets.symmetric(horizontal: 16),
+              shrinkWrap: true,
+              children: [
+                CoverCartoon(),
+                SizedBox(
+                  width: 10,
+                ),
+                CoverCartoon(),
+                SizedBox(
+                  width: 10,
+                ),
+                CoverCartoon(),
+                SizedBox(
+                  width: 10,
+                ),
+                CoverCartoon(),
+                SizedBox(
+                  width: 10,
+                ),
+                CoverCartoon()
+              ]),
         )
       ],
     );
@@ -361,57 +403,103 @@ class _TopRatingState extends State<TopRating> {
             ),
           ),
         ),
-        Container(
-            padding: EdgeInsets.symmetric(horizontal: 16, vertical: 10),
-            child: Column(
-              children: [
-                Table(
-                  defaultVerticalAlignment: TableCellVerticalAlignment.middle,
-                  children: [
-                    TableRow(children: [
-                      Container(
-                        height: 48,
-                        width: 48,
-                        color: Colors.red,
-                      ),
-                      Container(height: 48, width: 48, color: Colors.green),
-                      Container(height: 48, width: 48, color: Colors.blue)
-                    ]),
-                    TableRow(children: [
-                      Container(
-                        height: 48,
-                        width: 48,
-                        color: Colors.green,
-                      ),
-                      Container(height: 48, width: 48, color: Colors.blue),
-                      Container(height: 48, width: 48, color: Colors.red)
-                    ]),
-                    TableRow(children: [
-                      Container(
-                        height: 48,
-                        width: 48,
-                        color: Colors.blue,
-                      ),
-                      Container(height: 48, width: 48, color: Colors.red),
-                      Container(height: 48, width: 48, color: Colors.green)
-                    ])
-                  ],
-                ),
-                SizedBox(
-                  width: double.infinity,
-                  child: ElevatedButton(
-                      onPressed: () {},
-                      child: Text('ดูเพิ่มเติม'),
-                      style: ElevatedButton.styleFrom(
-                          primary: Color(0xff643ff9),
-                          elevation: 0.0,
-                          textStyle: TextStyle(
-                              fontFamily: 'Kanit',
-                              fontSize: 18,
-                              color: Colors.white))),
-                )
-              ],
-            ))
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 16),
+          child: Column(
+            children: [
+              Container(
+                height: 136,
+                decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(10),
+                    color: Colors.amber),
+              ),
+              SizedBox(
+                height: 10,
+              ),
+              Container(
+                height: 136,
+                decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(10),
+                    color: Colors.amber),
+              ),
+              SizedBox(
+                height: 10,
+              ),
+              Container(
+                height: 136,
+                decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(10),
+                    color: Colors.amber),
+              ),
+              SizedBox(
+                height: 10,
+              ),
+              Container(
+                height: 136,
+                decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(10),
+                    color: Colors.amber),
+              ),
+              SizedBox(
+                height: 10,
+              ),
+              Container(
+                height: 136,
+                decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(10),
+                    color: Colors.amber),
+              ),
+              SizedBox(
+                height: 10,
+              ),
+              Container(
+                height: 136,
+                decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(10),
+                    color: Colors.amber),
+              ),
+              SizedBox(
+                height: 10,
+              ),
+              Container(
+                height: 136,
+                decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(10),
+                    color: Colors.amber),
+              ),
+              SizedBox(
+                height: 10,
+              ),
+              Container(
+                height: 136,
+                decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(10),
+                    color: Colors.amber),
+              ),
+              SizedBox(
+                height: 10,
+              ),
+              Container(
+                height: 136,
+                decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(10),
+                    color: Colors.amber),
+              ),
+              SizedBox(
+                height: 10,
+              ),
+              Container(
+                height: 136,
+                decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(10),
+                    color: Colors.amber),
+              ),
+              SizedBox(
+                height: 10,
+              ),
+            ],
+          ),
+        )
       ],
     );
   }
@@ -443,10 +531,30 @@ class _NewToonState extends State<NewToon> {
         Container(
           height: 174,
           constraints: BoxConstraints(minHeight: 174),
-          padding: EdgeInsets.symmetric(horizontal: 16, vertical: 10),
           child: ListView(
-              scrollDirection: Axis.horizontal, shrinkWrap: true, children: []),
-        ),
+              scrollDirection: Axis.horizontal,
+              padding: EdgeInsets.symmetric(horizontal: 16),
+              shrinkWrap: true,
+              children: [
+                CoverCartoon(),
+                SizedBox(
+                  width: 10,
+                ),
+                CoverCartoon(),
+                SizedBox(
+                  width: 10,
+                ),
+                CoverCartoon(),
+                SizedBox(
+                  width: 10,
+                ),
+                CoverCartoon(),
+                SizedBox(
+                  width: 10,
+                ),
+                CoverCartoon()
+              ]),
+        )
       ],
     );
   }
@@ -478,9 +586,29 @@ class _UpdateToonState extends State<UpdateToon> {
         Container(
           height: 174,
           constraints: BoxConstraints(minHeight: 174),
-          padding: EdgeInsets.symmetric(horizontal: 16, vertical: 10),
           child: ListView(
-              scrollDirection: Axis.horizontal, shrinkWrap: true, children: []),
+              scrollDirection: Axis.horizontal,
+              padding: EdgeInsets.symmetric(horizontal: 16),
+              shrinkWrap: true,
+              children: [
+                CoverCartoon(),
+                SizedBox(
+                  width: 10,
+                ),
+                CoverCartoon(),
+                SizedBox(
+                  width: 10,
+                ),
+                CoverCartoon(),
+                SizedBox(
+                  width: 10,
+                ),
+                CoverCartoon(),
+                SizedBox(
+                  width: 10,
+                ),
+                CoverCartoon()
+              ]),
         )
       ],
     );
