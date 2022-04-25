@@ -47,7 +47,12 @@ class _CreateCartoonState extends State<CreateCartoon> {
                 child: Container(
                   height: 180,
                   width: double.infinity,
-                  color: Colors.amber,
+                  color: Color(0xff969696),
+                  child: Icon(
+                    Icons.add,
+                    color: Colors.white,
+                    size: 48,
+                  ),
                 ),
               ),
               SizedBox(
@@ -67,7 +72,11 @@ class _CreateCartoonState extends State<CreateCartoon> {
                               file!,
                               fit: BoxFit.cover,
                             )
-                          : null),
+                          : Icon(
+                              Icons.add,
+                              color: Colors.white,
+                              size: 48,
+                            )),
                 ),
               ),
               Container(
