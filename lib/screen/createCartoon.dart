@@ -18,6 +18,7 @@ class _CreateCartoonState extends State<CreateCartoon> {
   PlatformFile? pickedFile;
   PlatformFile? coverFile;
   File? file;
+  File? cover;
   String? name, detail, urlPicture;
   @override
   Widget build(BuildContext context) {
@@ -41,18 +42,24 @@ class _CreateCartoonState extends State<CreateCartoon> {
             child:
                 Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
               GestureDetector(
-                onTap: () {
-                  // ใส่ฟังก์ชันตรงนี้
-                },
+                onTap: selecCover,
                 child: Container(
                   height: 180,
                   width: double.infinity,
                   color: Color(0xff969696),
-                  child: Icon(
-                    Icons.add,
-                    color: Colors.white,
-                    size: 48,
-                  ),
+                  child: cover != null
+                      ? ClipRRect(
+                          borderRadius: BorderRadius.circular(10),
+                          child: Image.file(
+                            cover!,
+                            fit: BoxFit.cover,
+                          ),
+                        )
+                      : Icon(
+                          Icons.add,
+                          color: Colors.white,
+                          size: 48,
+                        ),
                 ),
               ),
               SizedBox(
@@ -69,12 +76,12 @@ class _CreateCartoonState extends State<CreateCartoon> {
                           borderRadius: BorderRadius.circular(10)),
                       child: file != null
                           ? ClipRRect(
-                            borderRadius: BorderRadius.circular(10),
-                            child: Image.file(
+                              borderRadius: BorderRadius.circular(10),
+                              child: Image.file(
                                 file!,
                                 fit: BoxFit.cover,
                               ),
-                          )
+                            )
                           : Icon(
                               Icons.add,
                               color: Colors.white,
@@ -179,7 +186,7 @@ class _CreateCartoonState extends State<CreateCartoon> {
     final path = pickedcover.files.single.path!;
 
     setState(() {
-      file = File(path);
+      cover = File(path);
       coverFile = pickedcover.files.first;
     });
   }
@@ -205,11 +212,7 @@ class _CreateCartoonState extends State<CreateCartoon> {
     map['UrlPicture'] = urlPicture;
 
     //Insert Data To Firestore
-    firestore
-    .collection('Cartoon')
-    .doc()
-    .set(map)
-    .then((v) {});
+    firestore.collection('Cartoon').doc().set(map).then((v) {});
   }
 
   basename(String path) {}
