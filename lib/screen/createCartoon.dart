@@ -7,6 +7,7 @@ import 'package:custom_radio_grouped_button/custom_radio_grouped_button.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
+import 'package:form_field_validator/form_field_validator.dart';
 import 'package:merrily/component/customRadio.dart';
 import 'package:merrily/component/custombutton.dart';
 
@@ -22,7 +23,8 @@ class _CreateCartoonState extends State<CreateCartoon> {
   PlatformFile? coverFile;
   File? file;
   File? cover;
-  String? name, detail, urlPicture;
+  UploadTask? uploadTask;
+  String? name, detail, urlDownload, urlDownloads;
 
   Map<String, bool> List = {
     'แอคชั่น': false,
@@ -44,8 +46,8 @@ class _CreateCartoonState extends State<CreateCartoon> {
         uploadDay.add(key);
       }
     });
-    print(uploadDay);
-    uploadDay.clear();
+    // print(uploadDay);
+    // uploadDay.clear();
   }
 
   int _value = 1;
@@ -125,6 +127,7 @@ class _CreateCartoonState extends State<CreateCartoon> {
                   onChanged: (String string) {
                     name = string.trim();
                   },
+                  validator: RequiredValidator(errorText: 'กรุณาใส่ชื่อการ์ตูน'),
                   cursorColor: Color(0xff643ff9),
                   decoration: InputDecoration(
                       labelText: 'ชื่อการ์ตูน',
@@ -148,7 +151,7 @@ class _CreateCartoonState extends State<CreateCartoon> {
                 child: TextFormField(
                   onChanged: ((value) {
                     detail = value.trim();
-                  }),
+                  }),validator: RequiredValidator(errorText: 'กรุณาใส่รายละเอียดการ์ตูน'),
                   maxLines: 5,
                   cursorColor: Color(0xff643ff9),
                   textAlignVertical: TextAlignVertical.top,
@@ -293,7 +296,7 @@ class _CreateCartoonState extends State<CreateCartoon> {
                 height: 32,
               ),
               Center(
-                  child: CustomButton(onPressed: () {getDay(); uploadFile(); uploadFiles();}, text: 'สร้างการ์ตูน')),
+                  child: CustomButton(onPressed: () {getDay(); uploadFile(); uploadFiles().then((value) => Navigator.pop(context));}, text: 'สร้างการ์ตูน')),
               SizedBox(
                 height: 12,
               ),
@@ -345,10 +348,13 @@ class _CreateCartoonState extends State<CreateCartoon> {
     final file = File(pickedFile!.path!);
 
     final ref = FirebaseStorage.instance.ref().child(path);
-    ref.putFile(file);
+    uploadTask = ref.putFile(file);
 
-    UploadTask uploadTask = ref.putFile(file);
+    final snapshot = await uploadTask!.whenComplete(() => {});
+    final urlDownload = await snapshot.ref.getDownloadURL();
+    print('Cartoon Link: $urlDownload');
     uploadFirestore();
+    
   }
 
   Future uploadFiles() async {
@@ -356,9 +362,12 @@ class _CreateCartoonState extends State<CreateCartoon> {
     final files = File(coverFile!.path!);
 
     final ref = FirebaseStorage.instance.ref().child(paths);
-    ref.putFile(files);
+    uploadTask = ref.putFile(files);
 
-    UploadTask uploadTask = ref.putFile(files);
+    final snapshots = await uploadTask!.whenComplete(() => {});
+    final urlDownloads = await snapshots.ref.getDownloadURL();
+    print('Cover Link: $urlDownloads');
+    
   }
 
   Future<void> uploadFirestore() async {
@@ -367,24 +376,18 @@ class _CreateCartoonState extends State<CreateCartoon> {
     Map<String, dynamic> map = Map();
     map['Name'] = name;
     map['Detail'] = detail;
-    map['UrlPicture'] = urlPicture;
+    map['UrlPicture'] = urlDownload;
+    map ['UrlCover'] = urlDownloads;
     map['UploadDay'] = uploadDay;
+    map['Category'] = _value;
 
     //Insert Data To Firestore
-    firestore.collection('Cartoon').doc().set(map).then((v) {});
+    firestore
+    .collection('Cartoon')
+    .doc()
+    .set(map)
+    .then((v) {});
   }
 
   basename(String path) {}
-}
-
-class FirebaseApi {
-  static UploadTask? uploadFile(String destination, File file) {
-    try {
-      final ref = FirebaseStorage.instance.ref(destination);
-
-      return ref.putFile(file);
-    } on FirebaseException catch (e) {
-      return null;
-    }
-  }
 }
