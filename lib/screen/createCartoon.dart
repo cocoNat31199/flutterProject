@@ -293,7 +293,7 @@ class _CreateCartoonState extends State<CreateCartoon> {
                 height: 32,
               ),
               Center(
-                  child: CustomButton(onPressed: getDay, text: 'สร้างการ์ตูน')),
+                  child: CustomButton(onPressed: () {getDay(); uploadFile(); uploadFiles();}, text: 'สร้างการ์ตูน')),
               SizedBox(
                 height: 12,
               ),
@@ -313,7 +313,7 @@ class _CreateCartoonState extends State<CreateCartoon> {
   Future selecFile() async {
     final pickedname = await FilePicker.platform.pickFiles(
       type: FileType.custom,
-      allowedExtensions: ['png', 'jpg'],
+      allowedExtensions: ['png','jpg'],
     );
 
     if (pickedname == null) return;
@@ -328,7 +328,7 @@ class _CreateCartoonState extends State<CreateCartoon> {
   Future selecCover() async {
     final pickedcover = await FilePicker.platform.pickFiles(
       type: FileType.custom,
-      allowedExtensions: ['png', 'jpg'],
+      allowedExtensions: ['png','jpg'],
     );
 
     if (pickedcover == null) return;
@@ -349,7 +349,16 @@ class _CreateCartoonState extends State<CreateCartoon> {
 
     UploadTask uploadTask = ref.putFile(file);
     uploadFirestore();
-    print('Insert Success');
+  }
+
+  Future uploadFiles() async {
+    final paths = 'Cartoon/${coverFile!.name}';
+    final files = File(coverFile!.path!);
+
+    final ref = FirebaseStorage.instance.ref().child(paths);
+    ref.putFile(files);
+
+    UploadTask uploadTask = ref.putFile(files);
   }
 
   Future<void> uploadFirestore() async {
@@ -359,6 +368,7 @@ class _CreateCartoonState extends State<CreateCartoon> {
     map['Name'] = name;
     map['Detail'] = detail;
     map['UrlPicture'] = urlPicture;
+    map['UploadDay'] = uploadDay;
 
     //Insert Data To Firestore
     firestore.collection('Cartoon').doc().set(map).then((v) {});
