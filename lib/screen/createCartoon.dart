@@ -38,16 +38,14 @@ class _CreateCartoonState extends State<CreateCartoon> {
     'ย้อนยุค': false,
   };
 
-  var uploadDay = [];
+  var uploadCategory = [];
 
-  getDay() {
+  getCategory() {
     List.forEach((key, value) {
       if (value == true) {
-        uploadDay.add(key);
+        uploadCategory.add(key);
       }
     });
-    // print(uploadDay);
-    // uploadDay.clear();
   }
 
   int _value = 1;
@@ -296,7 +294,8 @@ class _CreateCartoonState extends State<CreateCartoon> {
                 height: 32,
               ),
               Center(
-                  child: CustomButton(onPressed: () {getDay(); uploadFile(); uploadFiles().then((value) => Navigator.pop(context));}, text: 'สร้างการ์ตูน')),
+
+                  child: CustomButton(onPressed: () {getCategory(); uploadFile(); uploadFiles().then((value) => Navigator.pop(context));}, text: 'สร้างการ์ตูน')),
               SizedBox(
                 height: 12,
               ),
@@ -378,7 +377,7 @@ class _CreateCartoonState extends State<CreateCartoon> {
     map['Detail'] = detail;
     map['UrlPicture'] = urlDownload;
     map ['UrlCover'] = urlDownloads;
-    map['UploadDay'] = uploadDay;
+    map['UploadDay'] = uploadCategory;
     map['Category'] = _value;
 
     //Insert Data To Firestore
