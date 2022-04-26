@@ -25,7 +25,7 @@ class _CreateCartoonState extends State<CreateCartoon> {
   File? file;
   File? cover;
   UploadTask? uploadTask;
-  String? name, detail, urlDownload, urlDownloads;
+  String? name, detail, urlCartoon, urlCover;
   final _formKey = GlobalKey<FormState>();
 
   Map<String, bool> List = {
@@ -394,28 +394,22 @@ class _CreateCartoonState extends State<CreateCartoon> {
   }
 
   Future uploadFile() async {
-    final path = 'Cartoon/${pickedFile!.name}';
-    final file = File(pickedFile!.path!);
+    FirebaseStorage firebaseStorage = FirebaseStorage.instance;
+    Reference storageReference = firebaseStorage.ref().child('Cartoon/${pickedFile!.name}');
+    UploadTask storageUploadTask = storageReference.putFile(file!);
 
-    final ref = FirebaseStorage.instance.ref().child(path);
-    uploadTask = ref.putFile(file);
-
-    final snapshot = await uploadTask!.whenComplete(() => {});
-    final urlDownload = await snapshot.ref.getDownloadURL();
-    print('Cartoon Link: $urlDownload');
+    urlCartoon = await (await storageUploadTask).ref.getDownloadURL();
+    print('Cartoon URL = $urlCartoon');
     uploadFirestore();
   }
 
   Future uploadFiles() async {
-    final paths = 'Cartoon/${coverFile!.name}';
-    final files = File(coverFile!.path!);
+    FirebaseStorage firebaseStorageC = FirebaseStorage.instance;
+    Reference storageReferenceC = firebaseStorageC.ref().child('Cartoon/${coverFile!.name}');
+    UploadTask storageUploadTaskC = storageReferenceC.putFile(cover!);
 
-    final ref = FirebaseStorage.instance.ref().child(paths);
-    uploadTask = ref.putFile(files);
-
-    final snapshots = await uploadTask!.whenComplete(() => {});
-    final urlDownloads = await snapshots.ref.getDownloadURL();
-    print('Cover Link: $urlDownloads');
+    urlCover = await (await storageUploadTaskC).ref.getDownloadURL();
+    print('Cover URL: $urlCover');
   }
 
   Future<void> uploadFirestore() async {
@@ -424,8 +418,8 @@ class _CreateCartoonState extends State<CreateCartoon> {
     Map<String, dynamic> map = Map();
     map['Name'] = name;
     map['Detail'] = detail;
-    map['UrlPicture'] = urlDownload;
-    map['UrlCover'] = urlDownloads;
+    map['UrlCartoon'] = urlCartoon;
+    map['UrlCover'] = urlCover;
     map['UploadCategory'] = uploadCategory;
     map['Category'] = _value;
 
