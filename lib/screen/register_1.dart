@@ -132,6 +132,7 @@ class _RegisFormState extends State<RegisForm> {
                       EmailValidator(errorText: 'รูปแบบอีเมลไม่ถูกต้อง')
                     ]),
                     cursorColor: Color(0xff643ff9),
+                    style: TextStyle(fontFamily: 'Kanit'),
                     decoration: InputDecoration(
                         labelText: 'E-mail',
                         labelStyle: TextStyle(
@@ -164,6 +165,8 @@ class _RegisFormState extends State<RegisForm> {
                     },
                     cursorColor: Color(0xff643ff9),
                     obscureText: _isVisible ? false : true,
+
+                    style: TextStyle(fontFamily: 'Kanit'),
                     decoration: InputDecoration(
                       labelText: 'Password',
                       labelStyle: TextStyle(
@@ -195,6 +198,8 @@ class _RegisFormState extends State<RegisForm> {
                       user.confirmpassword = confirmpassword;
                     },
                     controller: _confirmPass,
+
+                    style: TextStyle(fontFamily: 'Kanit'),
                     validator: (String? confirmPass) {
                       if (confirmPass!.isEmpty) return 'กรุณาใส่ยืนยันรหัสผ่าน';
                       if (confirmPass != _pass.text)
@@ -422,8 +427,7 @@ class _RegisForm_2State extends State<RegisForm_2> {
               child: SizedBox(
                 width: double.infinity,
                 child: CustomButton(
-                  onPressed: () async{
-                  },
+                  onPressed: () async {},
                   text: 'ต่อไป',
                 ),
               ),
@@ -462,5 +466,5 @@ class _RegisForm_2State extends State<RegisForm_2> {
   //      });
   //   });
   // }
-  
+
 }

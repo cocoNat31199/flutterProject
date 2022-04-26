@@ -172,6 +172,7 @@ class _InputformState extends State<Inputform> {
                       EmailValidator(errorText: 'รูปแบบอีเมลไม่ถูกต้อง')
                     ]),
                     cursorColor: Color(0xff643ff9),
+                    style: TextStyle(fontFamily: 'Kanit'),
                     decoration: InputDecoration(
                         labelText: 'E-mail',
                         labelStyle: TextStyle(
@@ -199,6 +200,7 @@ class _InputformState extends State<Inputform> {
                         RequiredValidator(errorText: 'กรุณาป้อนรหัสผ่าน'),
                     cursorColor: Color(0xff643ff9),
                     obscureText: _isVisible ? false : true,
+                    style: TextStyle(fontFamily: 'Kanit'),
                     decoration: InputDecoration(
                       labelText: 'Password',
                       labelStyle: TextStyle(
