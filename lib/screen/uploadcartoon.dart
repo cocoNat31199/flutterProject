@@ -2,6 +2,7 @@ import 'dart:ui';
 
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:merrily/screen/allEpCartoon.dart';
 import 'package:merrily/screen/createCartoon.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:merrily/screen/updateEp.dart';
@@ -15,7 +16,6 @@ class UploadPage extends StatefulWidget {
 
 class _UploadPageState extends State<UploadPage> {
   final auth = FirebaseAuth.instance;
-  final crud = Crud();
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -86,9 +86,10 @@ class _UploadPageState extends State<UploadPage> {
                           shrinkWrap: true,
                           children: snapshot.data!.docs.map((doc) {
                             return Card(
+                              color: Color(0xff643ff9),
                               child: InkWell(
                                   onTap: () {
-                                    Navigator.push(context, MaterialPageRoute(builder: ((context) => UpdartEp())));
+                                    Navigator.push(context, MaterialPageRoute(builder: ((context) => AllEpCartoon(cartoonName: '${doc['Name']}',))));
                                   },
                                   child: SizedBox(
                                       height: 72,
@@ -105,6 +106,7 @@ class _UploadPageState extends State<UploadPage> {
                                           Center(
                                             child: Text(doc['Name'],
                                                 style: TextStyle(
+                                                  color: Colors.white,
                                                   fontFamily: 'Kanit',
                                                 )),
                                           )
@@ -136,15 +138,5 @@ class _UploadPageState extends State<UploadPage> {
             ),
           ),
         ));
-  }
-}
-
-class Crud {
-  final auth = FirebaseAuth.instance;
-  Future<QuerySnapshot> getData() async {
-    return await FirebaseFirestore.instance
-        .collection('Cartoon')
-        .where('userid', isEqualTo: auth.currentUser!.uid)
-        .get();
   }
 }

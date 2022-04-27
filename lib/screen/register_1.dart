@@ -8,8 +8,6 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:form_field_validator/form_field_validator.dart';
 import 'package:merrily/component/custombutton.dart';
 import 'package:merrily/component/user.dart';
-// import 'package:image_picker/image_picker.dart';
-// import 'package:firebase_storage/firebase_storage.dart';
 
 class Register_1 extends StatefulWidget {
   const Register_1({Key? key}) : super(key: key);

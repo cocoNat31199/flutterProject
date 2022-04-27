@@ -296,7 +296,7 @@ class _ReadLatestState extends State<ReadLatest> {
         Container(
           height: 174,
           constraints: BoxConstraints(minHeight: 174),
-          child: ListView(
+          child: ListView( //ใส่streamก่อนอันนี้
               scrollDirection: Axis.horizontal,
               padding: EdgeInsets.symmetric(horizontal: 16),
               shrinkWrap: true,
@@ -351,7 +351,7 @@ class _RecommendState extends State<Recommend> {
         Container(
           height: 174,
           constraints: BoxConstraints(minHeight: 174),
-          child: ListView(
+          child: ListView( //ใส่streamก่อนอันนี้
               scrollDirection: Axis.horizontal,
               padding: EdgeInsets.symmetric(horizontal: 16),
               shrinkWrap: true,
@@ -531,7 +531,7 @@ class _NewToonState extends State<NewToon> {
         Container(
           height: 174,
           constraints: BoxConstraints(minHeight: 174),
-          child: ListView(
+          child: ListView( //ใส่streamก่อนอันนี้
               scrollDirection: Axis.horizontal,
               padding: EdgeInsets.symmetric(horizontal: 16),
               shrinkWrap: true,
@@ -586,7 +586,7 @@ class _UpdateToonState extends State<UpdateToon> {
         Container(
           height: 174,
           constraints: BoxConstraints(minHeight: 174),
-          child: ListView(
+          child: ListView( //ใส่streamตรงนี้
               scrollDirection: Axis.horizontal,
               padding: EdgeInsets.symmetric(horizontal: 16),
               shrinkWrap: true,
