@@ -2,15 +2,16 @@ import 'dart:core';
 import 'dart:ffi';
 import 'dart:io';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:custom_radio_grouped_button/custom_radio_grouped_button.dart';
-
 import 'package:file_picker/file_picker.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:form_field_validator/form_field_validator.dart';
 import 'package:merrily/component/customRadio.dart';
 import 'package:merrily/component/custombutton.dart';
+import 'package:merrily/screen/home.dart';
+import 'package:merrily/screen/uploadcartoon.dart';
 
 class CreateCartoon extends StatefulWidget {
   const CreateCartoon({Key? key}) : super(key: key);
@@ -26,6 +27,9 @@ class _CreateCartoonState extends State<CreateCartoon> {
   File? cover;
   UploadTask? uploadTask;
   String? name, detail, urlCartoon, urlCover;
+
+  final auth = FirebaseAuth.instance;
+  late final userid = auth.currentUser!.uid;
   final _formKey = GlobalKey<FormState>();
 
   Map<String, bool> List = {
@@ -326,11 +330,15 @@ class _CreateCartoonState extends State<CreateCartoon> {
                                     file != null &&
                                     uploadCategory.isNotEmpty == true) {
                                   uploadFile();
-                                  uploadFiles();
                                   Fluttertoast.showToast(
                                           msg: 'สร้างการ์ตูนสำเร็จ',
                                           gravity: ToastGravity.BOTTOM)
-                                      .then((value) => Navigator.pop(context));
+                                      .then((value) =>
+                                          Navigator.pushReplacement(
+                                              context,
+                                              MaterialPageRoute(
+                                                  builder: (context) =>
+                                                      UploadPage())));
                                 } else {
                                   Fluttertoast.showToast(
                                           msg: 'กรุณาใส่ข้อมูลให้ครบ',
@@ -339,10 +347,6 @@ class _CreateCartoonState extends State<CreateCartoon> {
                                     uploadCategory.clear();
                                   });
                                 }
-                              } else {
-                                Fluttertoast.showToast(
-                                    msg: 'กรุณาใส่ข้อมูลให้ครบ',
-                                    gravity: ToastGravity.BOTTOM);
                               }
                             },
                             text: 'สร้างการ์ตูน')),
@@ -356,6 +360,9 @@ class _CreateCartoonState extends State<CreateCartoon> {
                         },
                         text: 'ยกเลิก',
                       ),
+                    ),
+                    SizedBox(
+                      height: 28,
                     )
                   ]),
             ),
@@ -395,34 +402,33 @@ class _CreateCartoonState extends State<CreateCartoon> {
 
   Future uploadFile() async {
     FirebaseStorage firebaseStorage = FirebaseStorage.instance;
-    Reference storageReference = firebaseStorage.ref().child('Cartoon/${pickedFile!.name}');
+    Reference storageReference =
+        firebaseStorage.ref().child('Cartoon/${pickedFile!.name}');
     UploadTask storageUploadTask = storageReference.putFile(file!);
 
     urlCartoon = await (await storageUploadTask).ref.getDownloadURL();
-    print('Cartoon URL = $urlCartoon');
-    uploadFirestore();
-  }
 
-  Future uploadFiles() async {
     FirebaseStorage firebaseStorageC = FirebaseStorage.instance;
-    Reference storageReferenceC = firebaseStorageC.ref().child('Cartoon/${coverFile!.name}');
+    Reference storageReferenceC =
+        firebaseStorageC.ref().child('Cartoon/${coverFile!.name}');
     UploadTask storageUploadTaskC = storageReferenceC.putFile(cover!);
 
     urlCover = await (await storageUploadTaskC).ref.getDownloadURL();
-    print('Cover URL: $urlCover');
+
+    uploadFirestore();
   }
 
   Future<void> uploadFirestore() async {
     FirebaseFirestore firestore = FirebaseFirestore.instance;
 
     Map<String, dynamic> map = Map();
+    map['userid'] = userid;
+    map['UrlCover'] = urlCover;
+    map['UrlCartoon'] = urlCartoon;
     map['Name'] = name;
     map['Detail'] = detail;
-    map['UrlCartoon'] = urlCartoon;
-    map['UrlCover'] = urlCover;
     map['UploadCategory'] = uploadCategory;
-    map['Category'] = _value;
-
+    map['Day'] = _value;
     //Insert Data To Firestore
     firestore.collection('Cartoon').doc().set(map).then((v) {});
   }
