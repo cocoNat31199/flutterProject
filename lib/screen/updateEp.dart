@@ -4,9 +4,11 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:form_field_validator/form_field_validator.dart';
 import 'package:merrily/component/custombutton.dart';
 import 'package:file_picker/file_picker.dart';
+import 'package:path/path.dart';
 
 class UpdateEp extends StatefulWidget {
   final String cartoonName;
@@ -18,11 +20,12 @@ class UpdateEp extends StatefulWidget {
 }
 
 class _UpdateEpState extends State<UpdateEp> {
-  String? Chaptername, ChapterNum, UrlChapter , Urlpdf;
+  String? Chaptername, ChapterNum, UrlChapter, Urlpdf;
   PlatformFile? pickedFile;
   PlatformFile? pdfFile;
   File? picfile;
   File? picpdf;
+  late final _pdfName = basename(picpdf!.path);
   final auth = FirebaseAuth.instance;
   final _formKey = GlobalKey<FormState>();
 
@@ -97,38 +100,30 @@ class _UpdateEpState extends State<UpdateEp> {
                               ),
                               Center(
                                 child: GestureDetector(
-                                  onTap: () {selecFile();},
+                                  onTap: () {
+                                    selecFile();
+                                  },
                                   child: Container(
                                       height: 120,
                                       width: 120,
                                       decoration: BoxDecoration(
                                           color: Color(0xff969696),
-                                          borderRadius: BorderRadius.circular(10)),
+                                          borderRadius:
+                                              BorderRadius.circular(10)),
                                       child: picfile != null
                                           ? ClipRRect(
-                                              borderRadius: BorderRadius.circular(10),
+                                              borderRadius:
+                                                  BorderRadius.circular(10),
                                               child: Image.file(
                                                 picfile!,
                                                 fit: BoxFit.cover,
                                               ),
                                             )
-                                            : Icon( Icons.add,
-                                                color: Colors.white,
-                                                size: 48,
-                                              )
-                                      // cover != null
-                                      //     ? ClipRRect(
-                                      //         child: Image.file(
-                                      //           cover!,
-                                      //           fit: BoxFit.cover,
-                                      //         ),
-                                      //       )
-                                      //     : Icon(
-                                      //         Icons.add,
-                                      //         color: Colors.white,
-                                      //         size: 48,
-                                      //       ),
-                                      ),
+                                          : Icon(
+                                              Icons.add,
+                                              color: Colors.white,
+                                              size: 48,
+                                            )),
                                 ),
                               ),
                               SizedBox(
@@ -212,7 +207,9 @@ class _UpdateEpState extends State<UpdateEp> {
                                 height: 12,
                               ),
                               GestureDetector(
-                                onTap: () {selecpdf();},
+                                onTap: () {
+                                  selecpdf();
+                                },
                                 child: Container(
                                   height: 80,
                                   decoration: BoxDecoration(
@@ -231,13 +228,14 @@ class _UpdateEpState extends State<UpdateEp> {
                                     ],
                                   ),
                                   child: Center(
-                                    child: picpdf != null
-                                    ? Text('$picpdf')
-                                    : Text('แตะเพื่อเลือกไฟล์',
-                                        style: TextStyle(
-                                            color: Color(0xff969696),
-                                            fontFamily: 'Kanit',
-                                            fontSize: 16),
+                                      child: Text(
+                                    picpdf != null
+                                        ? '${_pdfName}'
+                                        : 'แตะเพื่อเลือกไฟล์',
+                                    style: TextStyle(
+                                        color: Color(0xff969696),
+                                        fontFamily: 'Kanit',
+                                        fontSize: 16),
                                   )),
                                 ),
                               ),
@@ -246,15 +244,27 @@ class _UpdateEpState extends State<UpdateEp> {
                               ),
                               Center(
                                   child: CustomButton(
-                                      onPressed: () {uploadFile();}, text: 'เพิ่มตอน')),
-                              Center(
-                                child: CustomButton(
-                                  onPressed: () {
-                                    Navigator.pop(context);
-                                  },
-                                  text: 'ยกเลิก',
-                                ),
-                              ),
+                                      onPressed: () {
+                                        if (_formKey.currentState!.validate()) {
+                                          if (picfile != null &&
+                                              picpdf != null) {
+                                            uploadFile().then((value) =>
+                                                Navigator.pop(context));
+                                            Fluttertoast.showToast(
+                                                    msg: 'สร้างตอนสำเร็จ',
+                                                    gravity:
+                                                        ToastGravity.BOTTOM)
+                                                .then((value) {});
+                                          } else {
+                                            Fluttertoast.showToast(
+                                                    msg: 'กรุณาใส่ข้อมูลให้ครบ',
+                                                    gravity:
+                                                        ToastGravity.BOTTOM)
+                                                .then((value) {});
+                                          }
+                                        }
+                                      },
+                                      text: 'เพิ่มตอน')),
                               SizedBox(
                                 height: 20,
                               )
@@ -313,7 +323,6 @@ class _UpdateEpState extends State<UpdateEp> {
     print('PDF Insert Success');
 
     uploadFirestore();
-
   }
 
   Future<void> uploadFirestore() async {
@@ -327,10 +336,12 @@ class _UpdateEpState extends State<UpdateEp> {
 
     //Insert Data To Firestore
     firestore
-    .collection('Cartoon')
-    .doc(widget.cartoonName)
-    .collection("Chapter")
-    .doc(ChapterNum)
-    .set(map);
+        .collection('Cartoon')
+        .doc(widget.cartoonName)
+        .collection("Chapter")
+        .doc(ChapterNum)
+        .set(map);
   }
+
+  basename(String path) {}
 }
