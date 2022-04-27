@@ -321,9 +321,9 @@ class _UpdateEpState extends State<UpdateEp> {
 
     Map<String, dynamic> map = Map();
     map['Chaptername'] = Chaptername;
-    map['UrlCover'] = ChapterNum;
-    map['UrlCartoon'] = UrlChapter;
-    map['URL'] = Urlpdf;
+    map['ChapterNum'] = ChapterNum;
+    map['Chapterurl'] = UrlChapter;
+    map['Storyurl'] = Urlpdf;
 
     //Insert Data To Firestore
     firestore
