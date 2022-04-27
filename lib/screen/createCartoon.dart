@@ -438,8 +438,9 @@ class _CreateCartoonState extends State<CreateCartoon> {
     //Insert Data To Firestore
     firestore
     .collection('Cartoon')
-    .doc('${pickedFile!.name}')
+    .doc('${name}')
     .set(map)
     .then((v) {});
+    
   }
 }

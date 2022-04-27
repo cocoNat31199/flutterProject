@@ -1,3 +1,6 @@
+import 'dart:io';
+
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
 class UpdartEp extends StatefulWidget {
@@ -8,6 +11,8 @@ class UpdartEp extends StatefulWidget {
 }
 
 class _UpdartEpState extends State<UpdartEp> {
+  String? Chaptername, ChapterNum, UrlChapter;
+  File? pdffile;
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -49,5 +54,24 @@ class _UpdartEpState extends State<UpdartEp> {
                       bottomRight: Radius.circular(20.0),
                     )),
                 child: SingleChildScrollView())));
+  }
+
+  Future<void> uploadFirestore() async {
+    FirebaseFirestore firestore = FirebaseFirestore.instance;
+
+    Map<String, dynamic> map = Map();
+    map['userid'] = Chaptername;
+    map['UrlCover'] = ChapterNum;
+    map['UrlCartoon'] = UrlChapter;
+    map['URL'] = pdffile;
+
+    //Insert Data To Firestore
+    firestore
+    .collection('Cartoon')
+    .doc()
+    .collection("Chapter")
+    .doc()
+    .set(map);
+    
   }
 }
