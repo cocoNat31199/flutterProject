@@ -31,6 +31,7 @@ class _UpdateEpState extends State<UpdateEp> {
 
   @override
   Widget build(BuildContext context) {
+    final fileName = picpdf != null ? basename(picpdf!.path) : 'No File Selected';
     return MaterialApp(
         theme: new ThemeData(
             primaryColor: Color(0xff643ff9),
@@ -228,15 +229,15 @@ class _UpdateEpState extends State<UpdateEp> {
                                     ],
                                   ),
                                   child: Center(
-                                      child: Text(
-                                    picpdf != null
-                                        ? '${_pdfName}'
-                                        : 'แตะเพื่อเลือกไฟล์',
-                                    style: TextStyle(
-                                        color: Color(0xff969696),
-                                        fontFamily: 'Kanit',
-                                        fontSize: 16),
-                                  )),
+                                      child: fileName != null
+                                          ? Text('$fileName')
+                                          : Text(
+                                              'แตะเพื่ออัพโหลดไฟล์ของคุณ',
+                                              style: TextStyle(
+                                                  color: Color(0xff969696),
+                                                  fontFamily: 'Kanit',
+                                                  fontSize: 16),
+                                            )),
                                 ),
                               ),
                               SizedBox(
@@ -306,6 +307,13 @@ class _UpdateEpState extends State<UpdateEp> {
   }
 
   Future uploadFile() async {
+    if (picpdf == null) return;
+
+    final fileName = basename(picpdf!.path);
+    final destination = 'Chapter/$fileName';
+
+    FirebaseApi.uploadFile(destination, picpdf!);
+
     FirebaseStorage firebaseStorage = FirebaseStorage.instance;
     Reference storageReference =
         firebaseStorage.ref().child('Chapter/${pickedFile!.name}');
@@ -343,5 +351,16 @@ class _UpdateEpState extends State<UpdateEp> {
         .set(map);
   }
 
-  basename(String path) {}
+}
+
+class FirebaseApi {
+  static UploadTask? uploadFile(String destination, File picpdf) {
+    try {
+      final ref = FirebaseStorage.instance.ref(destination);
+
+      return ref.putFile(picpdf);
+    } on FirebaseException catch (e) {
+      return null;
+    }
+  }
 }
