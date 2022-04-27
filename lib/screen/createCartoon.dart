@@ -430,6 +430,10 @@ class _CreateCartoonState extends State<CreateCartoon> {
     map['UploadCategory'] = uploadCategory;
     map['Day'] = _value;
     //Insert Data To Firestore
-    firestore.collection('Cartoon').doc().set(map).then((v) {});
+    firestore
+    .collection('Cartoon')
+    .doc('${pickedFile!.name}')
+    .set(map)
+    .then((v) {});
   }
 }
