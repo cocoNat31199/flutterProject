@@ -8,6 +8,7 @@ import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:form_field_validator/form_field_validator.dart';
+import 'package:intl/intl.dart';
 import 'package:merrily/component/customRadio.dart';
 import 'package:merrily/component/custombutton.dart';
 import 'package:merrily/screen/home.dart';
@@ -31,6 +32,10 @@ class _CreateCartoonState extends State<CreateCartoon> {
   final auth = FirebaseAuth.instance;
   late final userid = auth.currentUser!.uid;
   final _formKey = GlobalKey<FormState>();
+
+  static final DateTime now = DateTime.now();
+  static final DateFormat formatter = DateFormat.yMd();
+  final String formatted = formatter.format(now);
 
   Map<String, bool> List = {
     'แอคชั่น': false,
@@ -429,6 +434,7 @@ class _CreateCartoonState extends State<CreateCartoon> {
     map['Detail'] = detail;
     map['UploadCategory'] = uploadCategory;
     map['Day'] = _value;
+    map['Date'] = formatted;
     //Insert Data To Firestore
     firestore
     .collection('Cartoon')
