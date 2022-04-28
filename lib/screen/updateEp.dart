@@ -25,13 +25,15 @@ class _UpdateEpState extends State<UpdateEp> {
   PlatformFile? pdfFile;
   File? picfile;
   File? picpdf;
+  late String cartooName = widget.cartoonName;
   late final _pdfName = basename(picpdf!.path);
   final auth = FirebaseAuth.instance;
+  late final userid = auth.currentUser!.uid;
   final _formKey = GlobalKey<FormState>();
 
   @override
   Widget build(BuildContext context) {
-    final fileName = picpdf != null ? basename(picpdf!.path) : 'No File Selected';
+    final fileName = picpdf != null ? basename(picpdf!.path) : null;
     return MaterialApp(
         theme: new ThemeData(
             primaryColor: Color(0xff643ff9),
@@ -228,7 +230,14 @@ class _UpdateEpState extends State<UpdateEp> {
                                   ),
                                   child: Center(
                                       child: fileName != null
-                                          ? Text('$fileName')
+                                          ? Text(
+                                              '$fileName',
+                                              textAlign: TextAlign.center,
+                                              style: TextStyle(
+                                                  color: Colors.black,
+                                                  fontFamily: 'Kanit',
+                                                  fontSize: 16),
+                                            )
                                           : Text(
                                               'แตะเพื่ออัพโหลดไฟล์ของคุณ',
                                               style: TextStyle(
@@ -336,6 +345,8 @@ class _UpdateEpState extends State<UpdateEp> {
     map['ChapterNum'] = ChapterNum;
     map['Chapterurl'] = UrlChapter;
     map['Storyurl'] = Urlpdf;
+    map['Userid'] = userid;
+    map['CartoonName'] = cartooName;
 
     //Insert Data To Firestore
     firestore
@@ -345,7 +356,6 @@ class _UpdateEpState extends State<UpdateEp> {
         .doc(ChapterNum)
         .set(map);
   }
-
 }
 
 class FirebaseApi {
