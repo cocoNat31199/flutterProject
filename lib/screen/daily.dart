@@ -109,181 +109,195 @@ class _DailyState extends State<Daily> {
                   bottomRight: Radius.circular(20.0),
                 )),
             child: TabBarView(children: [
-              StreamBuilder(
-                stream: FirebaseFirestore.instance
-                    .collection('Cartoon')
-                    .where('Day', isEqualTo: 1)
-                    .snapshots(),
-                builder: (context, AsyncSnapshot<QuerySnapshot> snapshot) {
-                  if (!snapshot.hasData) {
-                    return Center(child: CircularProgressIndicator());
-                  }
-                  return GridView.count(
-                      crossAxisCount: 3,
-                      mainAxisSpacing: 10,
-                      crossAxisSpacing: 10,
-                      shrinkWrap: true,
-                      physics: NeverScrollableScrollPhysics(),
-                      padding:
-                          EdgeInsets.symmetric(horizontal: 16, vertical: 12),
-                      children: snapshot.data!.docs.map((doc) {
-                        return CartoonModel(
-                          onPressed: () {},
-                          src: doc['UrlCartoon'],
-                        );
-                      }).toList());
-                },
+              SingleChildScrollView(
+                child: StreamBuilder(
+                  stream: FirebaseFirestore.instance
+                      .collection('Cartoon')
+                      .where('Day', isEqualTo: 1)
+                      .snapshots(),
+                  builder: (context, AsyncSnapshot<QuerySnapshot> snapshot) {
+                    if (!snapshot.hasData) {
+                      return Center(child: CircularProgressIndicator());
+                    }
+                    return GridView.count(
+                        crossAxisCount: 3,
+                        mainAxisSpacing: 10,
+                        crossAxisSpacing: 10,
+                        shrinkWrap: true,
+                        physics: NeverScrollableScrollPhysics(),
+                        padding:
+                            EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+                        children: snapshot.data!.docs.map((doc) {
+                          return CartoonModel(
+                            onPressed: () {},
+                            src: doc['UrlCartoon'],
+                          );
+                        }).toList());
+                  },
+                ),
               ),
-              StreamBuilder(
-                stream: FirebaseFirestore.instance
-                    .collection('Cartoon')
-                    .where('Day', isEqualTo: 2)
-                    .snapshots(),
-                builder: (context, AsyncSnapshot<QuerySnapshot> snapshot) {
-                  if (!snapshot.hasData) {
-                    return Center(child: CircularProgressIndicator());
-                  }
-                  return GridView.count(
-                      crossAxisCount: 3,
-                      mainAxisSpacing: 10,
-                      crossAxisSpacing: 10,
-                      shrinkWrap: true,
-                      physics: NeverScrollableScrollPhysics(),
-                      padding:
-                          EdgeInsets.symmetric(horizontal: 16, vertical: 12),
-                      children: snapshot.data!.docs.map((doc) {
-                        return CartoonModel(
-                          onPressed: () {},
-                          src: doc['UrlCartoon'],
-                        );
-                      }).toList());
-                },
+              SingleChildScrollView(
+                child: StreamBuilder(
+                  stream: FirebaseFirestore.instance
+                      .collection('Cartoon')
+                      .where('Day', isEqualTo: 2)
+                      .snapshots(),
+                  builder: (context, AsyncSnapshot<QuerySnapshot> snapshot) {
+                    if (!snapshot.hasData) {
+                      return Center(child: CircularProgressIndicator());
+                    }
+                    return GridView.count(
+                        crossAxisCount: 3,
+                        mainAxisSpacing: 10,
+                        crossAxisSpacing: 10,
+                        shrinkWrap: true,
+                        physics: NeverScrollableScrollPhysics(),
+                        padding:
+                            EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+                        children: snapshot.data!.docs.map((doc) {
+                          return CartoonModel(
+                            onPressed: () {},
+                            src: doc['UrlCartoon'],
+                          );
+                        }).toList());
+                  },
+                ),
               ),
-              StreamBuilder(
-                stream: FirebaseFirestore.instance
-                    .collection('Cartoon')
-                    .where('Day', isEqualTo: 3)
-                    .snapshots(),
-                builder: (context, AsyncSnapshot<QuerySnapshot> snapshot) {
-                  if (!snapshot.hasData) {
-                    return Center(child: CircularProgressIndicator());
-                  }
-                  return GridView.count(
-                      crossAxisCount: 3,
-                      mainAxisSpacing: 10,
-                      crossAxisSpacing: 10,
-                      shrinkWrap: true,
-                      physics: NeverScrollableScrollPhysics(),
-                      padding:
-                          EdgeInsets.symmetric(horizontal: 16, vertical: 12),
-                      children: snapshot.data!.docs.map((doc) {
-                        return CartoonModel(
-                          onPressed: () {},
-                          src: doc['UrlCartoon'],
-                        );
-                      }).toList());
-                },
+              SingleChildScrollView(
+                child: StreamBuilder(
+                  stream: FirebaseFirestore.instance
+                      .collection('Cartoon')
+                      .where('Day', isEqualTo: 3)
+                      .snapshots(),
+                  builder: (context, AsyncSnapshot<QuerySnapshot> snapshot) {
+                    if (!snapshot.hasData) {
+                      return Center(child: CircularProgressIndicator());
+                    }
+                    return GridView.count(
+                        crossAxisCount: 3,
+                        mainAxisSpacing: 10,
+                        crossAxisSpacing: 10,
+                        shrinkWrap: true,
+                        physics: NeverScrollableScrollPhysics(),
+                        padding:
+                            EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+                        children: snapshot.data!.docs.map((doc) {
+                          return CartoonModel(
+                            onPressed: () {},
+                            src: doc['UrlCartoon'],
+                          );
+                        }).toList());
+                  },
+                ),
               ),
-              StreamBuilder(
-                stream: FirebaseFirestore.instance
-                    .collection('Cartoon')
-                    .where('Day', isEqualTo: 4)
-                    .snapshots(),
-                builder: (context, AsyncSnapshot<QuerySnapshot> snapshot) {
-                  if (!snapshot.hasData) {
-                    return Center(child: CircularProgressIndicator());
-                  }
-                  return GridView.count(
-                      crossAxisCount: 3,
-                      mainAxisSpacing: 10,
-                      crossAxisSpacing: 10,
-                      shrinkWrap: true,
-                      physics: NeverScrollableScrollPhysics(),
-                      padding:
-                          EdgeInsets.symmetric(horizontal: 16, vertical: 12),
-                      children: snapshot.data!.docs.map((doc) {
-                        return CartoonModel(
-                          onPressed: () {},
-                          src: doc['UrlCartoon'],
-                        );
-                      }).toList());
-                },
+              SingleChildScrollView(
+                child: StreamBuilder(
+                  stream: FirebaseFirestore.instance
+                      .collection('Cartoon')
+                      .where('Day', isEqualTo: 4)
+                      .snapshots(),
+                  builder: (context, AsyncSnapshot<QuerySnapshot> snapshot) {
+                    if (!snapshot.hasData) {
+                      return Center(child: CircularProgressIndicator());
+                    }
+                    return GridView.count(
+                        crossAxisCount: 3,
+                        mainAxisSpacing: 10,
+                        crossAxisSpacing: 10,
+                        shrinkWrap: true,
+                        physics: NeverScrollableScrollPhysics(),
+                        padding:
+                            EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+                        children: snapshot.data!.docs.map((doc) {
+                          return CartoonModel(
+                            onPressed: () {},
+                            src: doc['UrlCartoon'],
+                          );
+                        }).toList());
+                  },
+                ),
               ),
-              StreamBuilder(
-                stream: FirebaseFirestore.instance
-                    .collection('Cartoon')
-                    .where('Day', isEqualTo: 5)
-                    .snapshots(),
-                builder: (context, AsyncSnapshot<QuerySnapshot> snapshot) {
-                  if (!snapshot.hasData) {
-                    return Center(child: CircularProgressIndicator());
-                  }
-                  return GridView.count(
-                      crossAxisCount: 3,
-                      mainAxisSpacing: 10,
-                      crossAxisSpacing: 10,
-                      shrinkWrap: true,
-                      physics: NeverScrollableScrollPhysics(),
-                      padding:
-                          EdgeInsets.symmetric(horizontal: 16, vertical: 12),
-                      children: snapshot.data!.docs.map((doc) {
-                        return CartoonModel(
-                          onPressed: () {},
-                          src: doc['UrlCartoon'],
-                        );
-                      }).toList());
-                },
+              SingleChildScrollView(
+                child: StreamBuilder(
+                  stream: FirebaseFirestore.instance
+                      .collection('Cartoon')
+                      .where('Day', isEqualTo: 5)
+                      .snapshots(),
+                  builder: (context, AsyncSnapshot<QuerySnapshot> snapshot) {
+                    if (!snapshot.hasData) {
+                      return Center(child: CircularProgressIndicator());
+                    }
+                    return GridView.count(
+                        crossAxisCount: 3,
+                        mainAxisSpacing: 10,
+                        crossAxisSpacing: 10,
+                        shrinkWrap: true,
+                        physics: NeverScrollableScrollPhysics(),
+                        padding:
+                            EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+                        children: snapshot.data!.docs.map((doc) {
+                          return CartoonModel(
+                            onPressed: () {},
+                            src: doc['UrlCartoon'],
+                          );
+                        }).toList());
+                  },
+                ),
               ),
-              StreamBuilder(
-                stream: FirebaseFirestore.instance
-                    .collection('Cartoon')
-                    .where('Day', isEqualTo: 6)
-                    .orderBy('Date', descending: true)
-                    .snapshots(),
-                builder: (context, AsyncSnapshot<QuerySnapshot> snapshot) {
-                  if (!snapshot.hasData) {
-                    return Center(child: CircularProgressIndicator());
-                  }
-                  return GridView.count(
-                      crossAxisCount: 3,
-                      mainAxisSpacing: 10,
-                      crossAxisSpacing: 10,
-                      shrinkWrap: true,
-                      physics: NeverScrollableScrollPhysics(),
-                      padding:
-                          EdgeInsets.symmetric(horizontal: 16, vertical: 12),
-                      children: snapshot.data!.docs.map((doc) {
-                        return CartoonModel(
-                          onPressed: () {},
-                          src: doc['UrlCartoon'],
-                        );
-                      }).toList());
-                },
+              SingleChildScrollView(
+                child: StreamBuilder(
+                  stream: FirebaseFirestore.instance
+                      .collection('Cartoon')
+                      .where('Day', isEqualTo: 6)
+                      .orderBy('Date', descending: true)
+                      .snapshots(),
+                  builder: (context, AsyncSnapshot<QuerySnapshot> snapshot) {
+                    if (!snapshot.hasData) {
+                      return Center(child: CircularProgressIndicator());
+                    }
+                    return GridView.count(
+                        crossAxisCount: 3,
+                        mainAxisSpacing: 10,
+                        crossAxisSpacing: 10,
+                        shrinkWrap: true,
+                        physics: NeverScrollableScrollPhysics(),
+                        padding:
+                            EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+                        children: snapshot.data!.docs.map((doc) {
+                          return CartoonModel(
+                            onPressed: () {},
+                            src: doc['UrlCartoon'],
+                          );
+                        }).toList());
+                  },
+                ),
               ),
-              StreamBuilder(
-                stream: FirebaseFirestore.instance
-                    .collection('Cartoon')
-                    .where('Day', isEqualTo: 7)
-                    .snapshots(),
-                builder: (context, AsyncSnapshot<QuerySnapshot> snapshot) {
-                  if (!snapshot.hasData) {
-                    return Center(child: CircularProgressIndicator());
-                  }
-                  return GridView.count(
-                      crossAxisCount: 3,
-                      mainAxisSpacing: 10,
-                      crossAxisSpacing: 10,
-                      shrinkWrap: true,
-                      physics: NeverScrollableScrollPhysics(),
-                      padding:
-                          EdgeInsets.symmetric(horizontal: 16, vertical: 12),
-                      children: snapshot.data!.docs.map((doc) {
-                        return CartoonModel(
-                          onPressed: () {},
-                          src: doc['UrlCartoon'],
-                        );
-                      }).toList());
-                },
+              SingleChildScrollView(
+                child: StreamBuilder(
+                  stream: FirebaseFirestore.instance
+                      .collection('Cartoon')
+                      .where('Day', isEqualTo: 7)
+                      .snapshots(),
+                  builder: (context, AsyncSnapshot<QuerySnapshot> snapshot) {
+                    if (!snapshot.hasData) {
+                      return Center(child: CircularProgressIndicator());
+                    }
+                    return GridView.count(
+                        crossAxisCount: 3,
+                        mainAxisSpacing: 10,
+                        crossAxisSpacing: 10,
+                        shrinkWrap: true,
+                        physics: NeverScrollableScrollPhysics(),
+                        padding:
+                            EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+                        children: snapshot.data!.docs.map((doc) {
+                          return CartoonModel(
+                            onPressed: () {},
+                            src: doc['UrlCartoon'],
+                          );
+                        }).toList());
+                  },
+                ),
               ),
             ]),
           ),

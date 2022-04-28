@@ -9,6 +9,8 @@ class CartoonModel extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
+      height: 176,
+      width: 100,
       decoration: BoxDecoration(borderRadius: BorderRadius.circular(10)),
       child: GestureDetector(
           onTap: onPressed,

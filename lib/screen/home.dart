@@ -545,15 +545,12 @@ class _NewToonState extends State<NewToon> {
                     return Center(child: CircularProgressIndicator());
                   }
                   return GridView.count(
-                      scrollDirection: Axis.horizontal,
                       crossAxisCount: 1,
-                      mainAxisSpacing: 10,
-                      crossAxisSpacing: 10,
+                      scrollDirection: Axis.horizontal,
                       shrinkWrap: true,
-                      physics: NeverScrollableScrollPhysics(),
-                      padding: EdgeInsets.symmetric(
-                        horizontal: 16,
-                      ),
+                      physics: ScrollPhysics(),
+                      padding:
+                          EdgeInsets.symmetric(horizontal: 16, vertical: 12),
                       children: snapshot.data!.docs.map((doc) {
                         return CartoonModel(
                           onPressed: () {},
