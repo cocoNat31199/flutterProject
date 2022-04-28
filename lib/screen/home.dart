@@ -544,21 +544,27 @@ class _NewToonState extends State<NewToon> {
                   if (!snapshot.hasData) {
                     return Center(child: CircularProgressIndicator());
                   }
-                  return GridView.count(
-                      crossAxisCount: 1,
-                      mainAxisSpacing: 10,
-                      scrollDirection: Axis.horizontal,
-                      shrinkWrap: true,
-                      physics: ScrollPhysics(),
-                      childAspectRatio: 16 / 9,
-                      padding:
-                          EdgeInsets.symmetric(horizontal: 16, vertical: 12),
-                      children: snapshot.data!.docs.map((doc) {
-                        return CartoonModel(
-                          onPressed: () {},
-                          src: doc['UrlCartoon'],
-                        );
-                      }).toList());
+                  return GridView.builder(
+                      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                          crossAxisCount: 1),
+                      itemBuilder: (context, index) {
+                        return Container(color: Colors.blue,);
+                      });
+                  // GridView.count(
+                  //     crossAxisCount: 1,
+                  //     mainAxisSpacing: 10,
+                  //     scrollDirection: Axis.horizontal,
+                  //     shrinkWrap: true,
+                  //     physics: ScrollPhysics(),
+                  //     childAspectRatio: 16 / 9,
+                  //     padding:
+                  //         EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+                  //     children: snapshot.data!.docs.map((doc) {
+                  //       return CartoonModel(
+                  //         onPressed: () {},
+                  //         src: doc['UrlCartoon'],
+                  //       );
+                  //     }).toList());
                 }))
       ],
     );

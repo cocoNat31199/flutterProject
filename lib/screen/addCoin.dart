@@ -11,12 +11,7 @@ class Addcoin extends StatefulWidget {
 class _AddcoinState extends State<Addcoin> {
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-        theme: new ThemeData(
-            primaryColor: Color(0xff643ff9),
-            scaffoldBackgroundColor: const Color(0xff643ff9),
-            fontFamily: ('Kanit ')),
-        home: Scaffold(
+    return Scaffold(
             appBar: AppBar(
               backgroundColor: Colors.white,
               elevation: 0.0,
@@ -166,6 +161,6 @@ class _AddcoinState extends State<Addcoin> {
                   ],
                 ),
               ),
-            )));
+            ));
   }
 }

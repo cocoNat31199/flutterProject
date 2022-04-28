@@ -18,12 +18,7 @@ class _UploadPageState extends State<UploadPage> {
   final auth = FirebaseAuth.instance;
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-        theme: new ThemeData(
-            primaryColor: Color(0xff643ff9),
-            scaffoldBackgroundColor: const Color(0xff643ff9),
-            fontFamily: ('Kanit ')),
-        home: Scaffold(
+    return Scaffold(
           appBar: AppBar(
             automaticallyImplyLeading: false,
             backgroundColor: Colors.white,
@@ -142,6 +137,6 @@ class _UploadPageState extends State<UploadPage> {
               ),
             ),
           ),
-        ));
+        );
   }
 }

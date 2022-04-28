@@ -19,13 +19,7 @@ class Register_1 extends StatefulWidget {
 class _Register_1State extends State<Register_1> {
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      theme: new ThemeData(
-          primaryColor: Color(0xff643ff9),
-          scaffoldBackgroundColor: const Color(0xff643ff9),
-          fontFamily: ('Kanit ')),
-      home: Scaffold(
+    return Scaffold(
         appBar: AppBar(
           backgroundColor: Colors.white,
           elevation: 0,
@@ -65,8 +59,8 @@ class _Register_1State extends State<Register_1> {
             child: RegisForm(),
           ),
         ),
-      ),
-    );
+      )
+    ;
   }
 }
 

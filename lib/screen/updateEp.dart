@@ -32,12 +32,7 @@ class _UpdateEpState extends State<UpdateEp> {
   @override
   Widget build(BuildContext context) {
     final fileName = picpdf != null ? basename(picpdf!.path) : null;
-    return MaterialApp(
-        theme: new ThemeData(
-            primaryColor: Color(0xff643ff9),
-            scaffoldBackgroundColor: const Color(0xff643ff9),
-            fontFamily: ('Kanit ')),
-        home: WillPopScope(
+    return WillPopScope(
           onWillPop: () async => false,
           child: Scaffold(
               appBar: AppBar(
@@ -282,7 +277,7 @@ class _UpdateEpState extends State<UpdateEp> {
                       },
                     ),
                   ))),
-        ));
+        );
   }
 
   Future selecFile() async {

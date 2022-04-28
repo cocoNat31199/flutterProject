@@ -63,14 +63,7 @@ class _CreateCartoonState extends State<CreateCartoon> {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-        theme: new ThemeData(
-            primaryColor: Color(0xff643ff9),
-            scaffoldBackgroundColor: const Color(0xff643ff9),
-            fontFamily: ('Kanit ')),
-        home: WillPopScope(
-          onWillPop: () async => false,
-          child: Scaffold(
+    return Scaffold(
               body: Container(
             height: double.infinity,
             width: double.infinity,
@@ -370,8 +363,8 @@ class _CreateCartoonState extends State<CreateCartoon> {
                     ]),
               ),
             ),
-          )),
-        ));
+          ))
+        ;
   }
 
   Future selecFile() async {
