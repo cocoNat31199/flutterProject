@@ -114,7 +114,8 @@ class CategoriesPage extends StatelessWidget {
                                   mainAxisSpacing: 10,
                                   crossAxisSpacing: 10,
                                   shrinkWrap: true,
-                                  physics: NeverScrollableScrollPhysics(),
+                                  physics: ScrollPhysics(),
+                                  childAspectRatio: 9 / 16,
                                   padding: EdgeInsets.symmetric(
                                       horizontal: 16, vertical: 12),
                                   children: snapshot.data!.docs.map((doc) {
@@ -144,7 +145,8 @@ class CategoriesPage extends StatelessWidget {
                                   mainAxisSpacing: 10,
                                   crossAxisSpacing: 10,
                                   shrinkWrap: true,
-                                  physics: NeverScrollableScrollPhysics(),
+                                  physics: ScrollPhysics(),
+                                  childAspectRatio: 9 / 16,
                                   padding: EdgeInsets.symmetric(
                                       horizontal: 16, vertical: 12),
                                   children: snapshot.data!.docs.map((doc) {
@@ -174,7 +176,8 @@ class CategoriesPage extends StatelessWidget {
                                   mainAxisSpacing: 10,
                                   crossAxisSpacing: 10,
                                   shrinkWrap: true,
-                                  physics: NeverScrollableScrollPhysics(),
+                                  physics: ScrollPhysics(),
+                                  childAspectRatio: 9 / 16,
                                   padding: EdgeInsets.symmetric(
                                       horizontal: 16, vertical: 12),
                                   children: snapshot.data!.docs.map((doc) {
@@ -204,7 +207,8 @@ class CategoriesPage extends StatelessWidget {
                                   mainAxisSpacing: 10,
                                   crossAxisSpacing: 10,
                                   shrinkWrap: true,
-                                  physics: NeverScrollableScrollPhysics(),
+                                  physics: ScrollPhysics(),
+                                  childAspectRatio: 9 / 16,
                                   padding: EdgeInsets.symmetric(
                                       horizontal: 16, vertical: 12),
                                   children: snapshot.data!.docs.map((doc) {
@@ -234,7 +238,8 @@ class CategoriesPage extends StatelessWidget {
                                   mainAxisSpacing: 10,
                                   crossAxisSpacing: 10,
                                   shrinkWrap: true,
-                                  physics: NeverScrollableScrollPhysics(),
+                                  physics: ScrollPhysics(),
+                                  childAspectRatio: 9 / 16,
                                   padding: EdgeInsets.symmetric(
                                       horizontal: 16, vertical: 12),
                                   children: snapshot.data!.docs.map((doc) {
@@ -264,7 +269,8 @@ class CategoriesPage extends StatelessWidget {
                                   mainAxisSpacing: 10,
                                   crossAxisSpacing: 10,
                                   shrinkWrap: true,
-                                  physics: NeverScrollableScrollPhysics(),
+                                  physics: ScrollPhysics(),
+                                  childAspectRatio: 9 / 16,
                                   padding: EdgeInsets.symmetric(
                                       horizontal: 16, vertical: 12),
                                   children: snapshot.data!.docs.map((doc) {
@@ -293,7 +299,8 @@ class CategoriesPage extends StatelessWidget {
                                   mainAxisSpacing: 10,
                                   crossAxisSpacing: 10,
                                   shrinkWrap: true,
-                                  physics: NeverScrollableScrollPhysics(),
+                                  physics: ScrollPhysics(),
+                                  childAspectRatio: 9 / 16,
                                   padding: EdgeInsets.symmetric(
                                       horizontal: 16, vertical: 12),
                                   children: snapshot.data!.docs.map((doc) {
@@ -322,7 +329,8 @@ class CategoriesPage extends StatelessWidget {
                                   mainAxisSpacing: 10,
                                   crossAxisSpacing: 10,
                                   shrinkWrap: true,
-                                  physics: NeverScrollableScrollPhysics(),
+                                  physics: ScrollPhysics(),
+                                  childAspectRatio: 9 / 16,
                                   padding: EdgeInsets.symmetric(
                                       horizontal: 16, vertical: 12),
                                   children: snapshot.data!.docs.map((doc) {
@@ -352,6 +360,8 @@ class CategoriesPage extends StatelessWidget {
                                   mainAxisSpacing: 10,
                                   crossAxisSpacing: 10,
                                   shrinkWrap: true,
+                                  physics: ScrollPhysics(),
+                                  childAspectRatio: 9 / 16,
                                   padding: EdgeInsets.symmetric(
                                       horizontal: 16, vertical: 12),
                                   children: snapshot.data!.docs.map((doc) {

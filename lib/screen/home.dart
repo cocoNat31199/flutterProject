@@ -546,9 +546,11 @@ class _NewToonState extends State<NewToon> {
                   }
                   return GridView.count(
                       crossAxisCount: 1,
+                      mainAxisSpacing: 10,
                       scrollDirection: Axis.horizontal,
                       shrinkWrap: true,
                       physics: ScrollPhysics(),
+                      childAspectRatio: 16 / 9,
                       padding:
                           EdgeInsets.symmetric(horizontal: 16, vertical: 12),
                       children: snapshot.data!.docs.map((doc) {
