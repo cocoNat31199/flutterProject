@@ -73,12 +73,12 @@ class _UploadPageState extends State<UploadPage> {
                   StreamBuilder(
                       stream: FirebaseFirestore.instance
                           .collection('Cartoon')
-                          .where('userid', isEqualTo: auth.currentUser!.uid)
+                          .where('Userid', isEqualTo: auth.currentUser!.uid)
                           .snapshots(),
                       builder:
                           (context, AsyncSnapshot<QuerySnapshot> snapshot) {
                         if (!snapshot.hasData) {
-                          return CircularProgressIndicator();
+                          return Center(child: CircularProgressIndicator());
                         }
                         return ListView(
                           physics: NeverScrollableScrollPhysics(),
@@ -89,7 +89,12 @@ class _UploadPageState extends State<UploadPage> {
                               color: Color(0xff643ff9),
                               child: InkWell(
                                   onTap: () {
-                                    Navigator.push(context, MaterialPageRoute(builder: ((context) => AllEpCartoon(cartoonName: '${doc['Name']}',))));
+                                    Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                            builder: ((context) => AllEpCartoon(
+                                                  cartoonName: '${doc['Name']}',
+                                                ))));
                                   },
                                   child: SizedBox(
                                       height: 72,

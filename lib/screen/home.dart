@@ -1,6 +1,8 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:carousel_slider/carousel_slider.dart';
+import 'package:merrily/component/cartoon_model.dart';
 import 'package:merrily/component/categoriesbutton.dart';
 import 'package:merrily/component/coverCartoon.dart';
 import 'package:merrily/screen/categoriesPage.dart';
@@ -296,7 +298,8 @@ class _ReadLatestState extends State<ReadLatest> {
         Container(
           height: 174,
           constraints: BoxConstraints(minHeight: 174),
-          child: ListView( //ใส่streamก่อนอันนี้
+          child: ListView(
+              //ใส่streamก่อนอันนี้
               scrollDirection: Axis.horizontal,
               padding: EdgeInsets.symmetric(horizontal: 16),
               shrinkWrap: true,
@@ -351,7 +354,8 @@ class _RecommendState extends State<Recommend> {
         Container(
           height: 174,
           constraints: BoxConstraints(minHeight: 174),
-          child: ListView( //ใส่streamก่อนอันนี้
+          child: ListView(
+              //ใส่streamก่อนอันนี้
               scrollDirection: Axis.horizontal,
               padding: EdgeInsets.symmetric(horizontal: 16),
               shrinkWrap: true,
@@ -529,32 +533,34 @@ class _NewToonState extends State<NewToon> {
           ),
         ),
         Container(
-          height: 174,
-          constraints: BoxConstraints(minHeight: 174),
-          child: ListView( //ใส่streamก่อนอันนี้
-              scrollDirection: Axis.horizontal,
-              padding: EdgeInsets.symmetric(horizontal: 16),
-              shrinkWrap: true,
-              children: [
-                CoverCartoon(),
-                SizedBox(
-                  width: 10,
-                ),
-                CoverCartoon(),
-                SizedBox(
-                  width: 10,
-                ),
-                CoverCartoon(),
-                SizedBox(
-                  width: 10,
-                ),
-                CoverCartoon(),
-                SizedBox(
-                  width: 10,
-                ),
-                CoverCartoon()
-              ]),
-        )
+            height: 172,
+            constraints: BoxConstraints(minHeight: 172),
+            child: StreamBuilder(
+                stream: FirebaseFirestore.instance
+                    .collection('Cartoon')
+                    .orderBy('Date', descending: true)
+                    .snapshots(),
+                builder: (context, AsyncSnapshot<QuerySnapshot> snapshot) {
+                  if (!snapshot.hasData) {
+                    return Center(child: CircularProgressIndicator());
+                  }
+                  return GridView.count(
+                      scrollDirection: Axis.horizontal,
+                      crossAxisCount: 1,
+                      mainAxisSpacing: 10,
+                      crossAxisSpacing: 10,
+                      shrinkWrap: true,
+                      physics: NeverScrollableScrollPhysics(),
+                      padding: EdgeInsets.symmetric(
+                        horizontal: 16,
+                      ),
+                      children: snapshot.data!.docs.map((doc) {
+                        return CartoonModel(
+                          onPressed: () {},
+                          src: doc['UrlCartoon'],
+                        );
+                      }).toList());
+                }))
       ],
     );
   }
@@ -586,7 +592,8 @@ class _UpdateToonState extends State<UpdateToon> {
         Container(
           height: 174,
           constraints: BoxConstraints(minHeight: 174),
-          child: ListView( //ใส่streamตรงนี้
+          child: ListView(
+              //ใส่streamตรงนี้
               scrollDirection: Axis.horizontal,
               padding: EdgeInsets.symmetric(horizontal: 16),
               shrinkWrap: true,

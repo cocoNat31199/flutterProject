@@ -74,7 +74,6 @@ class _AllEpCartoonState extends State<AllEpCartoon> {
                           .collection('Cartoon')
                           .doc(widget.cartoonName)
                           .collection('Chapter')
-                          .where('Userid', isEqualTo: auth.currentUser!.uid)
                           .snapshots(),
                       builder:
                           (context, AsyncSnapshot<QuerySnapshot> snapshot) {

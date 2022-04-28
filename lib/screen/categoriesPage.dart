@@ -1,5 +1,7 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:merrily/component/cartoon_model.dart';
 import 'package:merrily/component/toptab.dart';
 
 class CategoriesPage extends StatelessWidget {
@@ -87,7 +89,6 @@ class CategoriesPage extends StatelessWidget {
                     fit: FlexFit.tight,
                     child: Container(
                       width: double.infinity,
-                      padding: EdgeInsets.symmetric(horizontal: 16),
                       decoration: BoxDecoration(
                           color: Colors.white,
                           borderRadius: BorderRadius.only(
@@ -95,33 +96,241 @@ class CategoriesPage extends StatelessWidget {
                             bottomRight: Radius.circular(20.0),
                           )),
                       child: TabBarView(children: [
-                        Center(
-                          child: Text('แอคชั่น'),
+                        StreamBuilder(
+                          stream: FirebaseFirestore.instance
+                              .collection('Cartoon')
+                              .where('UploadCategory', arrayContains: 'แอคชั่น')
+                              .snapshots(),
+                          builder:
+                              (context, AsyncSnapshot<QuerySnapshot> snapshot) {
+                            if (!snapshot.hasData) {
+                              return Center(child: CircularProgressIndicator());
+                            }
+                            return GridView.count(
+                                crossAxisCount: 3,
+                                mainAxisSpacing: 10,
+                                crossAxisSpacing: 10,
+                                shrinkWrap: true,
+                                physics: NeverScrollableScrollPhysics(),
+                                padding: EdgeInsets.symmetric(
+                                    horizontal: 16, vertical: 12),
+                                children: snapshot.data!.docs.map((doc) {
+                                  return CartoonModel(
+                                    onPressed: () {},
+                                    src: doc['UrlCartoon'],
+                                  );
+                                }).toList());
+                          },
                         ),
-                        Center(
-                          child: Text('โรแมนซ์'),
+                        StreamBuilder(
+                          stream: FirebaseFirestore.instance
+                              .collection('Cartoon')
+                              .where('UploadCategory', arrayContains: 'โรแมนซ์')
+                              .snapshots(),
+                          builder:
+                              (context, AsyncSnapshot<QuerySnapshot> snapshot) {
+                            if (!snapshot.hasData) {
+                              return Center(child: CircularProgressIndicator());
+                            }
+                            return GridView.count(
+                                crossAxisCount: 3,
+                                mainAxisSpacing: 10,
+                                crossAxisSpacing: 10,
+                                shrinkWrap: true,
+                                physics: NeverScrollableScrollPhysics(),
+                                padding: EdgeInsets.symmetric(
+                                    horizontal: 16, vertical: 12),
+                                children: snapshot.data!.docs.map((doc) {
+                                  return CartoonModel(
+                                    onPressed: () {},
+                                    src: doc['UrlCartoon'],
+                                  );
+                                }).toList());
+                          },
                         ),
-                        Center(
-                          child: Text('แฟนตาซี'),
+                        StreamBuilder(
+                          stream: FirebaseFirestore.instance
+                              .collection('Cartoon')
+                              .where('UploadCategory', arrayContains: 'แฟนตาซี')
+                              .snapshots(),
+                          builder:
+                              (context, AsyncSnapshot<QuerySnapshot> snapshot) {
+                            if (!snapshot.hasData) {
+                              return Center(child: CircularProgressIndicator());
+                            }
+                            return GridView.count(
+                                crossAxisCount: 3,
+                                mainAxisSpacing: 10,
+                                crossAxisSpacing: 10,
+                                shrinkWrap: true,
+                                physics: NeverScrollableScrollPhysics(),
+                                padding: EdgeInsets.symmetric(
+                                    horizontal: 16, vertical: 12),
+                                children: snapshot.data!.docs.map((doc) {
+                                  return CartoonModel(
+                                    onPressed: () {},
+                                    src: doc['UrlCartoon'],
+                                  );
+                                }).toList());
+                          },
                         ),
-                        Center(
-                          child: Text('ดราม่า'),
+                        StreamBuilder(
+                          stream: FirebaseFirestore.instance
+                              .collection('Cartoon')
+                              .where('UploadCategory', arrayContains: 'ดราม่า')
+                              .snapshots(),
+                          builder:
+                              (context, AsyncSnapshot<QuerySnapshot> snapshot) {
+                            if (!snapshot.hasData) {
+                              return Center(child: CircularProgressIndicator());
+                            }
+                            return GridView.count(
+                                crossAxisCount: 3,
+                                mainAxisSpacing: 10,
+                                crossAxisSpacing: 10,
+                                shrinkWrap: true,
+                                physics: NeverScrollableScrollPhysics(),
+                                padding: EdgeInsets.symmetric(
+                                    horizontal: 16, vertical: 12),
+                                children: snapshot.data!.docs.map((doc) {
+                                  return CartoonModel(
+                                    onPressed: () {},
+                                    src: doc['UrlCartoon'],
+                                  );
+                                }).toList());
+                          },
                         ),
-                        Center(
-                          child: Text('LGBTQ+'),
+                        StreamBuilder(
+                          stream: FirebaseFirestore.instance
+                              .collection('Cartoon')
+                              .where('UploadCategory', arrayContains: 'LGBTQ+')
+                              .snapshots(),
+                          builder:
+                              (context, AsyncSnapshot<QuerySnapshot> snapshot) {
+                            if (!snapshot.hasData) {
+                              return Center(child: CircularProgressIndicator());
+                            }
+                            return GridView.count(
+                                crossAxisCount: 3,
+                                mainAxisSpacing: 10,
+                                crossAxisSpacing: 10,
+                                shrinkWrap: true,
+                                physics: NeverScrollableScrollPhysics(),
+                                padding: EdgeInsets.symmetric(
+                                    horizontal: 16, vertical: 12),
+                                children: snapshot.data!.docs.map((doc) {
+                                  return CartoonModel(
+                                    onPressed: () {},
+                                    src: doc['UrlCartoon'],
+                                  );
+                                }).toList());
+                          },
                         ),
-                        Center(
-                          child: Text('สยองขวัญ'),
+                        StreamBuilder(
+                          stream: FirebaseFirestore.instance
+                              .collection('Cartoon')
+                              .where('UploadCategory',
+                                  arrayContains: 'สยองขวัญ')
+                              .snapshots(),
+                          builder:
+                              (context, AsyncSnapshot<QuerySnapshot> snapshot) {
+                            if (!snapshot.hasData) {
+                              return Center(child: CircularProgressIndicator());
+                            }
+                            return GridView.count(
+                                crossAxisCount: 3,
+                                mainAxisSpacing: 10,
+                                crossAxisSpacing: 10,
+                                shrinkWrap: true,
+                                physics: NeverScrollableScrollPhysics(),
+                                padding: EdgeInsets.symmetric(
+                                    horizontal: 16, vertical: 12),
+                                children: snapshot.data!.docs.map((doc) {
+                                  return CartoonModel(
+                                    onPressed: () {},
+                                    src: doc['UrlCartoon'],
+                                  );
+                                }).toList());
+                          },
                         ),
-                        Center(
-                          child: Text('นิยาย'),
+                        StreamBuilder(
+                          stream: FirebaseFirestore.instance
+                              .collection('Cartoon')
+                              .where('UploadCategory', arrayContains: 'นิยาย')
+                              .snapshots(),
+                          builder:
+                              (context, AsyncSnapshot<QuerySnapshot> snapshot) {
+                            if (!snapshot.hasData) {
+                              return Center(child: CircularProgressIndicator());
+                            }
+                            return GridView.count(
+                                crossAxisCount: 3,
+                                mainAxisSpacing: 10,
+                                crossAxisSpacing: 10,
+                                shrinkWrap: true,
+                                physics: NeverScrollableScrollPhysics(),
+                                padding: EdgeInsets.symmetric(
+                                    horizontal: 16, vertical: 12),
+                                children: snapshot.data!.docs.map((doc) {
+                                  return CartoonModel(
+                                    onPressed: () {},
+                                    src: doc['UrlCartoon'],
+                                  );
+                                }).toList());
+                          },
                         ),
-                        Center(
-                          child: Text('ตลก'),
+                        StreamBuilder(
+                          stream: FirebaseFirestore.instance
+                              .collection('Cartoon')
+                              .where('UploadCategory', arrayContains: 'ตลก')
+                              .snapshots(),
+                          builder:
+                              (context, AsyncSnapshot<QuerySnapshot> snapshot) {
+                            if (!snapshot.hasData) {
+                              return Center(child: CircularProgressIndicator());
+                            }
+                            return GridView.count(
+                                crossAxisCount: 3,
+                                mainAxisSpacing: 10,
+                                crossAxisSpacing: 10,
+                                shrinkWrap: true,
+                                physics: NeverScrollableScrollPhysics(),
+                                padding: EdgeInsets.symmetric(
+                                    horizontal: 16, vertical: 12),
+                                children: snapshot.data!.docs.map((doc) {
+                                  return CartoonModel(
+                                    onPressed: () {},
+                                    src: doc['UrlCartoon'],
+                                  );
+                                }).toList());
+                          },
                         ),
-                        Center(
-                          child: Text('ย้อนยุค'),
-                        )
+                        StreamBuilder(
+                          stream: FirebaseFirestore.instance
+                              .collection('Cartoon')
+                              .where('UploadCategory', arrayContains: 'ย้อนยุค')
+                              .snapshots(),
+                          builder:
+                              (context, AsyncSnapshot<QuerySnapshot> snapshot) {
+                            if (!snapshot.hasData) {
+                              return Center(child: CircularProgressIndicator());
+                            }
+                            return GridView.count(
+                                crossAxisCount: 3,
+                                mainAxisSpacing: 10,
+                                crossAxisSpacing: 10,
+                                shrinkWrap: true,
+                                physics: NeverScrollableScrollPhysics(),
+                                padding: EdgeInsets.symmetric(
+                                    horizontal: 16, vertical: 12),
+                                children: snapshot.data!.docs.map((doc) {
+                                  return CartoonModel(
+                                    onPressed: () {},
+                                    src: doc['UrlCartoon'],
+                                  );
+                                }).toList());
+                          },
+                        ),
                       ]),
                     )),
                 SizedBox(

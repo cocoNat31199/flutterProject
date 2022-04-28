@@ -11,9 +11,9 @@ import 'package:file_picker/file_picker.dart';
 import 'package:path/path.dart';
 
 class UpdateEp extends StatefulWidget {
-  final String cartoonName;
+  final String? cartoonName;
 
-  const UpdateEp({required this.cartoonName});
+  const UpdateEp({this.cartoonName});
 
   @override
   State<UpdateEp> createState() => _UpdateEpState();
@@ -25,10 +25,8 @@ class _UpdateEpState extends State<UpdateEp> {
   PlatformFile? pdfFile;
   File? picfile;
   File? picpdf;
-  late String cartooName = widget.cartoonName;
   late final _pdfName = basename(picpdf!.path);
   final auth = FirebaseAuth.instance;
-  late final userid = auth.currentUser!.uid;
   final _formKey = GlobalKey<FormState>();
 
   @override
@@ -39,247 +37,252 @@ class _UpdateEpState extends State<UpdateEp> {
             primaryColor: Color(0xff643ff9),
             scaffoldBackgroundColor: const Color(0xff643ff9),
             fontFamily: ('Kanit ')),
-        home: Scaffold(
-            appBar: AppBar(
-              automaticallyImplyLeading: false,
-              backgroundColor: Colors.white,
-              elevation: 0.0,
-              leading: IconButton(
-                  onPressed: () {
-                    Navigator.pop(context);
-                  },
-                  icon: Icon(
-                    Icons.arrow_back_ios,
-                    color: Colors.black,
-                  )),
-              title: Text(
-                'อัพโหลดการ์ตูน',
-                style: TextStyle(
-                    color: Colors.black,
-                    fontFamily: 'Kanit',
-                    fontSize: 20,
-                    fontWeight: FontWeight.bold),
-              ),
-            ),
-            body: Container(
-                height: double.infinity,
-                width: double.infinity,
-                margin: EdgeInsets.only(bottom: 56),
-                padding: EdgeInsets.symmetric(horizontal: 16),
-                decoration: BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.only(
-                      bottomLeft: Radius.circular(20.0),
-                      bottomRight: Radius.circular(20.0),
+        home: WillPopScope(
+          onWillPop: () async => false,
+          child: Scaffold(
+              appBar: AppBar(
+                automaticallyImplyLeading: false,
+                backgroundColor: Colors.white,
+                elevation: 0.0,
+                leading: IconButton(
+                    onPressed: () {
+                      Navigator.pop(context);
+                    },
+                    icon: Icon(
+                      Icons.arrow_back_ios,
+                      color: Colors.black,
                     )),
-                child: SingleChildScrollView(
-                  child: StreamBuilder(
-                    stream: FirebaseFirestore.instance
-                        .collection('Chapter')
-                        .snapshots(),
-                    builder: (context, AsyncSnapshot<QuerySnapshot> snapshot) {
-                      if (!snapshot.hasData) {
-                        return Center(child: CircularProgressIndicator());
-                      }
-                      return Form(
-                          key: _formKey,
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              SizedBox(
-                                height: 8,
-                              ),
-                              Text(
-                                'เลือกรูปตอนการ์ตูนของคุณ',
-                                style: TextStyle(
-                                    color: Color(0xff969696),
-                                    fontFamily: 'Kanit',
-                                    fontSize: 12),
-                              ),
-                              SizedBox(
-                                height: 8,
-                              ),
-                              Center(
-                                child: GestureDetector(
+                title: Text(
+                  'อัพโหลดการ์ตูน',
+                  style: TextStyle(
+                      color: Colors.black,
+                      fontFamily: 'Kanit',
+                      fontSize: 20,
+                      fontWeight: FontWeight.bold),
+                ),
+              ),
+              body: Container(
+                  height: double.infinity,
+                  width: double.infinity,
+                  margin: EdgeInsets.only(bottom: 56),
+                  padding: EdgeInsets.symmetric(horizontal: 16),
+                  decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.only(
+                        bottomLeft: Radius.circular(20.0),
+                        bottomRight: Radius.circular(20.0),
+                      )),
+                  child: SingleChildScrollView(
+                    child: StreamBuilder(
+                      stream: FirebaseFirestore.instance
+                          .collection('Chapter')
+                          .snapshots(),
+                      builder:
+                          (context, AsyncSnapshot<QuerySnapshot> snapshot) {
+                        if (!snapshot.hasData) {
+                          return Center(child: CircularProgressIndicator());
+                        }
+                        return Form(
+                            key: _formKey,
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                SizedBox(
+                                  height: 8,
+                                ),
+                                Text(
+                                  'เลือกรูปตอนการ์ตูนของคุณ',
+                                  style: TextStyle(
+                                      color: Color(0xff969696),
+                                      fontFamily: 'Kanit',
+                                      fontSize: 12),
+                                ),
+                                SizedBox(
+                                  height: 8,
+                                ),
+                                Center(
+                                  child: GestureDetector(
+                                    onTap: () {
+                                      selecFile();
+                                    },
+                                    child: Container(
+                                        height: 120,
+                                        width: 120,
+                                        decoration: BoxDecoration(
+                                            color: Color(0xff969696),
+                                            borderRadius:
+                                                BorderRadius.circular(10)),
+                                        child: picfile != null
+                                            ? ClipRRect(
+                                                borderRadius:
+                                                    BorderRadius.circular(10),
+                                                child: Image.file(
+                                                  picfile!,
+                                                  fit: BoxFit.cover,
+                                                ),
+                                              )
+                                            : Icon(
+                                                Icons.add,
+                                                color: Colors.white,
+                                                size: 48,
+                                              )),
+                                  ),
+                                ),
+                                SizedBox(
+                                  height: 28,
+                                ),
+                                Text(
+                                  'รายละเอียดของตอน',
+                                  style: TextStyle(
+                                      color: Color(0xff969696),
+                                      fontFamily: 'Kanit',
+                                      fontSize: 12),
+                                ),
+                                SizedBox(
+                                  height: 12,
+                                ),
+                                TextFormField(
+                                  onChanged: (String string) {
+                                    Chaptername = string.trim();
+                                  },
+                                  validator: RequiredValidator(
+                                      errorText: 'กรุณาใส่ชื่อตอน'),
+                                  cursorColor: Color(0xff643ff9),
+                                  style: TextStyle(fontFamily: 'Kanit'),
+                                  decoration: InputDecoration(
+                                      labelText: 'ชื่อตอน',
+                                      labelStyle: TextStyle(
+                                        fontFamily: 'Kanit',
+                                        fontSize: 16,
+                                      ),
+                                      floatingLabelStyle: TextStyle(
+                                        color: Color(0xff643ff9),
+                                        fontFamily: 'Kanit',
+                                      ),
+                                      border: OutlineInputBorder(
+                                          borderSide: BorderSide(
+                                              color: Color(0xff643ff9))),
+                                      focusedBorder: OutlineInputBorder(
+                                          borderSide: BorderSide(
+                                              color: Color(0xff643ff9)))),
+                                ),
+                                SizedBox(
+                                  height: 20,
+                                ),
+                                TextFormField(
+                                  onChanged: (String string) {
+                                    ChapterNum = string.trim();
+                                  },
+                                  validator: RequiredValidator(
+                                      errorText: 'กรุณาใส่ลำดับตอน'),
+                                  cursorColor: Color(0xff643ff9),
+                                  keyboardType: TextInputType.number,
+                                  style: TextStyle(fontFamily: 'Kanit'),
+                                  decoration: InputDecoration(
+                                      labelText: 'ลำดับตอน',
+                                      labelStyle: TextStyle(
+                                        fontFamily: 'Kanit',
+                                        fontSize: 16,
+                                      ),
+                                      floatingLabelStyle: TextStyle(
+                                        color: Color(0xff643ff9),
+                                        fontFamily: 'Kanit',
+                                      ),
+                                      border: OutlineInputBorder(
+                                          borderSide: BorderSide(
+                                              color: Color(0xff643ff9))),
+                                      focusedBorder: OutlineInputBorder(
+                                          borderSide: BorderSide(
+                                              color: Color(0xff643ff9)))),
+                                ),
+                                SizedBox(
+                                  height: 28,
+                                ),
+                                Text(
+                                  'อัพโหลดไฟล์การ์ตูนของคุณ',
+                                  style: TextStyle(
+                                      color: Color(0xff969696),
+                                      fontFamily: 'Kanit',
+                                      fontSize: 12),
+                                ),
+                                SizedBox(
+                                  height: 12,
+                                ),
+                                GestureDetector(
                                   onTap: () {
-                                    selecFile();
+                                    selecpdf();
                                   },
                                   child: Container(
-                                      height: 120,
-                                      width: 120,
-                                      decoration: BoxDecoration(
-                                          color: Color(0xff969696),
-                                          borderRadius:
-                                              BorderRadius.circular(10)),
-                                      child: picfile != null
-                                          ? ClipRRect(
-                                              borderRadius:
-                                                  BorderRadius.circular(10),
-                                              child: Image.file(
-                                                picfile!,
-                                                fit: BoxFit.cover,
-                                              ),
-                                            )
-                                          : Icon(
-                                              Icons.add,
-                                              color: Colors.white,
-                                              size: 48,
-                                            )),
-                                ),
-                              ),
-                              SizedBox(
-                                height: 28,
-                              ),
-                              Text(
-                                'รายละเอียดของตอน',
-                                style: TextStyle(
-                                    color: Color(0xff969696),
-                                    fontFamily: 'Kanit',
-                                    fontSize: 12),
-                              ),
-                              SizedBox(
-                                height: 12,
-                              ),
-                              TextFormField(
-                                onChanged: (String string) {
-                                  Chaptername = string.trim();
-                                },
-                                validator: RequiredValidator(
-                                    errorText: 'กรุณาใส่ชื่อตอน'),
-                                cursorColor: Color(0xff643ff9),
-                                style: TextStyle(fontFamily: 'Kanit'),
-                                decoration: InputDecoration(
-                                    labelText: 'ชื่อตอน',
-                                    labelStyle: TextStyle(
-                                      fontFamily: 'Kanit',
-                                      fontSize: 16,
+                                    height: 80,
+                                    decoration: BoxDecoration(
+                                      color: Colors.white,
+                                      borderRadius: BorderRadius.circular(10),
+                                      border:
+                                          Border.all(color: Color(0xff969696)),
+                                      boxShadow: [
+                                        BoxShadow(
+                                          color: Colors.grey.withOpacity(0.5),
+                                          spreadRadius: 1,
+                                          blurRadius: 1,
+                                          offset: Offset(0,
+                                              3), // changes position of shadow
+                                        ),
+                                      ],
                                     ),
-                                    floatingLabelStyle: TextStyle(
-                                      color: Color(0xff643ff9),
-                                      fontFamily: 'Kanit',
-                                    ),
-                                    border: OutlineInputBorder(
-                                        borderSide: BorderSide(
-                                            color: Color(0xff643ff9))),
-                                    focusedBorder: OutlineInputBorder(
-                                        borderSide: BorderSide(
-                                            color: Color(0xff643ff9)))),
-                              ),
-                              SizedBox(
-                                height: 20,
-                              ),
-                              TextFormField(
-                                onChanged: (String string) {
-                                  ChapterNum = string.trim();
-                                },
-                                validator: RequiredValidator(
-                                    errorText: 'กรุณาใส่ลำดับตอน'),
-                                cursorColor: Color(0xff643ff9),
-                                keyboardType: TextInputType.number,
-                                style: TextStyle(fontFamily: 'Kanit'),
-                                decoration: InputDecoration(
-                                    labelText: 'ลำดับตอน',
-                                    labelStyle: TextStyle(
-                                      fontFamily: 'Kanit',
-                                      fontSize: 16,
-                                    ),
-                                    floatingLabelStyle: TextStyle(
-                                      color: Color(0xff643ff9),
-                                      fontFamily: 'Kanit',
-                                    ),
-                                    border: OutlineInputBorder(
-                                        borderSide: BorderSide(
-                                            color: Color(0xff643ff9))),
-                                    focusedBorder: OutlineInputBorder(
-                                        borderSide: BorderSide(
-                                            color: Color(0xff643ff9)))),
-                              ),
-                              SizedBox(
-                                height: 28,
-                              ),
-                              Text(
-                                'อัพโหลดไฟล์การ์ตูนของคุณ',
-                                style: TextStyle(
-                                    color: Color(0xff969696),
-                                    fontFamily: 'Kanit',
-                                    fontSize: 12),
-                              ),
-                              SizedBox(
-                                height: 12,
-                              ),
-                              GestureDetector(
-                                onTap: () {
-                                  selecpdf();
-                                },
-                                child: Container(
-                                  height: 80,
-                                  decoration: BoxDecoration(
-                                    color: Colors.white,
-                                    borderRadius: BorderRadius.circular(10),
-                                    border:
-                                        Border.all(color: Color(0xff969696)),
-                                    boxShadow: [
-                                      BoxShadow(
-                                        color: Colors.grey.withOpacity(0.5),
-                                        spreadRadius: 1,
-                                        blurRadius: 1,
-                                        offset: Offset(
-                                            0, 3), // changes position of shadow
-                                      ),
-                                    ],
+                                    child: Center(
+                                        child: fileName != null
+                                            ? Text(
+                                                '$fileName',
+                                                textAlign: TextAlign.center,
+                                                style: TextStyle(
+                                                    color: Colors.black,
+                                                    fontFamily: 'Kanit',
+                                                    fontSize: 16),
+                                              )
+                                            : Text(
+                                                'แตะเพื่ออัพโหลดไฟล์ของคุณ',
+                                                style: TextStyle(
+                                                    color: Color(0xff969696),
+                                                    fontFamily: 'Kanit',
+                                                    fontSize: 16),
+                                              )),
                                   ),
-                                  child: Center(
-                                      child: fileName != null
-                                          ? Text(
-                                              '$fileName',
-                                              textAlign: TextAlign.center,
-                                              style: TextStyle(
-                                                  color: Colors.black,
-                                                  fontFamily: 'Kanit',
-                                                  fontSize: 16),
-                                            )
-                                          : Text(
-                                              'แตะเพื่ออัพโหลดไฟล์ของคุณ',
-                                              style: TextStyle(
-                                                  color: Color(0xff969696),
-                                                  fontFamily: 'Kanit',
-                                                  fontSize: 16),
-                                            )),
                                 ),
-                              ),
-                              SizedBox(
-                                height: 28,
-                              ),
-                              Center(
-                                  child: CustomButton(
-                                      onPressed: () {
-                                        if (_formKey.currentState!.validate()) {
-                                          if (picfile != null &&
-                                              picpdf != null) {
-                                            uploadFile()
-                                                .then((value) =>
-                                                    Fluttertoast.showToast(
-                                                        msg: 'สร้างตอนสำเร็จ',
-                                                        gravity: ToastGravity
-                                                            .BOTTOM))
-                                                .then((value) =>
-                                                    Navigator.pop(context));
-                                          } else {
-                                            Fluttertoast.showToast(
-                                                msg: 'กรุณาใส่ข้อมูลให้ครบ',
-                                                gravity: ToastGravity.BOTTOM);
+                                SizedBox(
+                                  height: 28,
+                                ),
+                                Center(
+                                    child: CustomButton(
+                                        onPressed: () {
+                                          if (_formKey.currentState!
+                                              .validate()) {
+                                            if (picfile != null &&
+                                                picpdf != null) {
+                                              uploadFile()
+                                                  .then((value) =>
+                                                      Fluttertoast.showToast(
+                                                          msg: 'สร้างตอนสำเร็จ',
+                                                          gravity: ToastGravity
+                                                              .BOTTOM))
+                                                  .then((value) =>
+                                                      Navigator.pop(context));
+                                            } else {
+                                              Fluttertoast.showToast(
+                                                  msg: 'กรุณาใส่ข้อมูลให้ครบ',
+                                                  gravity: ToastGravity.BOTTOM);
+                                            }
                                           }
-                                        }
-                                      },
-                                      text: 'เพิ่มตอน')),
-                              SizedBox(
-                                height: 20,
-                              )
-                            ],
-                          ));
-                    },
-                  ),
-                ))));
+                                        },
+                                        text: 'เพิ่มตอน')),
+                                SizedBox(
+                                  height: 20,
+                                )
+                              ],
+                            ));
+                      },
+                    ),
+                  ))),
+        ));
   }
 
   Future selecFile() async {
@@ -345,8 +348,6 @@ class _UpdateEpState extends State<UpdateEp> {
     map['ChapterNum'] = ChapterNum;
     map['Chapterurl'] = UrlChapter;
     map['Storyurl'] = Urlpdf;
-    map['Userid'] = userid;
-    map['CartoonName'] = cartooName;
 
     //Insert Data To Firestore
     firestore

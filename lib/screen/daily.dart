@@ -1,5 +1,7 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:merrily/component/cartoon_model.dart';
 import 'package:merrily/component/toptab.dart';
 import 'package:intl/intl.dart';
 
@@ -41,7 +43,7 @@ class _DailyState extends State<Daily> {
   Widget build(BuildContext context) {
     return DefaultTabController(
         initialIndex: switchDay(),
-        length: 8,
+        length: 7,
         child: Scaffold(
           appBar: AppBar(
             toolbarHeight: 92,
@@ -93,7 +95,6 @@ class _DailyState extends State<Daily> {
                       Toptab(tabName: 'ศุกร์'),
                       Toptab(tabName: 'เสาร์'),
                       Toptab(tabName: 'อาทิตย์'),
-                      Toptab(tabName: 'จบ'),
                     ]),
               ),
             ),
@@ -108,29 +109,181 @@ class _DailyState extends State<Daily> {
                   bottomRight: Radius.circular(20.0),
                 )),
             child: TabBarView(children: [
-              Center(
-                child: Text('วันจันทร์'),
+              StreamBuilder(
+                stream: FirebaseFirestore.instance
+                    .collection('Cartoon')
+                    .where('Day', isEqualTo: 1)
+                    .snapshots(),
+                builder: (context, AsyncSnapshot<QuerySnapshot> snapshot) {
+                  if (!snapshot.hasData) {
+                    return Center(child: CircularProgressIndicator());
+                  }
+                  return GridView.count(
+                      crossAxisCount: 3,
+                      mainAxisSpacing: 10,
+                      crossAxisSpacing: 10,
+                      shrinkWrap: true,
+                      physics: NeverScrollableScrollPhysics(),
+                      padding:
+                          EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+                      children: snapshot.data!.docs.map((doc) {
+                        return CartoonModel(
+                          onPressed: () {},
+                          src: doc['UrlCartoon'],
+                        );
+                      }).toList());
+                },
               ),
-              Center(
-                child: Text('วันอังคาร'),
+              StreamBuilder(
+                stream: FirebaseFirestore.instance
+                    .collection('Cartoon')
+                    .where('Day', isEqualTo: 2)
+                    .snapshots(),
+                builder: (context, AsyncSnapshot<QuerySnapshot> snapshot) {
+                  if (!snapshot.hasData) {
+                    return Center(child: CircularProgressIndicator());
+                  }
+                  return GridView.count(
+                      crossAxisCount: 3,
+                      mainAxisSpacing: 10,
+                      crossAxisSpacing: 10,
+                      shrinkWrap: true,
+                      physics: NeverScrollableScrollPhysics(),
+                      padding:
+                          EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+                      children: snapshot.data!.docs.map((doc) {
+                        return CartoonModel(
+                          onPressed: () {},
+                          src: doc['UrlCartoon'],
+                        );
+                      }).toList());
+                },
               ),
-              Center(
-                child: Text('วันพุธ'),
+              StreamBuilder(
+                stream: FirebaseFirestore.instance
+                    .collection('Cartoon')
+                    .where('Day', isEqualTo: 3)
+                    .snapshots(),
+                builder: (context, AsyncSnapshot<QuerySnapshot> snapshot) {
+                  if (!snapshot.hasData) {
+                    return Center(child: CircularProgressIndicator());
+                  }
+                  return GridView.count(
+                      crossAxisCount: 3,
+                      mainAxisSpacing: 10,
+                      crossAxisSpacing: 10,
+                      shrinkWrap: true,
+                      physics: NeverScrollableScrollPhysics(),
+                      padding:
+                          EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+                      children: snapshot.data!.docs.map((doc) {
+                        return CartoonModel(
+                          onPressed: () {},
+                          src: doc['UrlCartoon'],
+                        );
+                      }).toList());
+                },
               ),
-              Center(
-                child: Text('วันพฤหัสบดี'),
+              StreamBuilder(
+                stream: FirebaseFirestore.instance
+                    .collection('Cartoon')
+                    .where('Day', isEqualTo: 4)
+                    .snapshots(),
+                builder: (context, AsyncSnapshot<QuerySnapshot> snapshot) {
+                  if (!snapshot.hasData) {
+                    return Center(child: CircularProgressIndicator());
+                  }
+                  return GridView.count(
+                      crossAxisCount: 3,
+                      mainAxisSpacing: 10,
+                      crossAxisSpacing: 10,
+                      shrinkWrap: true,
+                      physics: NeverScrollableScrollPhysics(),
+                      padding:
+                          EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+                      children: snapshot.data!.docs.map((doc) {
+                        return CartoonModel(
+                          onPressed: () {},
+                          src: doc['UrlCartoon'],
+                        );
+                      }).toList());
+                },
               ),
-              Center(
-                child: Text('วันศุกร์'),
+              StreamBuilder(
+                stream: FirebaseFirestore.instance
+                    .collection('Cartoon')
+                    .where('Day', isEqualTo: 5)
+                    .snapshots(),
+                builder: (context, AsyncSnapshot<QuerySnapshot> snapshot) {
+                  if (!snapshot.hasData) {
+                    return Center(child: CircularProgressIndicator());
+                  }
+                  return GridView.count(
+                      crossAxisCount: 3,
+                      mainAxisSpacing: 10,
+                      crossAxisSpacing: 10,
+                      shrinkWrap: true,
+                      physics: NeverScrollableScrollPhysics(),
+                      padding:
+                          EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+                      children: snapshot.data!.docs.map((doc) {
+                        return CartoonModel(
+                          onPressed: () {},
+                          src: doc['UrlCartoon'],
+                        );
+                      }).toList());
+                },
               ),
-              Center(
-                child: Text('วันเสาร์'),
+              StreamBuilder(
+                stream: FirebaseFirestore.instance
+                    .collection('Cartoon')
+                    .where('Day', isEqualTo: 6)
+                    .orderBy('Date', descending: true)
+                    .snapshots(),
+                builder: (context, AsyncSnapshot<QuerySnapshot> snapshot) {
+                  if (!snapshot.hasData) {
+                    return Center(child: CircularProgressIndicator());
+                  }
+                  return GridView.count(
+                      crossAxisCount: 3,
+                      mainAxisSpacing: 10,
+                      crossAxisSpacing: 10,
+                      shrinkWrap: true,
+                      physics: NeverScrollableScrollPhysics(),
+                      padding:
+                          EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+                      children: snapshot.data!.docs.map((doc) {
+                        return CartoonModel(
+                          onPressed: () {},
+                          src: doc['UrlCartoon'],
+                        );
+                      }).toList());
+                },
               ),
-              Center(
-                child: Text('วันอาทิตย์'),
-              ),
-              Center(
-                child: Text('จบแล้ว'),
+              StreamBuilder(
+                stream: FirebaseFirestore.instance
+                    .collection('Cartoon')
+                    .where('Day', isEqualTo: 7)
+                    .snapshots(),
+                builder: (context, AsyncSnapshot<QuerySnapshot> snapshot) {
+                  if (!snapshot.hasData) {
+                    return Center(child: CircularProgressIndicator());
+                  }
+                  return GridView.count(
+                      crossAxisCount: 3,
+                      mainAxisSpacing: 10,
+                      crossAxisSpacing: 10,
+                      shrinkWrap: true,
+                      physics: NeverScrollableScrollPhysics(),
+                      padding:
+                          EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+                      children: snapshot.data!.docs.map((doc) {
+                        return CartoonModel(
+                          onPressed: () {},
+                          src: doc['UrlCartoon'],
+                        );
+                      }).toList());
+                },
               ),
             ]),
           ),
