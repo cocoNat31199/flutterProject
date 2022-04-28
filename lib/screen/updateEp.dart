@@ -73,9 +73,7 @@ class _UpdateEpState extends State<UpdateEp> {
                 child: SingleChildScrollView(
                   child: StreamBuilder(
                     stream: FirebaseFirestore.instance
-                        .collection('Cartoon')
-                        .where('userid', isEqualTo: auth.currentUser!.uid)
-                        .where('Name', isEqualTo: widget.cartoonName)
+                        .collection('Chapter')
                         .snapshots(),
                     builder: (context, AsyncSnapshot<QuerySnapshot> snapshot) {
                       if (!snapshot.hasData) {
@@ -249,19 +247,18 @@ class _UpdateEpState extends State<UpdateEp> {
                                         if (_formKey.currentState!.validate()) {
                                           if (picfile != null &&
                                               picpdf != null) {
-                                            uploadFile().then((value) =>
-                                                Navigator.pop(context));
-                                            Fluttertoast.showToast(
-                                                    msg: 'สร้างตอนสำเร็จ',
-                                                    gravity:
-                                                        ToastGravity.BOTTOM)
-                                                .then((value) {});
+                                            uploadFile()
+                                                .then((value) =>
+                                                    Fluttertoast.showToast(
+                                                        msg: 'สร้างตอนสำเร็จ',
+                                                        gravity: ToastGravity
+                                                            .BOTTOM))
+                                                .then((value) =>
+                                                    Navigator.pop(context));
                                           } else {
                                             Fluttertoast.showToast(
-                                                    msg: 'กรุณาใส่ข้อมูลให้ครบ',
-                                                    gravity:
-                                                        ToastGravity.BOTTOM)
-                                                .then((value) {});
+                                                msg: 'กรุณาใส่ข้อมูลให้ครบ',
+                                                gravity: ToastGravity.BOTTOM);
                                           }
                                         }
                                       },
@@ -320,7 +317,6 @@ class _UpdateEpState extends State<UpdateEp> {
     UploadTask storageUploadTask = storageReference.putFile(picfile!);
 
     UrlChapter = await (await storageUploadTask).ref.getDownloadURL();
-    print('File Insert Success');
 
     FirebaseStorage firebaseStorageC = FirebaseStorage.instance;
     Reference storageReferenceC =
@@ -328,7 +324,6 @@ class _UpdateEpState extends State<UpdateEp> {
     UploadTask storageUploadTaskC = storageReferenceC.putFile(picpdf!);
 
     Urlpdf = await (await storageUploadTaskC).ref.getDownloadURL();
-    print('PDF Insert Success');
 
     uploadFirestore();
   }

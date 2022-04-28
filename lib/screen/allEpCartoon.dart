@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:merrily/screen/updateEp.dart';
 
@@ -12,6 +13,8 @@ class AllEpCartoon extends StatefulWidget {
 }
 
 class _AllEpCartoonState extends State<AllEpCartoon> {
+  final auth = FirebaseAuth.instance;
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -66,52 +69,50 @@ class _AllEpCartoonState extends State<AllEpCartoon> {
                         fontFamily: 'Kanit',
                         fontSize: 12),
                   ),
-                  // StreamBuilder(
-                  //     stream: FirebaseFirestore.instance
-                  //         .collection('Cartoon')
-                  //         .where('Name', isEqualTo: widget.cartoonName)
-                  //         .snapshots(),
-                  //     builder:
-                  //         (context, AsyncSnapshot<QuerySnapshot> snapshot) {
-                  //       if (!snapshot.hasData) {
-                  //         return CircularProgressIndicator();
-                  //       }
-                  //       return ListView(
-                  //         physics: NeverScrollableScrollPhysics(),
-                  //         padding: EdgeInsets.only(bottom: 28),
-                  //         shrinkWrap: true,
-                  //         children: snapshot.data!.docs.map((doc) {
-                  //           return Card(
-                  //             color: Color(0xff643ff9),
-                  //             child: InkWell(
-                  //                 onTap: () {
-                  //                   Navigator.push(context, MaterialPageRoute(builder: ((context) => UpdartEp(cartoonName: '${doc['Name']}',))));
-                  //                 },
-                  //                 child: SizedBox(
-                  //                     height: 72,
-                  //                     child: Row(
-                  //                       children: [
-                  //                         AspectRatio(
-                  //                           aspectRatio: 1,
-                  //                           child: Image.network(
-                  //                             doc['UrlCartoon'],
-                  //                             fit: BoxFit.cover,
-                  //                           ),
-                  //                         ),
-                  //                         SizedBox(width: 12),
-                  //                         Center(
-                  //                           child: Text(doc['Name'],
-                  //                               style: TextStyle(
-                  //                                 color: Colors.white,
-                  //                                 fontFamily: 'Kanit',
-                  //                               )),
-                  //                         )
-                  //                       ],
-                  //                     ))),
-                  //           );
-                  //         }).toList(),
-                  //       );
-                  //     }),
+                  StreamBuilder(
+                      stream: FirebaseFirestore.instance
+                          .collection('Cartoon')
+                          .doc(widget.cartoonName)
+                          .collection('Chapter')
+                          .snapshots(),
+                      builder:
+                          (context, AsyncSnapshot<QuerySnapshot> snapshot) {
+                        if (!snapshot.hasData) {
+                          return CircularProgressIndicator();
+                        }
+                        return ListView(
+                          physics: NeverScrollableScrollPhysics(),
+                          padding: EdgeInsets.only(bottom: 28),
+                          shrinkWrap: true,
+                          children: snapshot.data!.docs.map((doc) {
+                            return Card(
+                              color: Color(0xff643ff9),
+                              child: InkWell(
+                                  child: SizedBox(
+                                      height: 72,
+                                      child: Row(
+                                        children: [
+                                          AspectRatio(
+                                            aspectRatio: 1,
+                                            child: Image.network(
+                                              doc['Chapterurl'],
+                                              fit: BoxFit.cover,
+                                            ),
+                                          ),
+                                          SizedBox(width: 12),
+                                          Center(
+                                            child: Text(doc['Chaptername'],
+                                                style: TextStyle(
+                                                  color: Colors.white,
+                                                  fontFamily: 'Kanit',
+                                                )),
+                                          )
+                                        ],
+                                      ))),
+                            );
+                          }).toList(),
+                        );
+                      }),
                   SizedBox(
                     height: 10,
                   )
