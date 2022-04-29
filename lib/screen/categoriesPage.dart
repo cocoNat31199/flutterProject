@@ -3,6 +3,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:merrily/component/cartoon_model.dart';
 import 'package:merrily/component/toptab.dart';
+import 'package:merrily/screen/cartoonPage.dart';
 
 class CategoriesPage extends StatelessWidget {
   int selectTab;
@@ -120,7 +121,18 @@ class CategoriesPage extends StatelessWidget {
                                       horizontal: 16, vertical: 12),
                                   children: snapshot.data!.docs.map((doc) {
                                     return CartoonModel(
-                                      onPressed: () {},
+                                      onPressed: () {
+                                        Navigator.push(
+                                            context,
+                                            MaterialPageRoute(
+                                                builder: (context) =>
+                                                    CartoonPage(
+                                                      doc['Name'],
+                                                      doc['Detail'],
+                                                      doc['UrlCartoon'],
+                                                      doc['UrlCover'],
+                                                    )));
+                                      },
                                       src: doc['UrlCartoon'],
                                     );
                                   }).toList());
@@ -151,7 +163,18 @@ class CategoriesPage extends StatelessWidget {
                                       horizontal: 16, vertical: 12),
                                   children: snapshot.data!.docs.map((doc) {
                                     return CartoonModel(
-                                      onPressed: () {},
+                                      onPressed: () {
+                                        Navigator.push(
+                                            context,
+                                            MaterialPageRoute(
+                                                builder: (context) =>
+                                                    CartoonPage(
+                                                      doc['Name'],
+                                                      doc['Detail'],
+                                                      doc['UrlCartoon'],
+                                                      doc['UrlCover'],
+                                                    )));
+                                      },
                                       src: doc['UrlCartoon'],
                                     );
                                   }).toList());
@@ -182,7 +205,18 @@ class CategoriesPage extends StatelessWidget {
                                       horizontal: 16, vertical: 12),
                                   children: snapshot.data!.docs.map((doc) {
                                     return CartoonModel(
-                                      onPressed: () {},
+                                      onPressed: () {
+                                        Navigator.push(
+                                            context,
+                                            MaterialPageRoute(
+                                                builder: (context) =>
+                                                    CartoonPage(
+                                                      doc['Name'],
+                                                      doc['Detail'],
+                                                      doc['UrlCartoon'],
+                                                      doc['UrlCover'],
+                                                    )));
+                                      },
                                       src: doc['UrlCartoon'],
                                     );
                                   }).toList());
@@ -213,7 +247,18 @@ class CategoriesPage extends StatelessWidget {
                                       horizontal: 16, vertical: 12),
                                   children: snapshot.data!.docs.map((doc) {
                                     return CartoonModel(
-                                      onPressed: () {},
+                                      onPressed: () {
+                                        Navigator.push(
+                                            context,
+                                            MaterialPageRoute(
+                                                builder: (context) =>
+                                                    CartoonPage(
+                                                      doc['Name'],
+                                                      doc['Detail'],
+                                                      doc['UrlCartoon'],
+                                                      doc['UrlCover'],
+                                                    )));
+                                      },
                                       src: doc['UrlCartoon'],
                                     );
                                   }).toList());
@@ -244,7 +289,18 @@ class CategoriesPage extends StatelessWidget {
                                       horizontal: 16, vertical: 12),
                                   children: snapshot.data!.docs.map((doc) {
                                     return CartoonModel(
-                                      onPressed: () {},
+                                      onPressed: () {
+                                        Navigator.push(
+                                            context,
+                                            MaterialPageRoute(
+                                                builder: (context) =>
+                                                    CartoonPage(
+                                                      doc['Name'],
+                                                      doc['Detail'],
+                                                      doc['UrlCartoon'],
+                                                      doc['UrlCover'],
+                                                    )));
+                                      },
                                       src: doc['UrlCartoon'],
                                     );
                                   }).toList());
@@ -275,7 +331,18 @@ class CategoriesPage extends StatelessWidget {
                                       horizontal: 16, vertical: 12),
                                   children: snapshot.data!.docs.map((doc) {
                                     return CartoonModel(
-                                      onPressed: () {},
+                                      onPressed: () {
+                                        Navigator.push(
+                                            context,
+                                            MaterialPageRoute(
+                                                builder: (context) =>
+                                                    CartoonPage(
+                                                      doc['Name'],
+                                                      doc['Detail'],
+                                                      doc['UrlCartoon'],
+                                                      doc['UrlCover'],
+                                                    )));
+                                      },
                                       src: doc['UrlCartoon'],
                                     );
                                   }).toList());
@@ -305,7 +372,18 @@ class CategoriesPage extends StatelessWidget {
                                       horizontal: 16, vertical: 12),
                                   children: snapshot.data!.docs.map((doc) {
                                     return CartoonModel(
-                                      onPressed: () {},
+                                      onPressed: () {
+                                        Navigator.push(
+                                            context,
+                                            MaterialPageRoute(
+                                                builder: (context) =>
+                                                    CartoonPage(
+                                                      doc['Name'],
+                                                      doc['Detail'],
+                                                      doc['UrlCartoon'],
+                                                      doc['UrlCover'],
+                                                    )));
+                                      },
                                       src: doc['UrlCartoon'],
                                     );
                                   }).toList());
@@ -335,7 +413,18 @@ class CategoriesPage extends StatelessWidget {
                                       horizontal: 16, vertical: 12),
                                   children: snapshot.data!.docs.map((doc) {
                                     return CartoonModel(
-                                      onPressed: () {},
+                                      onPressed: () {
+                                        Navigator.push(
+                                            context,
+                                            MaterialPageRoute(
+                                                builder: (context) =>
+                                                    CartoonPage(
+                                                      doc['Name'],
+                                                      doc['Detail'],
+                                                      doc['UrlCartoon'],
+                                                      doc['UrlCover'],
+                                                    )));
+                                      },
                                       src: doc['UrlCartoon'],
                                     );
                                   }).toList());
@@ -366,7 +455,18 @@ class CategoriesPage extends StatelessWidget {
                                       horizontal: 16, vertical: 12),
                                   children: snapshot.data!.docs.map((doc) {
                                     return CartoonModel(
-                                      onPressed: () {},
+                                      onPressed: () {
+                                        Navigator.push(
+                                            context,
+                                            MaterialPageRoute(
+                                                builder: (context) =>
+                                                    CartoonPage(
+                                                      doc['Name'],
+                                                      doc['Detail'],
+                                                      doc['UrlCartoon'],
+                                                      doc['UrlCover'],
+                                                    )));
+                                      },
                                       src: doc['UrlCartoon'],
                                     );
                                   }).toList());

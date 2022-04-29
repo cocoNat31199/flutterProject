@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:merrily/component/cartoon_model.dart';
 import 'package:merrily/component/toptab.dart';
 import 'package:intl/intl.dart';
+import 'package:merrily/screen/cartoonPage.dart';
 
 class Daily extends StatefulWidget {
   const Daily({Key? key}) : super(key: key);
@@ -130,7 +131,17 @@ class _DailyState extends State<Daily> {
                             EdgeInsets.symmetric(horizontal: 16, vertical: 12),
                         children: snapshot.data!.docs.map((doc) {
                           return CartoonModel(
-                            onPressed: () {},
+                            onPressed: () {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => CartoonPage(
+                                            doc['Name'],
+                                            doc['Detail'],
+                                            doc['UrlCartoon'],
+                                            doc['UrlCover'],
+                                          )));
+                            },
                             src: doc['UrlCartoon'],
                           );
                         }).toList());
@@ -158,7 +169,17 @@ class _DailyState extends State<Daily> {
                             EdgeInsets.symmetric(horizontal: 16, vertical: 12),
                         children: snapshot.data!.docs.map((doc) {
                           return CartoonModel(
-                            onPressed: () {},
+                            onPressed: () {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => CartoonPage(
+                                            doc['Name'],
+                                            doc['Detail'],
+                                            doc['UrlCartoon'],
+                                            doc['UrlCover'],
+                                          )));
+                            },
                             src: doc['UrlCartoon'],
                           );
                         }).toList());
@@ -186,7 +207,17 @@ class _DailyState extends State<Daily> {
                             EdgeInsets.symmetric(horizontal: 16, vertical: 12),
                         children: snapshot.data!.docs.map((doc) {
                           return CartoonModel(
-                            onPressed: () {},
+                            onPressed: () {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => CartoonPage(
+                                            doc['Name'],
+                                            doc['Detail'],
+                                            doc['UrlCartoon'],
+                                            doc['UrlCover'],
+                                          )));
+                            },
                             src: doc['UrlCartoon'],
                           );
                         }).toList());
@@ -214,7 +245,17 @@ class _DailyState extends State<Daily> {
                             EdgeInsets.symmetric(horizontal: 16, vertical: 12),
                         children: snapshot.data!.docs.map((doc) {
                           return CartoonModel(
-                            onPressed: () {},
+                            onPressed: () {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => CartoonPage(
+                                            doc['Name'],
+                                            doc['Detail'],
+                                            doc['UrlCartoon'],
+                                            doc['UrlCover'],
+                                          )));
+                            },
                             src: doc['UrlCartoon'],
                           );
                         }).toList());
@@ -242,36 +283,17 @@ class _DailyState extends State<Daily> {
                             EdgeInsets.symmetric(horizontal: 16, vertical: 12),
                         children: snapshot.data!.docs.map((doc) {
                           return CartoonModel(
-                            onPressed: () {},
-                            src: doc['UrlCartoon'],
-                          );
-                        }).toList());
-                  },
-                ),
-              ),
-              SingleChildScrollView(
-                child: StreamBuilder(
-                  stream: FirebaseFirestore.instance
-                      .collection('Cartoon')
-                      .where('Day', isEqualTo: 6)
-                      .orderBy('Date', descending: true)
-                      .snapshots(),
-                  builder: (context, AsyncSnapshot<QuerySnapshot> snapshot) {
-                    if (!snapshot.hasData) {
-                      return Center(child: CircularProgressIndicator());
-                    }
-                    return GridView.count(
-                        crossAxisCount: 3,
-                        mainAxisSpacing: 10,
-                        crossAxisSpacing: 10,
-                        shrinkWrap: true,
-                        physics: ScrollPhysics(),
-                        childAspectRatio: 9 / 16,
-                        padding:
-                            EdgeInsets.symmetric(horizontal: 16, vertical: 12),
-                        children: snapshot.data!.docs.map((doc) {
-                          return CartoonModel(
-                            onPressed: () {},
+                            onPressed: () {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => CartoonPage(
+                                            doc['Name'],
+                                            doc['Detail'],
+                                            doc['UrlCartoon'],
+                                            doc['UrlCover'],
+                                          )));
+                            },
                             src: doc['UrlCartoon'],
                           );
                         }).toList());
@@ -299,7 +321,55 @@ class _DailyState extends State<Daily> {
                             EdgeInsets.symmetric(horizontal: 16, vertical: 12),
                         children: snapshot.data!.docs.map((doc) {
                           return CartoonModel(
-                            onPressed: () {},
+                            onPressed: () {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => CartoonPage(
+                                            doc['Name'],
+                                            doc['Detail'],
+                                            doc['UrlCartoon'],
+                                            doc['UrlCover'],
+                                          )));
+                            },
+                            src: doc['UrlCartoon'],
+                          );
+                        }).toList());
+                  },
+                ),
+              ),
+              SingleChildScrollView(
+                child: StreamBuilder(
+                  stream: FirebaseFirestore.instance
+                      .collection('Cartoon')
+                      .where('Day', isEqualTo: 7)
+                      .snapshots(),
+                  builder: (context, AsyncSnapshot<QuerySnapshot> snapshot) {
+                    if (!snapshot.hasData) {
+                      return Center(child: CircularProgressIndicator());
+                    }
+                    return GridView.count(
+                        crossAxisCount: 3,
+                        mainAxisSpacing: 10,
+                        crossAxisSpacing: 10,
+                        shrinkWrap: true,
+                        physics: ScrollPhysics(),
+                        childAspectRatio: 9 / 16,
+                        padding:
+                            EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+                        children: snapshot.data!.docs.map((doc) {
+                          return CartoonModel(
+                            onPressed: () {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => CartoonPage(
+                                            doc['Name'],
+                                            doc['Detail'],
+                                            doc['UrlCartoon'],
+                                            doc['UrlCover'],
+                                          )));
+                            },
                             src: doc['UrlCartoon'],
                           );
                         }).toList());

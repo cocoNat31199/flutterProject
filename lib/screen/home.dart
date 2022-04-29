@@ -5,6 +5,7 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:merrily/component/cartoon_model.dart';
 import 'package:merrily/component/categoriesbutton.dart';
 import 'package:merrily/component/coverCartoon.dart';
+import 'package:merrily/screen/cartoonPage.dart';
 import 'package:merrily/screen/categoriesPage.dart';
 import 'package:merrily/screen/searchpage.dart';
 
@@ -538,33 +539,36 @@ class _NewToonState extends State<NewToon> {
             child: StreamBuilder(
                 stream: FirebaseFirestore.instance
                     .collection('Cartoon')
-                    .orderBy('Date', descending: true)
                     .snapshots(),
                 builder: (context, AsyncSnapshot<QuerySnapshot> snapshot) {
                   if (!snapshot.hasData) {
                     return Center(child: CircularProgressIndicator());
                   }
-                  return GridView.builder(
-                      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                          crossAxisCount: 1),
-                      itemBuilder: (context, index) {
-                        return Container(color: Colors.blue,);
-                      });
-                  // GridView.count(
-                  //     crossAxisCount: 1,
-                  //     mainAxisSpacing: 10,
-                  //     scrollDirection: Axis.horizontal,
-                  //     shrinkWrap: true,
-                  //     physics: ScrollPhysics(),
-                  //     childAspectRatio: 16 / 9,
-                  //     padding:
-                  //         EdgeInsets.symmetric(horizontal: 16, vertical: 12),
-                  //     children: snapshot.data!.docs.map((doc) {
-                  //       return CartoonModel(
-                  //         onPressed: () {},
-                  //         src: doc['UrlCartoon'],
-                  //       );
-                  //     }).toList());
+                  return GridView.count(
+                      crossAxisCount: 1,
+                      mainAxisSpacing: 10,
+                      scrollDirection: Axis.horizontal,
+                      shrinkWrap: true,
+                      physics: ScrollPhysics(),
+                      childAspectRatio: 16 / 9,
+                      padding:
+                          EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+                      children: snapshot.data!.docs.map((doc) {
+                        return CartoonModel(
+                          onPressed: () {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => CartoonPage(
+                                          doc['Name'],
+                                          doc['Detail'],
+                                          doc['UrlCartoon'],
+                                          doc['UrlCover'],
+                                        )));
+                          },
+                          src: doc['UrlCartoon'],
+                        );
+                      }).toList());
                 }))
       ],
     );

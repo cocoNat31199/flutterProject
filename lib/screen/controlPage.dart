@@ -144,8 +144,10 @@ class _ProfileState extends State<Profile> {
                     color: Colors.black, fontFamily: 'Kanit', fontSize: 16),
               ),
               GestureDetector(
-                onTap: () {Navigator.push(context,
-                      MaterialPageRoute(builder: (context) => Addcoin()));},
+                onTap: () {
+                  Navigator.push(context,
+                      MaterialPageRoute(builder: (context) => Addcoin()));
+                },
                 child: Container(
                   height: 52,
                   width: double.infinity,
