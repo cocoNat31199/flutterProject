@@ -1,7 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
-import 'package:merrily/component/custombutton.dart';
+import 'package:merrily/screen/cartoonCantent.dart';
 
 class CartoonPage extends StatefulWidget {
   final String cartoonName, detail, urlCover, urlCartoon;
@@ -216,7 +215,15 @@ class _CartoonPageState extends State<CartoonPage> {
                                       return Card(
                                         color: Color(0xff643ff9),
                                         child: InkWell(
-                                          onTap: () {},
+                                            onTap: () {
+                                              Navigator.push(
+                                                  context,
+                                                  MaterialPageRoute(
+                                                      builder: (context) =>
+                                                          CartoonContent(
+                                                            doc['Chaptername'],
+                                                              doc['Storyurl'])));
+                                            },
                                             child: SizedBox(
                                                 height: 72,
                                                 child: Row(
