@@ -1,4 +1,9 @@
+import 'dart:io';
+
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:file_picker/file_picker.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:merrily/component/custombutton.dart';
 import 'package:merrily/component/user.dart';
@@ -13,6 +18,9 @@ class Register_2 extends StatefulWidget {
 }
 
 class _Register_2State extends State<Register_2> {
+  PlatformFile? pickedFile;
+  File? file;
+  String? displayname, urlprofile;
   // File? image;
   // PickedFile? _imageFile;
   // final ImagePicker _picker = ImagePicker();
@@ -71,22 +79,22 @@ class _Register_2State extends State<Register_2> {
                                       Container(
                                         margin: EdgeInsets.only(
                                             top: 60.0, bottom: 48),
-                                        // child: image != null
-                                        //     ? Container(width: 180,height: 180,child: GestureDetector(onTap: selectFile,child: ClipOval(child: Image.file(image!,width: 180,height: 180,fit: BoxFit.cover,),)))
-                                        //     : CircleAvatar(
-                                        //         radius: 90,
-                                        //         child: IconButton(
-                                        //           icon: Icon(Icons.add_outlined),
-                                        //           iconSize: 32,
-                                        //           color: Colors.black,
-                                        //           onPressed: selectFile,
-                                        //         ),
-                                        //       ),
+                                        child: file != null
+                                            ? Container(width: 180,height: 180,child: GestureDetector(onTap: selecFile,child: ClipOval(child: Image.file(file!,width: 180,height: 180,fit: BoxFit.cover,),)))
+                                            : CircleAvatar(
+                                                radius: 90,
+                                                child: IconButton(
+                                                  icon: Icon(Icons.add_outlined),
+                                                  iconSize: 32,
+                                                  color: Colors.black,
+                                                  onPressed: selecFile,
+                                                ),
+                                              ),
                                       ),
                                       Container(
                                         child: TextFormField(
-                                          onSaved: (String? display) {
-                                            user.displayname = display;
+                                          onChanged: (String? string) {
+                                            displayname = string!.trim();
                                           },
                                           cursorColor: Color(0xff643ff9),
                                           decoration: InputDecoration(
@@ -120,40 +128,53 @@ class _Register_2State extends State<Register_2> {
                                               child: SizedBox(
                                                   width: double.infinity,
                                                   child: CustomButton(
-                                                    onPressed: () async {},
+                                                    onPressed: () async {uploadFile();},
                                                     text: 'ต่อไป',
                                                   ))))
                                     ]))
                               ]))))
                     ])))));
+  }
 
-    // Future selectFile() async {
-    //   final image = await ImagePicker().pickImage(source: ImageSource.gallery);
-    //   if (image == null) return;
+  Future selecFile() async {
+    final pickedname = await FilePicker.platform.pickFiles(
+      type: FileType.custom,
+      allowedExtensions: ['png', 'jpg'],
+    );
 
-    //   final imageTemporary = File(image.path);
-    //   setState(() => this.image = imageTemporary);
-    // }
+    if (pickedname == null) return;
+    final path = pickedname.files.single.path!;
 
-    // Future uploadProfile() async {
+    setState(() {
+      file = File(path);
+      pickedFile = pickedname.files.first;
+    });
+  }
 
-    //   Random random = Random();
-    //   int i = random.nextInt(100000);
+  Future uploadFile() async {
+    FirebaseStorage firebaseStorage = FirebaseStorage.instance;
+    Reference storageReference =
+        firebaseStorage.ref().child('Profile/${pickedFile!.name}');
+    UploadTask storageUploadTask = storageReference.putFile(file!);
 
-    //   FirebaseStorage firebaseStorage = FirebaseStorage.instance;
-    //   Reference reference = firebaseStorage.ref().child('Profile/Image$i.jpg');
-    //   UploadTask uploadTask = reference.putFile(image!);
-    // }
+    urlprofile = await (await storageUploadTask).ref.getDownloadURL();
 
-    // Future findDisplayName() async{
-    //   await Firebase.initializeApp().then((value)async {
-    //     await FirebaseAuth.instance.authStateChanges().listen((event) {
-    //       setState(() {
-    //         user.displayname = event!.displayName;
-    //         });
-    //         print('DisplayName = ${user.displayname}'); //Display = Null ไว้กลับมาแก้ต่อ
-    //      });
-    //   });
-    // }
+    uploadFirestore();
+
+  }
+
+  Future<void> uploadFirestore() async {
+    FirebaseFirestore firestore = FirebaseFirestore.instance;
+
+    Map<String, dynamic> map = Map();
+    map['UID'] = widget.userid;
+    map['profilepic'] = urlprofile;
+    map['displayname'] = displayname;
+
+    //Insert Data To Firestore
+    firestore
+        .collection('Userprofile')
+        .doc(widget.userid)
+        .set(map);
   }
 }
