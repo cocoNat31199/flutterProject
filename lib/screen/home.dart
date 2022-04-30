@@ -309,33 +309,41 @@ class _ReadLatestState extends State<ReadLatest> {
           ),
         ),
         Container(
-          height: 174,
-          constraints: BoxConstraints(minHeight: 174),
-          child: ListView(
-              //ใส่streamก่อนอันนี้
-              scrollDirection: Axis.horizontal,
-              padding: EdgeInsets.symmetric(horizontal: 16),
-              shrinkWrap: true,
-              children: [
-                CoverCartoon(),
-                SizedBox(
-                  width: 10,
-                ),
-                CoverCartoon(),
-                SizedBox(
-                  width: 10,
-                ),
-                CoverCartoon(),
-                SizedBox(
-                  width: 10,
-                ),
-                CoverCartoon(),
-                SizedBox(
-                  width: 10,
-                ),
-                CoverCartoon()
-              ]),
-        )
+            height: 200,
+            child: StreamBuilder(
+                stream: FirebaseFirestore.instance
+                    .collection('Cartoon')
+                    .snapshots(),
+                builder: (context, AsyncSnapshot<QuerySnapshot> snapshot) {
+                  if (!snapshot.hasData) {
+                    return Center(child: CircularProgressIndicator());
+                  }
+                  return GridView.count(
+                      crossAxisCount: 1,
+                      mainAxisSpacing: 10,
+                      scrollDirection: Axis.horizontal,
+                      shrinkWrap: true,
+                      physics: ScrollPhysics(),
+                      childAspectRatio: 16 / 9,
+                      padding:
+                          EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+                      children: snapshot.data!.docs.map((doc) {
+                        return CartoonModel(
+                          onPressed: () {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => CartoonPage(
+                                          doc['Name'],
+                                          doc['Detail'],
+                                          doc['UrlCartoon'],
+                                          doc['UrlCover'],
+                                        )));
+                          },
+                          src: doc['UrlCartoon'],
+                        );
+                      }).toList());
+                }))
       ],
     );
   }
@@ -365,33 +373,41 @@ class _RecommendState extends State<Recommend> {
           ),
         ),
         Container(
-          height: 174,
-          constraints: BoxConstraints(minHeight: 174),
-          child: ListView(
-              //ใส่streamก่อนอันนี้
-              scrollDirection: Axis.horizontal,
-              padding: EdgeInsets.symmetric(horizontal: 16),
-              shrinkWrap: true,
-              children: [
-                CoverCartoon(),
-                SizedBox(
-                  width: 10,
-                ),
-                CoverCartoon(),
-                SizedBox(
-                  width: 10,
-                ),
-                CoverCartoon(),
-                SizedBox(
-                  width: 10,
-                ),
-                CoverCartoon(),
-                SizedBox(
-                  width: 10,
-                ),
-                CoverCartoon()
-              ]),
-        )
+            height: 200,
+            child: StreamBuilder(
+                stream: FirebaseFirestore.instance
+                    .collection('Cartoon')
+                    .snapshots(),
+                builder: (context, AsyncSnapshot<QuerySnapshot> snapshot) {
+                  if (!snapshot.hasData) {
+                    return Center(child: CircularProgressIndicator());
+                  }
+                  return GridView.count(
+                      crossAxisCount: 1,
+                      mainAxisSpacing: 10,
+                      scrollDirection: Axis.horizontal,
+                      shrinkWrap: true,
+                      physics: ScrollPhysics(),
+                      childAspectRatio: 16 / 9,
+                      padding:
+                          EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+                      children: snapshot.data!.docs.map((doc) {
+                        return CartoonModel(
+                          onPressed: () {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => CartoonPage(
+                                          doc['Name'],
+                                          doc['Detail'],
+                                          doc['UrlCartoon'],
+                                          doc['UrlCover'],
+                                        )));
+                          },
+                          src: doc['UrlCartoon'],
+                        );
+                      }).toList());
+                }))
       ],
     );
   }
@@ -546,8 +562,7 @@ class _NewToonState extends State<NewToon> {
           ),
         ),
         Container(
-            height: 172,
-            constraints: BoxConstraints(minHeight: 172),
+            height: 200,
             child: StreamBuilder(
                 stream: FirebaseFirestore.instance
                     .collection('Cartoon')
@@ -611,33 +626,41 @@ class _UpdateToonState extends State<UpdateToon> {
           ),
         ),
         Container(
-          height: 174,
-          constraints: BoxConstraints(minHeight: 174),
-          child: ListView(
-              //ใส่streamตรงนี้
-              scrollDirection: Axis.horizontal,
-              padding: EdgeInsets.symmetric(horizontal: 16),
-              shrinkWrap: true,
-              children: [
-                CoverCartoon(),
-                SizedBox(
-                  width: 10,
-                ),
-                CoverCartoon(),
-                SizedBox(
-                  width: 10,
-                ),
-                CoverCartoon(),
-                SizedBox(
-                  width: 10,
-                ),
-                CoverCartoon(),
-                SizedBox(
-                  width: 10,
-                ),
-                CoverCartoon()
-              ]),
-        )
+            height: 200,
+            child: StreamBuilder(
+                stream: FirebaseFirestore.instance
+                    .collection('Cartoon')
+                    .snapshots(),
+                builder: (context, AsyncSnapshot<QuerySnapshot> snapshot) {
+                  if (!snapshot.hasData) {
+                    return Center(child: CircularProgressIndicator());
+                  }
+                  return GridView.count(
+                      crossAxisCount: 1,
+                      mainAxisSpacing: 10,
+                      scrollDirection: Axis.horizontal,
+                      shrinkWrap: true,
+                      physics: ScrollPhysics(),
+                      childAspectRatio: 16 / 9,
+                      padding:
+                          EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+                      children: snapshot.data!.docs.map((doc) {
+                        return CartoonModel(
+                          onPressed: () {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => CartoonPage(
+                                          doc['Name'],
+                                          doc['Detail'],
+                                          doc['UrlCartoon'],
+                                          doc['UrlCover'],
+                                        )));
+                          },
+                          src: doc['UrlCartoon'],
+                        );
+                      }).toList());
+                }))
       ],
     );
   }
