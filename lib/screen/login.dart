@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
@@ -272,6 +273,7 @@ class _InputformState extends State<Inputform> {
                     onPressed: () {
                       signWithFacebook().then((value) {
                         FacebookAuth.instance.getUserData().then((userData) {
+                          uploadFirestore();
                           Fluttertoast.showToast(
                               msg: 'เข้าสู่ระบบสำเร็จ',
                               gravity: ToastGravity.BOTTOM);
@@ -290,6 +292,7 @@ class _InputformState extends State<Inputform> {
                   IconButton(
                     onPressed: () {
                       signInWithGoogle().then((value) {
+                        uploadFirestore();
                         Fluttertoast.showToast(
                             msg: 'เข้าสู่ระบบสำเร็จ',
                             gravity: ToastGravity.BOTTOM);
@@ -307,5 +310,20 @@ class _InputformState extends State<Inputform> {
                 ])
               ],
             )));
+  }
+
+  Future<void> uploadFirestore() async {
+    FirebaseFirestore firestore = FirebaseFirestore.instance;
+
+    Map<String, dynamic> map = Map();
+    map['UID'] = _auth.currentUser!.uid;
+    map['profilepic'] = _auth.currentUser!.photoURL;
+    map['displayname'] = _auth.currentUser!.displayName;
+
+    //Insert Data To Firestore
+    firestore
+        .collection('Userprofile')
+        .doc(_auth.currentUser!.uid)
+        .set(map, SetOptions(merge: true));
   }
 }

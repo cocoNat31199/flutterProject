@@ -7,6 +7,7 @@ import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:merrily/component/custombutton.dart';
 import 'package:merrily/component/user.dart';
+import 'package:merrily/main.dart';
 
 class Register_2 extends StatefulWidget {
   final String userid;
@@ -80,11 +81,24 @@ class _Register_2State extends State<Register_2> {
                                         margin: EdgeInsets.only(
                                             top: 60.0, bottom: 48),
                                         child: file != null
-                                            ? Container(width: 180,height: 180,child: GestureDetector(onTap: selecFile,child: ClipOval(child: Image.file(file!,width: 180,height: 180,fit: BoxFit.cover,),)))
+                                            ? Container(
+                                                width: 180,
+                                                height: 180,
+                                                child: GestureDetector(
+                                                    onTap: selecFile,
+                                                    child: ClipOval(
+                                                      child: Image.file(
+                                                        file!,
+                                                        width: 180,
+                                                        height: 180,
+                                                        fit: BoxFit.cover,
+                                                      ),
+                                                    )))
                                             : CircleAvatar(
                                                 radius: 90,
                                                 child: IconButton(
-                                                  icon: Icon(Icons.add_outlined),
+                                                  icon:
+                                                      Icon(Icons.add_outlined),
                                                   iconSize: 32,
                                                   color: Colors.black,
                                                   onPressed: selecFile,
@@ -128,7 +142,15 @@ class _Register_2State extends State<Register_2> {
                                               child: SizedBox(
                                                   width: double.infinity,
                                                   child: CustomButton(
-                                                    onPressed: () async {uploadFile();},
+                                                    onPressed: () async {
+                                                      uploadFile().then((value) =>
+                                                          Navigator.pushReplacement(
+                                                              context,
+                                                              MaterialPageRoute(
+                                                                  builder:
+                                                                      (context) =>
+                                                                          MyApp())));
+                                                    },
                                                     text: 'ต่อไป',
                                                   ))))
                                     ]))
@@ -160,7 +182,6 @@ class _Register_2State extends State<Register_2> {
     urlprofile = await (await storageUploadTask).ref.getDownloadURL();
 
     uploadFirestore();
-
   }
 
   Future<void> uploadFirestore() async {
@@ -172,9 +193,6 @@ class _Register_2State extends State<Register_2> {
     map['displayname'] = displayname;
 
     //Insert Data To Firestore
-    firestore
-        .collection('Userprofile')
-        .doc(widget.userid)
-        .set(map);
+    firestore.collection('Userprofile').doc(widget.userid).set(map);
   }
 }

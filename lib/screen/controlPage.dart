@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
@@ -115,188 +116,210 @@ class _ProfileState extends State<Profile> {
       child: SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 16),
-          child: Column(
-            children: [
-              ClipOval(
-                  child: auth.currentUser!.photoURL != null
-                      ? Image.network(
-                          '${auth.currentUser!.photoURL}',
-                          height: 100,
-                          width: 100,
-                          fit: BoxFit.contain,
-                        )
-                      : Container(
-                          height: 100,
-                          width: 100,
+          child: StreamBuilder(
+              stream: FirebaseFirestore.instance
+                  .collection('Userprofile')
+                  .where('UID', isEqualTo: auth.currentUser!.uid)
+                  .snapshots(),
+              builder: (context, AsyncSnapshot<QuerySnapshot> snapshot) {
+                if (!snapshot.hasData) {
+                  return Center(
+                    child: CircularProgressIndicator(),
+                  );
+                }
+                return Column(
+                  children: [
+                    ClipOval(
+                        child: snapshot.data!.docs.first['profilepic'] != null
+                            ? Image.network(
+                                snapshot.data!.docs.first['profilepic'],
+                                height: 100,
+                                width: 100,
+                                fit: BoxFit.contain,
+                              )
+                            : Container(
+                                height: 100,
+                                width: 100,
+                                color: Colors.black,
+                              )),
+                    Text(
+                      snapshot.data!.docs.first['displayname'],
+                      style: TextStyle(
                           color: Colors.black,
+                          fontFamily: 'Kanit',
+                          fontSize: 24,
+                          fontWeight: FontWeight.bold),
+                    ),
+                    Text(
+                      '#xxxx',
+                      style: TextStyle(
+                          color: Colors.black,
+                          fontFamily: 'Kanit',
+                          fontSize: 16),
+                    ),
+                    GestureDetector(
+                      onTap: () {
+                        Navigator.push(context,
+                            MaterialPageRoute(builder: (context) => Addcoin()));
+                      },
+                      child: Container(
+                        height: 52,
+                        width: double.infinity,
+                        decoration: BoxDecoration(
+                            border: Border(
+                                bottom: BorderSide(
+                                    width: 0.5, color: Color(0x33969696)))),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Text('เหรียญของคุณ',
+                                style: TextStyle(
+                                    color: Colors.black,
+                                    fontFamily: 'Kanit',
+                                    fontSize: 16)),
+                            Text('฿ 300',
+                                style: TextStyle(
+                                    color: Colors.black,
+                                    fontFamily: 'Kanit',
+                                    fontSize: 16))
+                          ],
+                        ),
+                      ),
+                    ),
+                    GestureDetector(
+                      onTap: () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => HistoryGift()));
+                      },
+                      child: Container(
+                        height: 52,
+                        width: double.infinity,
+                        decoration: BoxDecoration(
+                            border: Border(
+                                bottom: BorderSide(
+                                    width: 0.5, color: Color(0x33969696)))),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Text('ประวัติการส่งของขวัญ',
+                                style: TextStyle(
+                                    color: Colors.black,
+                                    fontFamily: 'Kanit',
+                                    fontSize: 16)),
+                            Icon(
+                              Icons.arrow_forward_ios_outlined,
+                              size: 20,
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                    GestureDetector(
+                      onTap: () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) =>
+                                    EditProfile(auth.currentUser!.uid)));
+                      },
+                      child: Container(
+                        height: 52,
+                        width: double.infinity,
+                        decoration: BoxDecoration(
+                            border: Border(
+                                bottom: BorderSide(
+                                    width: 0.5, color: Color(0x33969696)))),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Text('แก้ไขโปรไฟล์',
+                                style: TextStyle(
+                                    color: Colors.black,
+                                    fontFamily: 'Kanit',
+                                    fontSize: 16)),
+                            Icon(
+                              Icons.arrow_forward_ios_outlined,
+                              size: 20,
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                    GestureDetector(
+                      onTap: () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => UploadPage()));
+                      },
+                      child: Container(
+                        height: 52,
+                        width: double.infinity,
+                        decoration: BoxDecoration(
+                            border: Border(
+                                bottom: BorderSide(
+                                    width: 0.5, color: Color(0x33969696)))),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Text('อัพโหลดการ์ตูน',
+                                style: TextStyle(
+                                    color: Colors.black,
+                                    fontFamily: 'Kanit',
+                                    fontSize: 16)),
+                            Icon(
+                              Icons.arrow_forward_ios_outlined,
+                              size: 20,
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                    GestureDetector(
+                      onTap: () {
+                        Navigator.push(context,
+                            MaterialPageRoute(builder: (context) => Setting()));
+                      },
+                      child: Container(
+                        height: 52,
+                        width: double.infinity,
+                        decoration: BoxDecoration(
+                            border: Border(
+                                bottom: BorderSide(
+                                    width: 0.5, color: Color(0x33969696)))),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Text('ตั้งค่า',
+                                style: TextStyle(
+                                    color: Colors.black,
+                                    fontFamily: 'Kanit',
+                                    fontSize: 16)),
+                            Icon(
+                              Icons.arrow_forward_ios_outlined,
+                              size: 20,
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                    SizedBox(height: 24),
+                    Align(
+                        alignment: Alignment.bottomCenter,
+                        child: CustomButton(
+                          onPressed: () {
+                            signOut().then((value) => Navigator.pushReplacement(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => MyApp())));
+                          },
+                          text: 'ออกจากระบบ',
                         )),
-              Text(
-                '${auth.currentUser!.displayName}',
-                style: TextStyle(
-                    color: Colors.black,
-                    fontFamily: 'Kanit',
-                    fontSize: 24,
-                    fontWeight: FontWeight.bold),
-              ),
-              Text(
-                '#xxxx',
-                style: TextStyle(
-                    color: Colors.black, fontFamily: 'Kanit', fontSize: 16),
-              ),
-              GestureDetector(
-                onTap: () {
-                  Navigator.push(context,
-                      MaterialPageRoute(builder: (context) => Addcoin()));
-                },
-                child: Container(
-                  height: 52,
-                  width: double.infinity,
-                  decoration: BoxDecoration(
-                      border: Border(
-                          bottom: BorderSide(
-                              width: 0.5, color: Color(0x33969696)))),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Text('เหรียญของคุณ',
-                          style: TextStyle(
-                              color: Colors.black,
-                              fontFamily: 'Kanit',
-                              fontSize: 16)),
-                      Text('฿ 300',
-                          style: TextStyle(
-                              color: Colors.black,
-                              fontFamily: 'Kanit',
-                              fontSize: 16))
-                    ],
-                  ),
-                ),
-              ),
-              GestureDetector(
-                onTap: () {
-                  Navigator.push(context,
-                      MaterialPageRoute(builder: (context) => HistoryGift()));
-                },
-                child: Container(
-                  height: 52,
-                  width: double.infinity,
-                  decoration: BoxDecoration(
-                      border: Border(
-                          bottom: BorderSide(
-                              width: 0.5, color: Color(0x33969696)))),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Text('ประวัติการส่งของขวัญ',
-                          style: TextStyle(
-                              color: Colors.black,
-                              fontFamily: 'Kanit',
-                              fontSize: 16)),
-                      Icon(
-                        Icons.arrow_forward_ios_outlined,
-                        size: 20,
-                      ),
-                    ],
-                  ),
-                ),
-              ),
-              GestureDetector(
-                onTap: () {
-                  Navigator.push(context,
-                      MaterialPageRoute(builder: (context) => EditProfile()));
-                },
-                child: Container(
-                  height: 52,
-                  width: double.infinity,
-                  decoration: BoxDecoration(
-                      border: Border(
-                          bottom: BorderSide(
-                              width: 0.5, color: Color(0x33969696)))),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Text('แก้ไขโปรไฟล์',
-                          style: TextStyle(
-                              color: Colors.black,
-                              fontFamily: 'Kanit',
-                              fontSize: 16)),
-                      Icon(
-                        Icons.arrow_forward_ios_outlined,
-                        size: 20,
-                      ),
-                    ],
-                  ),
-                ),
-              ),
-              GestureDetector(
-                onTap: () {
-                  Navigator.push(context,
-                      MaterialPageRoute(builder: (context) => UploadPage()));
-                },
-                child: Container(
-                  height: 52,
-                  width: double.infinity,
-                  decoration: BoxDecoration(
-                      border: Border(
-                          bottom: BorderSide(
-                              width: 0.5, color: Color(0x33969696)))),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Text('อัพโหลดการ์ตูน',
-                          style: TextStyle(
-                              color: Colors.black,
-                              fontFamily: 'Kanit',
-                              fontSize: 16)),
-                      Icon(
-                        Icons.arrow_forward_ios_outlined,
-                        size: 20,
-                      ),
-                    ],
-                  ),
-                ),
-              ),
-              GestureDetector(
-                onTap: () {
-                  Navigator.push(context,
-                      MaterialPageRoute(builder: (context) => Setting()));
-                },
-                child: Container(
-                  height: 52,
-                  width: double.infinity,
-                  decoration: BoxDecoration(
-                      border: Border(
-                          bottom: BorderSide(
-                              width: 0.5, color: Color(0x33969696)))),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Text('ตั้งค่า',
-                          style: TextStyle(
-                              color: Colors.black,
-                              fontFamily: 'Kanit',
-                              fontSize: 16)),
-                      Icon(
-                        Icons.arrow_forward_ios_outlined,
-                        size: 20,
-                      ),
-                    ],
-                  ),
-                ),
-              ),
-              SizedBox(height: 24),
-              Align(
-                  alignment: Alignment.bottomCenter,
-                  child: CustomButton(
-                    onPressed: () {
-                      signOut().then((value) => Navigator.pushReplacement(
-                          context,
-                          MaterialPageRoute(builder: (context) => MyApp())));
-                    },
-                    text: 'ออกจากระบบ',
-                  )),
-            ],
-          ),
+                  ],
+                );
+              }),
         ),
       ),
     );

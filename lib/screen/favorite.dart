@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -32,18 +33,36 @@ class _FavoriteState extends State<Favorite> {
               Container(
                 padding: EdgeInsets.only(right: 16),
                 child: auth.currentUser != null
-                    ? CircleAvatar(
-                        radius: 24,
-                        child: ClipOval(
-                            child: auth.currentUser!.photoURL != null
-                                ? Image.network(
-                                    '${auth.currentUser!.photoURL}',
-                                    fit: BoxFit.contain,
-                                  )
-                                : null))
+                    ? StreamBuilder(
+                        stream: FirebaseFirestore.instance
+                            .collection('Userprofile')
+                            .where('UID', isEqualTo: auth.currentUser!.uid)
+                            .snapshots(),
+                        builder:
+                            (context, AsyncSnapshot<QuerySnapshot> snapshot) {
+                          if (!snapshot.hasData) {
+                            return Center(
+                              child: CircularProgressIndicator(),
+                            );
+                          }
+                          return Container(
+                              padding: EdgeInsets.only(left: 16),
+                              child: CircleAvatar(
+                                  radius: 24,
+                                  child: ClipOval(
+                                      child: snapshot.data!.docs
+                                                  .first['profilepic'] !=
+                                              null
+                                          ? Image.network(
+                                              snapshot.data!.docs
+                                                  .first['profilepic'],
+                                              fit: BoxFit.contain,
+                                            )
+                                          : null)));
+                        })
                     : Icon(
                         Icons.account_circle,
-                        size: 48,
+                        size: 40,
                         color: Colors.black,
                       ),
               )

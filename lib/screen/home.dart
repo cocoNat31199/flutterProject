@@ -22,24 +22,36 @@ class _HomeState extends State<Home> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        leading: Container(
-          padding: EdgeInsets.only(left: 16),
-          child: auth.currentUser != null
-              ? CircleAvatar(
-                  radius: 24,
-                  child: ClipOval(
-                      child: auth.currentUser!.photoURL != null
-                          ? Image.network(
-                              '${auth.currentUser!.photoURL}',
-                              fit: BoxFit.contain,
-                            )
-                          : null))
-              : Icon(
-                  Icons.account_circle,
-                  size: 40,
-                  color: Colors.black,
-                ),
-        ),
+        leading: auth.currentUser != null
+            ? StreamBuilder(
+                stream: FirebaseFirestore.instance
+                    .collection('Userprofile')
+                    .where('UID', isEqualTo: auth.currentUser!.uid)
+                    .snapshots(),
+                builder: (context, AsyncSnapshot<QuerySnapshot> snapshot) {
+                  if (!snapshot.hasData) {
+                    return Center(
+                      child: CircularProgressIndicator(),
+                    );
+                  }
+                  return Container(
+                      padding: EdgeInsets.only(left: 16),
+                      child: CircleAvatar(
+                          radius: 24,
+                          child: ClipOval(
+                              child: snapshot.data!.docs.first['profilepic'] !=
+                                      null
+                                  ? Image.network(
+                                      snapshot.data!.docs.first['profilepic'],
+                                      fit: BoxFit.cover,
+                                    )
+                                  : null)));
+                })
+            : Icon(
+                Icons.account_circle,
+                size: 40,
+                color: Colors.black,
+              ),
         title: Text(
           'Merrily',
           style: TextStyle(
