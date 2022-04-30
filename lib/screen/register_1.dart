@@ -79,6 +79,8 @@ class _RegisFormState extends State<RegisForm> {
   final TextEditingController _confirmPass = TextEditingController();
   final formKey = GlobalKey<FormState>();
   final Future<FirebaseApp> firebase = Firebase.initializeApp();
+  
+  final auth = FirebaseAuth.instance;
 
   bool _isVisible = false;
 
@@ -252,7 +254,7 @@ class _RegisFormState extends State<RegisForm> {
                                 Navigator.pushReplacement(
                                     context,
                                     MaterialPageRoute(
-                                        builder: (context) => Register_2()));
+                                        builder: (context) => Register_2(auth.currentUser!.uid)));
                               });
                             } on FirebaseAuthException catch (e) {
                               // print(e.code);
@@ -282,72 +284,5 @@ class _RegisFormState extends State<RegisForm> {
         return Center(child: CircularProgressIndicator());
       },
     );
-  }
-}
-
-class Register_2 extends StatefulWidget {
-  const Register_2({Key? key}) : super(key: key);
-
-  @override
-  State<Register_2> createState() => _Register_2State();
-}
-
-class _Register_2State extends State<Register_2> {
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-        debugShowCheckedModeBanner: false,
-        theme: new ThemeData(
-            primaryColor: Color(0xff643ff9),
-            scaffoldBackgroundColor: const Color(0xff643ff9),
-            fontFamily: ('Kanit ')),
-        home: Scaffold(
-          appBar: AppBar(
-            backgroundColor: Colors.white,
-            elevation: 0,
-            bottom: PreferredSize(
-              child: Container(
-                color: Color(0xff643ff9),
-                height: 1.0,
-              ),
-              preferredSize: Size.fromHeight(1.0),
-            ),
-            title: Text(
-              'สมัครสมาชิก',
-              style: TextStyle(
-                  color: Colors.black, fontFamily: 'Kanit', fontSize: 20),
-            ),
-          ),
-          body: Padding(
-            padding: const EdgeInsets.only(bottom: 56),
-            child: SizedBox(
-              height: double.infinity,
-              width: double.infinity,
-              child: Column(
-                children: [
-                  Flexible(
-                      fit: FlexFit.tight,
-                      child: Container(
-                        width: double.infinity,
-                        padding: EdgeInsets.symmetric(horizontal: 16),
-                        decoration: BoxDecoration(
-                            color: Colors.white,
-                            borderRadius: BorderRadius.only(
-                              bottomLeft: Radius.circular(20.0),
-                              bottomRight: Radius.circular(20.0),
-                            )),
-                        child: SingleChildScrollView(
-                          child: Column(
-                            children: [
-                              RegisForm_2(),
-                            ],
-                          ),
-                        ),
-                      )),
-                ],
-              ),
-            ),
-          ),
-        ));
   }
 }
