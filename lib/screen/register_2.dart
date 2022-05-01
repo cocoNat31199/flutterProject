@@ -95,12 +95,13 @@ class _Register_2State extends State<Register_2> {
                                                       ),
                                                     )))
                                             : CircleAvatar(
+                                                backgroundColor:
+                                                    Color(0xff969696),
                                                 radius: 90,
                                                 child: IconButton(
-                                                  icon:
-                                                      Icon(Icons.add_outlined),
-                                                  iconSize: 32,
-                                                  color: Colors.black,
+                                                  icon: Icon(Icons.add),
+                                                  iconSize: 48,
+                                                  color: Colors.white,
                                                   onPressed: selecFile,
                                                 ),
                                               ),

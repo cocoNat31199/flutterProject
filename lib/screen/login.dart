@@ -67,7 +67,7 @@ class _LoginPageState extends State<LoginPage> {
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           Text(
-                            'Don’t I have an account?',
+                            'คุณมีแอคเคาท์หรือยัง?',
                             style: TextStyle(
                                 color: Colors.white,
                                 fontFamily: 'Kanit',
@@ -82,7 +82,7 @@ class _LoginPageState extends State<LoginPage> {
                                       builder: (context) => Register_1()));
                             },
                             child: Text(
-                              "create",
+                              "สร้างเลย",
                               style: TextStyle(
                                 color: Colors.white,
                                 fontFamily: 'Kanit',
@@ -175,7 +175,7 @@ class _InputformState extends State<Inputform> {
                     cursorColor: Color(0xff643ff9),
                     style: TextStyle(fontFamily: 'Kanit'),
                     decoration: InputDecoration(
-                        labelText: 'E-mail',
+                        labelText: 'อีเมล',
                         labelStyle: TextStyle(
                           fontFamily: 'Kanit',
                           fontSize: 16,
@@ -203,7 +203,7 @@ class _InputformState extends State<Inputform> {
                     obscureText: _isVisible ? false : true,
                     style: TextStyle(fontFamily: 'Kanit'),
                     decoration: InputDecoration(
-                      labelText: 'Password',
+                      labelText: 'รหัสผ่าน',
                       labelStyle: TextStyle(
                         fontFamily: 'Kanit',
                         fontSize: 16,
@@ -261,7 +261,7 @@ class _InputformState extends State<Inputform> {
                 Container(
                     margin: EdgeInsets.only(top: 24, bottom: 12),
                     child: Text(
-                      'or',
+                      'หรือ',
                       style: TextStyle(
                           color: Color(0x6e000000),
                           fontFamily: 'Kanit',

@@ -21,47 +21,46 @@ class _Register_1State extends State<Register_1> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-          backgroundColor: Colors.white,
-          elevation: 0,
-          bottom: PreferredSize(
-            child: Container(
-              color: Color(0xff643ff9),
-              height: 1.0,
-            ),
-            preferredSize: Size.fromHeight(1.0),
+      appBar: AppBar(
+        backgroundColor: Colors.white,
+        elevation: 0,
+        bottom: PreferredSize(
+          child: Container(
+            color: Color(0xff643ff9),
+            height: 1.0,
           ),
-          leading: IconButton(
-              onPressed: () {
-                Navigator.pop(context);
-              },
-              icon: Icon(
-                Icons.arrow_back_ios,
-                color: Colors.black,
-              )),
-          title: Text(
-            'สมัครสมาชิก',
-            style: TextStyle(
-                color: Colors.black, fontFamily: 'Kanit', fontSize: 20),
-          ),
+          preferredSize: Size.fromHeight(1.0),
         ),
-        body: Container(
-          height: double.infinity,
-          width: double.infinity,
-          margin: EdgeInsets.only(bottom: 56),
-          padding: EdgeInsets.symmetric(horizontal: 16),
-          decoration: BoxDecoration(
-              color: Colors.white,
-              borderRadius: BorderRadius.only(
-                bottomLeft: Radius.circular(20.0),
-                bottomRight: Radius.circular(20.0),
-              )),
-          child: SingleChildScrollView(
-            child: RegisForm(),
-          ),
+        leading: IconButton(
+            onPressed: () {
+              Navigator.pop(context);
+            },
+            icon: Icon(
+              Icons.arrow_back_ios,
+              color: Colors.black,
+            )),
+        title: Text(
+          'สมัครสมาชิก',
+          style:
+              TextStyle(color: Colors.black, fontFamily: 'Kanit', fontSize: 20),
         ),
-      )
-    ;
+      ),
+      body: Container(
+        height: double.infinity,
+        width: double.infinity,
+        margin: EdgeInsets.only(bottom: 56),
+        padding: EdgeInsets.symmetric(horizontal: 16),
+        decoration: BoxDecoration(
+            color: Colors.white,
+            borderRadius: BorderRadius.only(
+              bottomLeft: Radius.circular(20.0),
+              bottomRight: Radius.circular(20.0),
+            )),
+        child: SingleChildScrollView(
+          child: RegisForm(),
+        ),
+      ),
+    );
   }
 }
 
@@ -79,7 +78,7 @@ class _RegisFormState extends State<RegisForm> {
   final TextEditingController _confirmPass = TextEditingController();
   final formKey = GlobalKey<FormState>();
   final Future<FirebaseApp> firebase = Firebase.initializeApp();
-  
+
   final auth = FirebaseAuth.instance;
 
   bool _isVisible = false;
@@ -129,7 +128,7 @@ class _RegisFormState extends State<RegisForm> {
                     cursorColor: Color(0xff643ff9),
                     style: TextStyle(fontFamily: 'Kanit'),
                     decoration: InputDecoration(
-                        labelText: 'E-mail',
+                        labelText: 'อีเมล',
                         labelStyle: TextStyle(
                           fontFamily: 'Kanit',
                           fontSize: 16,
@@ -163,7 +162,7 @@ class _RegisFormState extends State<RegisForm> {
 
                     style: TextStyle(fontFamily: 'Kanit'),
                     decoration: InputDecoration(
-                      labelText: 'Password',
+                      labelText: 'รหัสผ่าน',
                       labelStyle: TextStyle(
                         fontFamily: 'Kanit',
                         fontSize: 16,
@@ -204,7 +203,7 @@ class _RegisFormState extends State<RegisForm> {
                     cursorColor: Color(0xff643ff9),
                     obscureText: _isVisibleConfirm ? false : true,
                     decoration: InputDecoration(
-                      labelText: 'Confirm password',
+                      labelText: 'ยืนยันรหัสผ่าน',
                       labelStyle: TextStyle(
                         fontFamily: 'Kanit',
                         fontSize: 16,
@@ -254,7 +253,8 @@ class _RegisFormState extends State<RegisForm> {
                                 Navigator.pushReplacement(
                                     context,
                                     MaterialPageRoute(
-                                        builder: (context) => Register_2(auth.currentUser!.uid)));
+                                        builder: (context) =>
+                                            Register_2(auth.currentUser!.uid)));
                               });
                             } on FirebaseAuthException catch (e) {
                               // print(e.code);
