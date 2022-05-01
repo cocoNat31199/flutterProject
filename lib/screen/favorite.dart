@@ -97,15 +97,9 @@ class _FavoriteState extends State<Favorite> {
                   bottomRight: Radius.circular(20.0),
                 )),
             child: TabBarView(children: [
-              Center(
-                child: Text('ถูกใจ'),
-              ),
-              Center(
-                child: Text('ติดตาม'),
-              ),
-              Center(
-                child: Text('อ่านล่าสุด'),
-              ),
+              Center(),
+              Center(),
+              Center(),
             ]),
           ),
         ));
