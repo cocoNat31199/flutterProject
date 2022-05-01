@@ -444,7 +444,7 @@ class _TopRatingState extends State<TopRating> {
                 height: 136,
                 decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(10),
-                    color: Colors.amber),
+                    color: Color(0xff643ff9)),
               ),
               SizedBox(
                 height: 10,
@@ -453,7 +453,7 @@ class _TopRatingState extends State<TopRating> {
                 height: 136,
                 decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(10),
-                    color: Colors.amber),
+                    color: Color(0xff643ff9)),
               ),
               SizedBox(
                 height: 10,
@@ -462,7 +462,7 @@ class _TopRatingState extends State<TopRating> {
                 height: 136,
                 decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(10),
-                    color: Colors.amber),
+                    color: Color(0xff643ff9)),
               ),
               SizedBox(
                 height: 10,
@@ -471,7 +471,7 @@ class _TopRatingState extends State<TopRating> {
                 height: 136,
                 decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(10),
-                    color: Colors.amber),
+                    color: Color(0xff643ff9)),
               ),
               SizedBox(
                 height: 10,
@@ -480,7 +480,7 @@ class _TopRatingState extends State<TopRating> {
                 height: 136,
                 decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(10),
-                    color: Colors.amber),
+                    color: Color(0xff643ff9)),
               ),
               SizedBox(
                 height: 10,
@@ -489,7 +489,7 @@ class _TopRatingState extends State<TopRating> {
                 height: 136,
                 decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(10),
-                    color: Colors.amber),
+                    color: Color(0xff643ff9)),
               ),
               SizedBox(
                 height: 10,
@@ -498,7 +498,7 @@ class _TopRatingState extends State<TopRating> {
                 height: 136,
                 decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(10),
-                    color: Colors.amber),
+                    color: Color(0xff643ff9)),
               ),
               SizedBox(
                 height: 10,
@@ -507,7 +507,7 @@ class _TopRatingState extends State<TopRating> {
                 height: 136,
                 decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(10),
-                    color: Colors.amber),
+                    color: Color(0xff643ff9)),
               ),
               SizedBox(
                 height: 10,
@@ -516,7 +516,7 @@ class _TopRatingState extends State<TopRating> {
                 height: 136,
                 decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(10),
-                    color: Colors.amber),
+                    color: Color(0xff643ff9)),
               ),
               SizedBox(
                 height: 10,
@@ -525,7 +525,7 @@ class _TopRatingState extends State<TopRating> {
                 height: 136,
                 decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(10),
-                    color: Colors.amber),
+                    color: Color(0xff643ff9)),
               ),
               SizedBox(
                 height: 10,
