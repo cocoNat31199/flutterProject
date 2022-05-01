@@ -316,7 +316,7 @@ class _ReadLatestState extends State<ReadLatest> {
                     .snapshots(),
                 builder: (context, AsyncSnapshot<QuerySnapshot> snapshot) {
                   if (!snapshot.hasData) {
-                    return Center(child: CircularProgressIndicator());
+                    return Center();
                   }
                   return GridView.count(
                       crossAxisCount: 1,
@@ -380,7 +380,7 @@ class _RecommendState extends State<Recommend> {
                     .snapshots(),
                 builder: (context, AsyncSnapshot<QuerySnapshot> snapshot) {
                   if (!snapshot.hasData) {
-                    return Center(child: CircularProgressIndicator());
+                    return Center();
                   }
                   return GridView.count(
                       crossAxisCount: 1,
@@ -569,7 +569,7 @@ class _NewToonState extends State<NewToon> {
                     .snapshots(),
                 builder: (context, AsyncSnapshot<QuerySnapshot> snapshot) {
                   if (!snapshot.hasData) {
-                    return Center(child: CircularProgressIndicator());
+                    return Center();
                   }
                   return GridView.count(
                       crossAxisCount: 1,
@@ -633,7 +633,7 @@ class _UpdateToonState extends State<UpdateToon> {
                     .snapshots(),
                 builder: (context, AsyncSnapshot<QuerySnapshot> snapshot) {
                   if (!snapshot.hasData) {
-                    return Center(child: CircularProgressIndicator());
+                    return Center();
                   }
                   return GridView.count(
                       crossAxisCount: 1,
