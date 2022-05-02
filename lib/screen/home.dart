@@ -22,36 +22,35 @@ class _HomeState extends State<Home> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        leading: auth.currentUser != null
-            ? StreamBuilder(
-                stream: FirebaseFirestore.instance
-                    .collection('Userprofile')
-                    .where('UID', isEqualTo: auth.currentUser!.uid)
-                    .snapshots(),
-                builder: (context, AsyncSnapshot<QuerySnapshot> snapshot) {
-                  if (!snapshot.hasData) {
-                    return Center(
-                      child: CircularProgressIndicator(),
+        leading: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: auth.currentUser != null
+              ? StreamBuilder(
+                  stream: FirebaseFirestore.instance
+                      .collection('Userprofile')
+                      .where('UID', isEqualTo: auth.currentUser!.uid)
+                      .snapshots(),
+                  builder: (context, AsyncSnapshot<QuerySnapshot> snapshot) {
+                    if (!snapshot.hasData) {
+                      return Center(
+                        child: CircularProgressIndicator(),
+                      );
+                    }
+                    return ClipOval(
+                      child: snapshot.data!.docs.first['profilepic'] != null
+                          ? Image.network(
+                              snapshot.data!.docs.first['profilepic'],
+                              fit: BoxFit.cover,
+                            )
+                          : null,
                     );
-                  }
-                  return Container(
-                      padding: EdgeInsets.only(left: 16),
-                      child: CircleAvatar(
-                          radius: 24,
-                          child: ClipOval(
-                              child: snapshot.data!.docs.first['profilepic'] !=
-                                      null
-                                  ? Image.network(
-                                      snapshot.data!.docs.first['profilepic'],
-                                      fit: BoxFit.cover,
-                                    )
-                                  : null)));
-                })
-            : Icon(
-                Icons.account_circle,
-                size: 40,
-                color: Colors.black,
-              ),
+                  })
+              : Icon(
+                  Icons.account_circle,
+                  size: 40,
+                  color: Colors.black,
+                ),
+        ),
         title: Text(
           'Merrily',
           style: TextStyle(
@@ -316,7 +315,7 @@ class _ReadLatestState extends State<ReadLatest> {
                     .snapshots(),
                 builder: (context, AsyncSnapshot<QuerySnapshot> snapshot) {
                   if (!snapshot.hasData) {
-                    return Center();
+                    return CircularProgressIndicator();
                   }
                   return GridView.count(
                       crossAxisCount: 1,
@@ -380,7 +379,7 @@ class _RecommendState extends State<Recommend> {
                     .snapshots(),
                 builder: (context, AsyncSnapshot<QuerySnapshot> snapshot) {
                   if (!snapshot.hasData) {
-                    return Center();
+                    return CircularProgressIndicator();
                   }
                   return GridView.count(
                       crossAxisCount: 1,
@@ -569,7 +568,7 @@ class _NewToonState extends State<NewToon> {
                     .snapshots(),
                 builder: (context, AsyncSnapshot<QuerySnapshot> snapshot) {
                   if (!snapshot.hasData) {
-                    return Center();
+                    return CircularProgressIndicator();
                   }
                   return GridView.count(
                       crossAxisCount: 1,
@@ -633,7 +632,7 @@ class _UpdateToonState extends State<UpdateToon> {
                     .snapshots(),
                 builder: (context, AsyncSnapshot<QuerySnapshot> snapshot) {
                   if (!snapshot.hasData) {
-                    return Center();
+                    return CircularProgressIndicator();
                   }
                   return GridView.count(
                       crossAxisCount: 1,

@@ -135,7 +135,7 @@ class _ProfileState extends State<Profile> {
                                 snapshot.data!.docs.first['profilepic'],
                                 height: 100,
                                 width: 100,
-                                fit: BoxFit.contain,
+                                fit: BoxFit.cover,
                               )
                             : Container(
                                 height: 100,

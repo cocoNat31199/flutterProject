@@ -57,8 +57,8 @@ class _DailyState extends State<Daily> {
                   color: Colors.black, fontFamily: 'Kanit', fontSize: 30),
             ),
             actions: [
-              Container(
-                padding: EdgeInsets.only(right: 16),
+              Padding(
+                padding: const EdgeInsets.all(16.0),
                 child: auth.currentUser != null
                     ? StreamBuilder(
                         stream: FirebaseFirestore.instance
@@ -72,20 +72,21 @@ class _DailyState extends State<Daily> {
                               child: CircularProgressIndicator(),
                             );
                           }
-                          return Container(
-                              padding: EdgeInsets.only(left: 16),
-                              child: CircleAvatar(
-                                  radius: 24,
-                                  child: ClipOval(
-                                      child: snapshot.data!.docs
-                                                  .first['profilepic'] !=
-                                              null
-                                          ? Image.network(
-                                              snapshot.data!.docs
-                                                  .first['profilepic'],
-                                              fit: BoxFit.contain,
-                                            )
-                                          : null)));
+                          return SizedBox(
+                            height: 48,
+                            width: 48,
+                            child:
+                                snapshot.data!.docs.first['profilepic'] != null
+                                    ? CircleAvatar(
+                                        backgroundImage: NetworkImage(snapshot
+                                            .data!.docs.first['profilepic']),
+                                      )
+                                    : Icon(
+                                        Icons.account_circle,
+                                        size: 40,
+                                        color: Colors.black,
+                                      ),
+                          );
                         })
                     : Icon(
                         Icons.account_circle,
