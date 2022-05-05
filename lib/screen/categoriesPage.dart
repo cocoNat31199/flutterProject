@@ -147,9 +147,9 @@ class CategoriesPage extends StatelessWidget {
                                                 builder: (context) =>
                                                     CartoonPage(
                                                       doc['Name'],
-                                                      doc['Detail'],
-                                                      doc['UrlCartoon'],
-                                                      doc['UrlCover'],
+                                          doc['Detail'],
+                                          doc['UrlCover'],
+                                          doc['UrlCartoon'],
                                                     )));
                                       },
                                       src: doc['UrlCartoon'],
@@ -189,9 +189,9 @@ class CategoriesPage extends StatelessWidget {
                                                 builder: (context) =>
                                                     CartoonPage(
                                                       doc['Name'],
-                                                      doc['Detail'],
-                                                      doc['UrlCartoon'],
-                                                      doc['UrlCover'],
+                                          doc['Detail'],
+                                          doc['UrlCover'],
+                                          doc['UrlCartoon'],
                                                     )));
                                       },
                                       src: doc['UrlCartoon'],
@@ -231,9 +231,9 @@ class CategoriesPage extends StatelessWidget {
                                                 builder: (context) =>
                                                     CartoonPage(
                                                       doc['Name'],
-                                                      doc['Detail'],
-                                                      doc['UrlCartoon'],
-                                                      doc['UrlCover'],
+                                          doc['Detail'],
+                                          doc['UrlCover'],
+                                          doc['UrlCartoon'],
                                                     )));
                                       },
                                       src: doc['UrlCartoon'],
@@ -273,9 +273,9 @@ class CategoriesPage extends StatelessWidget {
                                                 builder: (context) =>
                                                     CartoonPage(
                                                       doc['Name'],
-                                                      doc['Detail'],
-                                                      doc['UrlCartoon'],
-                                                      doc['UrlCover'],
+                                          doc['Detail'],
+                                          doc['UrlCover'],
+                                          doc['UrlCartoon'],
                                                     )));
                                       },
                                       src: doc['UrlCartoon'],
@@ -315,9 +315,9 @@ class CategoriesPage extends StatelessWidget {
                                                 builder: (context) =>
                                                     CartoonPage(
                                                       doc['Name'],
-                                                      doc['Detail'],
-                                                      doc['UrlCartoon'],
-                                                      doc['UrlCover'],
+                                          doc['Detail'],
+                                          doc['UrlCover'],
+                                          doc['UrlCartoon'],
                                                     )));
                                       },
                                       src: doc['UrlCartoon'],
@@ -357,9 +357,9 @@ class CategoriesPage extends StatelessWidget {
                                                 builder: (context) =>
                                                     CartoonPage(
                                                       doc['Name'],
-                                                      doc['Detail'],
-                                                      doc['UrlCartoon'],
-                                                      doc['UrlCover'],
+                                          doc['Detail'],
+                                          doc['UrlCover'],
+                                          doc['UrlCartoon'],
                                                     )));
                                       },
                                       src: doc['UrlCartoon'],
@@ -398,9 +398,9 @@ class CategoriesPage extends StatelessWidget {
                                                 builder: (context) =>
                                                     CartoonPage(
                                                       doc['Name'],
-                                                      doc['Detail'],
-                                                      doc['UrlCartoon'],
-                                                      doc['UrlCover'],
+                                          doc['Detail'],
+                                          doc['UrlCover'],
+                                          doc['UrlCartoon'],
                                                     )));
                                       },
                                       src: doc['UrlCartoon'],
@@ -439,9 +439,9 @@ class CategoriesPage extends StatelessWidget {
                                                 builder: (context) =>
                                                     CartoonPage(
                                                       doc['Name'],
-                                                      doc['Detail'],
-                                                      doc['UrlCartoon'],
-                                                      doc['UrlCover'],
+                                          doc['Detail'],
+                                          doc['UrlCover'],
+                                          doc['UrlCartoon'],
                                                     )));
                                       },
                                       src: doc['UrlCartoon'],
@@ -481,9 +481,9 @@ class CategoriesPage extends StatelessWidget {
                                                 builder: (context) =>
                                                     CartoonPage(
                                                       doc['Name'],
-                                                      doc['Detail'],
-                                                      doc['UrlCartoon'],
-                                                      doc['UrlCover'],
+                                          doc['Detail'],
+                                          doc['UrlCover'],
+                                          doc['UrlCartoon'], 
                                                     )));
                                       },
                                       src: doc['UrlCartoon'],

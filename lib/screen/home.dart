@@ -335,8 +335,8 @@ class _ReadLatestState extends State<ReadLatest> {
                                     builder: (context) => CartoonPage(
                                           doc['Name'],
                                           doc['Detail'],
-                                          doc['UrlCartoon'],
                                           doc['UrlCover'],
+                                          doc['UrlCartoon'],
                                         )));
                           },
                           src: doc['UrlCartoon'],
@@ -399,8 +399,8 @@ class _RecommendState extends State<Recommend> {
                                     builder: (context) => CartoonPage(
                                           doc['Name'],
                                           doc['Detail'],
-                                          doc['UrlCartoon'],
                                           doc['UrlCover'],
+                                          doc['UrlCartoon'],
                                         )));
                           },
                           src: doc['UrlCartoon'],
@@ -588,8 +588,8 @@ class _NewToonState extends State<NewToon> {
                                     builder: (context) => CartoonPage(
                                           doc['Name'],
                                           doc['Detail'],
-                                          doc['UrlCartoon'],
                                           doc['UrlCover'],
+                                          doc['UrlCartoon'],
                                         )));
                           },
                           src: doc['UrlCartoon'],
@@ -652,8 +652,8 @@ class _UpdateToonState extends State<UpdateToon> {
                                     builder: (context) => CartoonPage(
                                           doc['Name'],
                                           doc['Detail'],
-                                          doc['UrlCartoon'],
                                           doc['UrlCover'],
+                                          doc['UrlCartoon'],
                                         )));
                           },
                           src: doc['UrlCartoon'],

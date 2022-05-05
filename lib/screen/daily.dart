@@ -156,9 +156,9 @@ class _DailyState extends State<Daily> {
                                   MaterialPageRoute(
                                       builder: (context) => CartoonPage(
                                             doc['Name'],
-                                            doc['Detail'],
-                                            doc['UrlCartoon'],
-                                            doc['UrlCover'],
+                                          doc['Detail'],
+                                          doc['UrlCover'],
+                                          doc['UrlCartoon'],
                                           )));
                             },
                             src: doc['UrlCartoon'],
@@ -194,9 +194,9 @@ class _DailyState extends State<Daily> {
                                   MaterialPageRoute(
                                       builder: (context) => CartoonPage(
                                             doc['Name'],
-                                            doc['Detail'],
-                                            doc['UrlCartoon'],
-                                            doc['UrlCover'],
+                                          doc['Detail'],
+                                          doc['UrlCover'],
+                                          doc['UrlCartoon'],
                                           )));
                             },
                             src: doc['UrlCartoon'],
@@ -232,9 +232,9 @@ class _DailyState extends State<Daily> {
                                   MaterialPageRoute(
                                       builder: (context) => CartoonPage(
                                             doc['Name'],
-                                            doc['Detail'],
-                                            doc['UrlCartoon'],
-                                            doc['UrlCover'],
+                                          doc['Detail'],
+                                          doc['UrlCover'],
+                                          doc['UrlCartoon'],
                                           )));
                             },
                             src: doc['UrlCartoon'],
@@ -270,9 +270,9 @@ class _DailyState extends State<Daily> {
                                   MaterialPageRoute(
                                       builder: (context) => CartoonPage(
                                             doc['Name'],
-                                            doc['Detail'],
-                                            doc['UrlCartoon'],
-                                            doc['UrlCover'],
+                                          doc['Detail'],
+                                          doc['UrlCover'],
+                                          doc['UrlCartoon'],
                                           )));
                             },
                             src: doc['UrlCartoon'],
@@ -308,9 +308,9 @@ class _DailyState extends State<Daily> {
                                   MaterialPageRoute(
                                       builder: (context) => CartoonPage(
                                             doc['Name'],
-                                            doc['Detail'],
-                                            doc['UrlCartoon'],
-                                            doc['UrlCover'],
+                                          doc['Detail'],
+                                          doc['UrlCover'],
+                                          doc['UrlCartoon'],
                                           )));
                             },
                             src: doc['UrlCartoon'],
@@ -346,9 +346,9 @@ class _DailyState extends State<Daily> {
                                   MaterialPageRoute(
                                       builder: (context) => CartoonPage(
                                             doc['Name'],
-                                            doc['Detail'],
-                                            doc['UrlCartoon'],
-                                            doc['UrlCover'],
+                                          doc['Detail'],
+                                          doc['UrlCover'],
+                                          doc['UrlCartoon'],
                                           )));
                             },
                             src: doc['UrlCartoon'],
@@ -384,9 +384,9 @@ class _DailyState extends State<Daily> {
                                   MaterialPageRoute(
                                       builder: (context) => CartoonPage(
                                             doc['Name'],
-                                            doc['Detail'],
-                                            doc['UrlCartoon'],
-                                            doc['UrlCover'],
+                                          doc['Detail'],
+                                          doc['UrlCover'],
+                                          doc['UrlCartoon'],
                                           )));
                             },
                             src: doc['UrlCartoon'],
