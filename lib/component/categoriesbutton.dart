@@ -31,7 +31,7 @@ class _CategoriesButtonState extends State<CategoriesButton> {
                   primary: Color(0xff643ff9),
                   padding: EdgeInsets.all(0),
                   shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(10), // <-- Radius
+                    borderRadius: BorderRadius.circular(10),
                   ),
                 ),
                 child: Image.asset(

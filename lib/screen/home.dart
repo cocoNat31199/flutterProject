@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:merrily/component/cartoon_model.dart';
 import 'package:merrily/component/categoriesbutton.dart';
-import 'package:merrily/component/coverCartoon.dart';
 import 'package:merrily/screen/cartoonPage.dart';
 import 'package:merrily/screen/categoriesPage.dart';
 import 'package:merrily/screen/searchpage.dart';
@@ -435,103 +434,44 @@ class _TopRatingState extends State<TopRating> {
             ),
           ),
         ),
-        Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 16),
-          child: Column(
-            children: [
-              Container(
-                height: 136,
-                decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(10),
-                    color: Color(0xff643ff9)),
-              ),
-              SizedBox(
-                height: 10,
-              ),
-              Container(
-                height: 136,
-                decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(10),
-                    color: Color(0xff643ff9)),
-              ),
-              SizedBox(
-                height: 10,
-              ),
-              Container(
-                height: 136,
-                decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(10),
-                    color: Color(0xff643ff9)),
-              ),
-              SizedBox(
-                height: 10,
-              ),
-              Container(
-                height: 136,
-                decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(10),
-                    color: Color(0xff643ff9)),
-              ),
-              SizedBox(
-                height: 10,
-              ),
-              Container(
-                height: 136,
-                decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(10),
-                    color: Color(0xff643ff9)),
-              ),
-              SizedBox(
-                height: 10,
-              ),
-              Container(
-                height: 136,
-                decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(10),
-                    color: Color(0xff643ff9)),
-              ),
-              SizedBox(
-                height: 10,
-              ),
-              Container(
-                height: 136,
-                decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(10),
-                    color: Color(0xff643ff9)),
-              ),
-              SizedBox(
-                height: 10,
-              ),
-              Container(
-                height: 136,
-                decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(10),
-                    color: Color(0xff643ff9)),
-              ),
-              SizedBox(
-                height: 10,
-              ),
-              Container(
-                height: 136,
-                decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(10),
-                    color: Color(0xff643ff9)),
-              ),
-              SizedBox(
-                height: 10,
-              ),
-              Container(
-                height: 136,
-                decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(10),
-                    color: Color(0xff643ff9)),
-              ),
-              SizedBox(
-                height: 10,
-              ),
-            ],
-          ),
-        )
+        Container(
+            child: StreamBuilder(
+                stream: FirebaseFirestore.instance
+                    .collection('Cartoon')
+                    .snapshots(),
+                builder: (context, AsyncSnapshot<QuerySnapshot> snapshot) {
+                  if (!snapshot.hasData) {
+                    return CircularProgressIndicator();
+                  }
+                  return Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+                    child: Column(
+                        children: snapshot.data!.docs.map((doc) {
+                      return InkWell(
+                        onTap: () {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => CartoonPage(
+                                        doc['Name'],
+                                        doc['Detail'],
+                                        doc['UrlCover'],
+                                        doc['UrlCartoon'],
+                                      )));
+                        },
+                        child: Container(
+                          height: 136,
+                          width: double.infinity,
+                          decoration: BoxDecoration(
+                              image: DecorationImage(
+                                  image: NetworkImage(doc['UrlCartoon']),
+                                  fit: BoxFit.cover),
+                              borderRadius: BorderRadius.circular(10)),
+                        ),
+                      );
+                    }).toList()),
+                  );
+                }))
       ],
     );
   }

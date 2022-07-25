@@ -14,7 +14,7 @@ class _CoverCartoonState extends State<CoverCartoon> {
       height: 156,
       width: 100,
       decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(10), color: Colors.amber),
+          borderRadius: BorderRadius.circular(10),),
     );
   }
 }
